@@ -1,84 +1,67 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Container } from "@/components/ui/Container";
 import { images } from "@/lib/images";
 
-type Cat = {
-  key:
-    | "bagTote"
-    | "bagBackpack"
-    | "bagCrossbody"
-    | "bagHobo"
-    | "bagSling"
-    | "bagWristlet";
+type Key =
+  | "bagTote"
+  | "bagBackpack"
+  | "bagCrossbody"
+  | "bagHobo"
+  | "bagSling"
+  | "bagWristlet";
+
+function Tile({
+  imgKey,
+  title,
+  width,
+}: {
+  imgKey: Key;
   title: string;
-  span: "wide" | "regular";
-};
-
-const ROW_1: Cat[] = [
-  { key: "bagTote", title: "Tote Handbag", span: "wide" },
-  { key: "bagBackpack", title: "Backpacks", span: "regular" },
-  { key: "bagCrossbody", title: "Crossbody Bag", span: "regular" },
-];
-const ROW_2: Cat[] = [
-  { key: "bagHobo", title: "Hobo Bag", span: "regular" },
-  { key: "bagSling", title: "Sling Bag", span: "regular" },
-  { key: "bagWristlet", title: "Wristlet Bag", span: "regular" },
-];
-
-function Tile({ cat, className = "" }: { cat: Cat; className?: string }) {
+  width: string;
+}) {
   return (
-    <Link
-      href="#"
-      className={`group relative block overflow-hidden rounded-md aspect-[4/5] bg-bone ${className}`}
+    <div
+      className={`relative h-[442px] ${width} rounded-[9px] overflow-hidden p-[24px] flex flex-col items-start justify-end`}
     >
       <Image
-        src={images[cat.key].src}
-        alt={images[cat.key].alt}
+        src={images[imgKey].src}
+        alt={images[imgKey].alt}
         fill
-        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-        className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+        sizes={width === "w-[576px]" ? "576px" : "405px"}
+        className="object-cover"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-clay-900/65 via-clay-900/10 to-transparent" />
-      <div className="absolute inset-x-0 bottom-0 p-6 md:p-7">
-        <h3 className="font-display text-2xl md:text-3xl text-ivory">
-          {cat.title}
+      <div className="absolute inset-0 bg-black/30" />
+      <div className="relative flex flex-col gap-[29px] text-white w-full">
+        <h3 className="font-display font-medium text-[40px] leading-[56px]">
+          {title}
         </h3>
-        <span className="mt-3 inline-block text-sm font-semibold tracking-tight text-ivory link-underline">
-          Learn more →
-        </span>
+        <Link
+          href="#"
+          className="text-[16px] font-bold tracking-[-0.16px] leading-[30px]"
+        >
+          Learn More
+        </Link>
       </div>
-    </Link>
+    </div>
   );
 }
 
 export function BagCategories() {
   return (
-    <section className="bg-ivory pb-32 md:pb-40">
-      <Container>
-        <div className="grid gap-6 md:grid-cols-12 md:grid-rows-[auto_auto] md:gap-8">
-          {/* Row 1: 6 / 3 / 3 */}
-          <div className="md:col-span-6">
-            <Tile cat={ROW_1[0]} />
-          </div>
-          <div className="md:col-span-3">
-            <Tile cat={ROW_1[1]} />
-          </div>
-          <div className="md:col-span-3">
-            <Tile cat={ROW_1[2]} />
-          </div>
-          {/* Row 2: 4 / 4 / 4 */}
-          <div className="md:col-span-4">
-            <Tile cat={ROW_2[0]} />
-          </div>
-          <div className="md:col-span-4">
-            <Tile cat={ROW_2[1]} />
-          </div>
-          <div className="md:col-span-4">
-            <Tile cat={ROW_2[2]} />
-          </div>
-        </div>
-      </Container>
-    </section>
+    <div
+      className="flex flex-col gap-[32px] w-full"
+      data-node-id="4156:6659"
+    >
+      <div className="flex gap-[32px] w-full">
+        <Tile imgKey="bagTote" title="Tote Handbag" width="w-[576px]" />
+        <Tile imgKey="bagBackpack" title="Backpacks" width="flex-1" />
+        <Tile imgKey="bagCrossbody" title="Crossbody Bag" width="flex-1" />
+      </div>
+      <div className="flex gap-[32px] w-full">
+        <Tile imgKey="bagHobo" title="Hobo Bag" width="flex-1" />
+        <Tile imgKey="bagSling" title="Sling Bag" width="flex-1" />
+        <Tile imgKey="bagWristlet" title="Wristlet Bag" width="flex-1" />
+      </div>
+    </div>
   );
 }

@@ -1,127 +1,118 @@
 import Link from "next/link";
-import { Container } from "@/components/ui/Container";
 import { NewsletterForm } from "@/components/sections/NewsletterForm";
 
 const HELP = [
-  ["Help Centre", "#"],
-  ["Order Status", "#"],
-  ["Size & Fit Guide", "#"],
-  ["Returns & Exchanges", "#"],
-  ["Care & Repair", "#"],
-  ["Trade-In Programme", "#"],
-  ["Login", "#"],
-  ["Accessibility Statement", "#"],
+  "Help Center",
+  "Order Status",
+  "Size & Fit Guide",
+  "Returns & Exchanges",
+  "DIY Care & Repair",
+  "Trade In. Get Credit.",
+  "Login",
+  "Accessibility Statement",
 ];
 
-const PRODUCTS = [
-  ["Tote Handbag", "#"],
-  ["Backpacks", "#"],
-  ["Crossbody", "#"],
-  ["Hobo Bag", "#"],
-  ["Sling Bag", "#"],
-  ["Wristlet", "#"],
-];
-
+const PRODUCTS = ["Tote Handbag", "Backpacks", "Crossbody", "Hobo", "Sling"];
 const MATERIALS = [
-  ["Full Grain Leather", "#"],
-  ["Smooth Leather", "#"],
-  ["Shanti Leather", "#"],
-  ["Nubuck", "#"],
-  ["Recycled Canvas", "#"],
+  "Full Grain Leather",
+  "Smooth Leather",
+  "Shanti Leather",
+  "Nubuck",
+  "Recycled Canvas",
 ];
 
 export function Footer() {
   return (
-    <footer className="bg-clay-900 text-ivory pt-24 pb-10">
-      <Container>
-        <div className="grid gap-14 md:grid-cols-12">
-          <div className="md:col-span-4">
-            <h3 className="font-display text-2xl">Need help?</h3>
-            <ul className="mt-6 grid grid-cols-2 gap-x-6 gap-y-3">
-              {HELP.map(([label, href]) => (
-                <li key={label}>
-                  <Link
-                    href={href}
-                    className="text-sm text-ivory/80 hover:text-ivory link-underline"
-                  >
-                    {label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <p className="mt-8 max-w-sm text-sm leading-relaxed text-ivory/65">
-              Visit us in Kolkata or schedule a live walkthrough of the
-              workshop. We&rsquo;re happy to host.
-            </p>
+    <footer
+      className="w-[1440px] bg-black flex flex-col items-center justify-center px-[80px] pb-[120px]"
+      data-node-id="4156:6849"
+    >
+      <div
+        className="flex flex-wrap items-start pt-[119.25px] h-[741.9px] w-full"
+        data-node-id="4156:6850"
+      >
+        <div className="flex-1 flex gap-[64px] h-[622.65px] items-start">
+          {/* Need Help? */}
+          <div className="flex-1 flex flex-wrap h-full items-start">
+            <div className="flex flex-col gap-[42px] min-w-[389.34px] w-full">
+              <h3 className="text-[24px] tracking-[-0.48px] leading-[26.4px] text-white whitespace-nowrap">
+                Need Help?
+              </h3>
+              <div className="flex flex-col gap-[20px] w-full">
+                <div className="flex flex-wrap gap-[12px] w-full">
+                  {HELP.map((label) => (
+                    <Link key={label} href="#" className="pill-link">
+                      {label}
+                    </Link>
+                  ))}
+                </div>
+                <p className="text-[16px] leading-[24px] text-white w-[399px] font-light">
+                  Sit dolore velit irure incididunt incididunt ea occaecat qui
+                  do minim consectetur minim sunt commodo.
+                </p>
+                <p className="text-[16px] leading-[24px] text-white w-[399px] font-light">
+                  Sit dolore velit irure incididunt incididunt
+                </p>
+              </div>
+            </div>
           </div>
 
-          <div className="md:col-span-2">
-            <h3 className="font-display text-base uppercase tracking-[0.2em] text-ivory/85">
-              Products
+          {/* Products + Materials columns */}
+          <div className="flex-1 flex gap-[64px] h-full text-white">
+            <div className="flex flex-col gap-[37px] w-[95px]">
+              <h3 className="text-[24px] tracking-[-0.48px] leading-[26.4px]">
+                Products
+              </h3>
+              <div className="flex flex-col gap-[12px]">
+                {PRODUCTS.map((p) => (
+                  <Link
+                    key={p}
+                    href="#"
+                    className="text-[16px] leading-[24px] font-light hover:underline"
+                  >
+                    {p}
+                  </Link>
+                ))}
+              </div>
+            </div>
+            <div className="flex flex-col gap-[37px] w-[110px]">
+              <h3 className="text-[24px] tracking-[-0.48px] leading-[26.4px]">
+                Materials
+              </h3>
+              <div className="flex flex-col gap-[12px]">
+                {MATERIALS.map((m) => (
+                  <Link
+                    key={m}
+                    href="#"
+                    className="text-[16px] leading-[24px] font-light hover:underline"
+                  >
+                    {m}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Newsletter */}
+          <div className="flex-1 flex flex-col gap-[24px] h-full text-white">
+            <h3 className="text-[24px] tracking-[-0.48px] leading-[26.4px]">
+              Newsletter Signup
             </h3>
-            <ul className="mt-6 space-y-3">
-              {PRODUCTS.map(([label, href]) => (
-                <li key={label}>
-                  <Link
-                    href={href}
-                    className="text-sm text-ivory/80 hover:text-ivory link-underline"
-                  >
-                    {label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="md:col-span-2">
-            <h3 className="font-display text-base uppercase tracking-[0.2em] text-ivory/85">
-              Materials
-            </h3>
-            <ul className="mt-6 space-y-3">
-              {MATERIALS.map(([label, href]) => (
-                <li key={label}>
-                  <Link
-                    href={href}
-                    className="text-sm text-ivory/80 hover:text-ivory link-underline"
-                  >
-                    {label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="md:col-span-4">
-            <h3 className="font-display text-2xl">Newsletter</h3>
-            <p className="mt-3 text-sm leading-relaxed text-ivory/70">
-              Quarterly notes from the workshop — process essays, new
-              materials, partner stories. No marketing fluff.
+            <p className="text-[16px] leading-[24px] font-light w-[399px]">
+              Sit dolore velit irure incididunt incididunt ea occaecat qui do
+              minim consectetur minim sunt commodo.
             </p>
             <NewsletterForm />
           </div>
         </div>
+      </div>
 
-        <div className="mt-20 flex flex-col gap-4 border-t border-ivory/15 pt-8 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-ivory/55">
-            © {new Date().getFullYear()} MKS Exports, Inc. · All rights reserved.
-          </p>
-          <div className="flex items-center gap-5 text-xs text-ivory/65">
-            <Link href="#" className="link-underline">
-              Privacy
-            </Link>
-            <Link href="#" className="link-underline">
-              Terms
-            </Link>
-            <Link href="#" className="link-underline">
-              Cookies
-            </Link>
-            <span className="ml-2 inline-flex items-center gap-2">
-              <span className="inline-block h-2 w-2 rounded-full bg-olive-500" />
-              English (US)
-            </span>
-          </div>
-        </div>
-      </Container>
+      <div className="flex w-full items-center justify-between pt-[8px] text-white">
+        <p className="text-[14px] leading-[14px] opacity-70">
+          © {new Date().getFullYear()} MKS, Inc. All Rights Reserved.
+        </p>
+        <span className="text-[14px] opacity-70">English (US)</span>
+      </div>
     </footer>
   );
 }

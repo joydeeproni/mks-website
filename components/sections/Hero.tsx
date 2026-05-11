@@ -1,67 +1,89 @@
 import Image from "next/image";
-import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
+import Link from "next/link";
 import { images } from "@/lib/images";
+
+const NAV = ["Values", "Story", "Brands", "Materials", "Products"];
 
 export function Hero() {
   return (
-    <section className="relative isolate overflow-hidden bg-clay-900 text-ivory">
+    <section
+      className="relative isolate w-[1440px] overflow-hidden"
+      data-node-id="4156:6531"
+    >
       <div aria-hidden className="absolute inset-0 -z-10">
         <Image
           src={images.heroWorkshop.src}
           alt=""
           fill
           priority
-          sizes="100vw"
+          sizes="1440px"
           className="object-cover"
+          style={{ objectPosition: "center 30%" }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-clay-900/60 via-clay-900/45 to-clay-900/80" />
+        <div className="absolute inset-0 bg-black/30" />
       </div>
 
-      <Container className="relative flex min-h-[860px] flex-col justify-end pt-40 pb-32">
-        <div className="max-w-4xl">
-          <p className="eyebrow opacity-80 mb-6">
-            <span className="inline-block h-px w-10 bg-current align-middle mr-3" />
-            Kolkata · Est. 1998
-          </p>
-          <h1 className="serif-display text-display-xl">
-            Bags Made Responsibly
-            <br />
-            <span className="serif-italic text-current/95">
-              For Global Brands.
-            </span>
-          </h1>
-          <p className="mt-8 max-w-xl text-lg leading-relaxed text-ivory/85">
-            Premium leather bags, accessories and handcrafted goods —
-            manufactured in Kolkata, India and exported worldwide under the Fair
-            Trade banner.
-          </p>
-          <div className="mt-10 flex flex-wrap items-center gap-4">
-            <Button href="#products" variant="outline">
-              Browse our work
-            </Button>
-            <Button href="#partner" variant="filled">
-              Start an order
-            </Button>
+      {/* Nav row */}
+      <div
+        className="flex items-center gap-[285px] px-[80px] py-[24px] w-[1440px]"
+        data-node-id="4156:6533"
+      >
+        <Link
+          href="/"
+          aria-label="MKS — home"
+          className="font-display text-[28px] font-medium tracking-[-0.02em] text-white leading-[61.193px] h-[61.193px] w-[80px]"
+        >
+          MKS
+        </Link>
+        <nav className="flex items-center gap-[71px] text-[16px] text-white tracking-[-0.16px] font-bold whitespace-nowrap">
+          {NAV.map((item) => (
+            <Link
+              key={item}
+              href={`#${item.toLowerCase()}`}
+              className="leading-[30px]"
+            >
+              {item}
+            </Link>
+          ))}
+        </nav>
+        <Link
+          href="#partner"
+          className="text-[16px] text-white tracking-[-0.16px] font-bold leading-[30px] text-right whitespace-nowrap"
+        >
+          Get Quote
+        </Link>
+      </div>
+
+      {/* Hero copy */}
+      <div className="flex flex-col items-center justify-center overflow-clip pt-[120px] pb-[200px] px-[190px] w-full">
+        <div className="flex flex-col gap-[72px] items-center">
+          <div className="flex flex-col gap-[8px] items-center text-center text-white">
+            <h1 className="font-display font-normal text-[104px] tracking-[-2.08px] leading-[1.1] whitespace-nowrap">
+              <span className="block">Bags Made Responsibly</span>
+              <span className="block">For Global Brands</span>
+            </h1>
+            <p className="text-[20px] tracking-[-0.4px] leading-[30px] w-[682px]">
+              Premium leather bags, accessories, and handcrafted goods —
+              manufactured in Kolkata, India, and exported worldwide under the
+              Fair Trade banner.
+            </p>
+          </div>
+          <div className="flex gap-[16px] items-center justify-center">
+            <Link
+              href="#products"
+              className="border-2 border-white px-[24px] pt-[9px] pb-[8px] text-[16px] text-white tracking-[-0.16px] font-bold leading-[30px] hover:bg-white hover:text-[#3c1b1b] transition-colors"
+            >
+              Browse Our Work
+            </Link>
+            <Link
+              href="#partner"
+              className="bg-white border-2 border-white px-[24px] pt-[9px] pb-[8px] text-[16px] text-[#3c1b1b] tracking-[-0.16px] font-bold leading-[30px] hover:bg-transparent hover:text-white transition-colors"
+            >
+              Start An Order
+            </Link>
           </div>
         </div>
-
-        <dl className="mt-24 grid grid-cols-2 gap-x-8 gap-y-6 border-t border-ivory/15 pt-8 max-w-3xl md:grid-cols-4">
-          {[
-            ["27", "Years of practice"],
-            ["120+", "Skilled artisans"],
-            ["Sedex", "5-pillar audited"],
-            ["WFTO", "Aligned partner"],
-          ].map(([num, label]) => (
-            <div key={label}>
-              <dt className="serif-display text-3xl">{num}</dt>
-              <dd className="mt-1 text-xs uppercase tracking-[0.2em] text-ivory/65">
-                {label}
-              </dd>
-            </div>
-          ))}
-        </dl>
-      </Container>
+      </div>
     </section>
   );
 }

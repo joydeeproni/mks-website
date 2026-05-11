@@ -1,72 +1,100 @@
 import Image from "next/image";
-import { Container } from "@/components/ui/Container";
 import { images } from "@/lib/images";
 
 const POINTS = [
   {
-    title: "Vegetable-tanned leather",
+    title: "Vegetable Tanned Leather",
     body:
-      "We exclusively use leathers processed with organic tannins — mimosa, quebracho and chestnut. No harsh chemicals, no heavy metals, just the Earth's natural palette.",
+      "We exclusively use vegetable-tanned leathers processed with organic tannins—mimosa, quebracho, and chestnut. No harsh chemicals, no heavy metals, just the Earth’s natural palette.",
   },
   {
-    title: "Living-wage guarantee",
+    title: "Living Wage Guarantee",
     body:
-      "Every artisan is paid 2.5x the regional average. We believe craftsmanship cannot thrive under pressure; it requires security, dignity and space.",
+      "Every artisan is paid 2.5x the regional average. We believe craftsmanship cannot thrive under pressure; it requires security, dignity, and space.",
   },
   {
-    title: "Zero-waste patterning",
+    title: "Zero-Waste Patterning",
     body:
-      "Our off-cuts are never discarded. Small leather goods and keychains are born from the remaining hide, ensuring respect for the entire animal.",
+      "Our off-cuts are never discarded. Small leather goods and keycaps are born from the remaining hide, ensuring respect for the entire animal.",
   },
 ];
 
+const Check = () => (
+  <svg
+    viewBox="0 0 20 20"
+    fill="none"
+    className="w-[16px] h-[16px] flex-shrink-0"
+    aria-hidden="true"
+  >
+    <path
+      d="M5 10.5l3.5 3 6.5-7"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
 export function Sustainability() {
   return (
-    <section className="bg-cream py-32 md:py-40">
-      <Container>
-        <div className="grid gap-16 md:grid-cols-12 md:items-start">
-          <div className="md:col-span-5">
-            <p className="eyebrow text-olive-700/70">Sustainability &amp; Fair Trade</p>
-            <h2 className="serif-display text-display-md mt-4 text-olive-700">
-              The right way is the only way we know.
-            </h2>
-            <ul className="mt-12 space-y-10">
-              {POINTS.map((p) => (
-                <li key={p.title}>
-                  <h3 className="flex items-center gap-3 text-base font-semibold tracking-tight text-olive-700">
-                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-olive-500 text-ivory text-xs">
-                      ✓
-                    </span>
+    <div
+      className="overflow-clip py-[32px] w-full"
+      data-node-id="4156:6698"
+    >
+      <div
+        className="grid grid-cols-2 grid-rows-[650.5px] gap-x-[96px] gap-y-[96px] w-full"
+        data-node-id="4156:6699"
+      >
+        {/* Left: heading + 3 points */}
+        <div className="col-start-1 row-start-1 self-center flex flex-col gap-[24px] w-[512px]">
+          <h2 className="font-display font-normal text-[60px] leading-[76px] text-white w-full">
+            <span className="block">Sustainability &amp;</span>
+            <span className="block">Fair Trade</span>
+          </h2>
+          <div className="flex flex-col gap-[48px] pt-[16px] w-full">
+            {POINTS.map((p) => (
+              <div key={p.title} className="flex flex-col gap-[16px] w-full">
+                <div className="flex gap-[12px] items-center w-full text-white">
+                  <Check />
+                  <h3 className="text-[14px] font-bold tracking-[1.4px] uppercase leading-[20px]">
                     {p.title}
                   </h3>
-                  <p className="mt-3 pl-10 text-sm leading-relaxed text-clay-700/75">
+                </div>
+                <div className="pl-[32px] w-full">
+                  <p className="text-[16px] leading-[26px] text-white">
                     {p.body}
                   </p>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="md:col-span-7 relative">
-            <div className="relative aspect-[6/5] overflow-hidden rounded-md">
-              <Image
-                src={images.sustainability.src}
-                alt={images.sustainability.alt}
-                fill
-                sizes="(min-width: 768px) 58vw, 100vw"
-                className="object-cover"
-              />
-            </div>
-            {/* Floating stat card */}
-            <div className="absolute -left-4 -bottom-12 md:-left-12 bg-mist text-olive-700 p-7 rounded-md shadow-[0_30px_60px_-20px_rgba(0,0,0,0.25)] w-[240px]">
-              <div className="serif-display text-5xl tracking-tight">100%</div>
-              <div className="mt-1 text-sm tracking-tight text-olive-700/85">
-                Biodegradable process
+                </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
-      </Container>
-    </section>
+
+        {/* Right: image with floating stat */}
+        <div className="col-start-2 row-start-1 self-center relative">
+          <div className="bg-bone w-full h-[512px] overflow-hidden relative">
+            <Image
+              src={images.sustainability.src}
+              alt={images.sustainability.alt}
+              fill
+              sizes="592px"
+              className="object-cover"
+            />
+          </div>
+          <div
+            className="absolute bg-stat p-[40px] flex flex-col gap-[3px] w-[239.44px]"
+            style={{ bottom: "-40px", left: "-40px" }}
+          >
+            <p className="font-display font-extralight text-[48px] leading-[48px] text-ivory w-[120.88px]">
+              100%
+            </p>
+            <p className="text-[11px] tracking-[1.1px] uppercase leading-[16.5px] text-ivory opacity-80 w-[159.44px]">
+              Biodegradable Process
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

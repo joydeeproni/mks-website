@@ -1,76 +1,64 @@
-import Link from "next/link";
-import { Container } from "@/components/ui/Container";
-
 const CARDS = [
   {
-    title: "Get a quote",
+    title: "Get Quote",
     body:
-      "Tell us what you need. We’ll come back with a clear, honest price — no hidden costs, no runaround.",
-    href: "#quote",
-    cta: "Request quote",
-    variant: "primary" as const,
+      "Tell us what you need. We will come back with a clear, honest price — no hidden costs, no runaround.",
+    width: "w-[576px]",
+    style: { backgroundColor: "rgba(139,123,118,0.98)" },
   },
   {
-    title: "Order a sample",
+    title: "Order Sample",
     body:
       "Not ready to commit? Order a sample first. Touch the leather, test the stitching, see the standard before you sign anything.",
-    href: "#sample",
-    cta: "Order sample",
-    variant: "burgundy" as const,
+    width: "flex-1",
+    style: { backgroundColor: "rgba(59,34,26,0.98)" },
   },
   {
-    title: "Talk to us",
+    title: "Talk To Us",
     body:
-      "Sometimes you have a question that doesn’t fit a form. Our team is real, responsive and happy to talk.",
-    href: "#talk",
-    cta: "Start a conversation",
-    variant: "olive" as const,
+      "Sometimes you have a question that does not fit a form. Our team is real, responsive, and happy to talk.",
+    width: "flex-1",
+    style: { backgroundColor: "#455a11" },
   },
 ];
 
-const variantStyles = {
-  primary: "bg-clay-600 text-ivory",
-  burgundy: "bg-clay-500 text-ivory",
-  olive: "bg-olive-500 text-ivory",
-} as const;
-
 export function Partner() {
   return (
-    <section id="partner" className="bg-ivory pb-32 md:pb-40">
-      <Container>
-        <div className="text-center max-w-3xl mx-auto">
-          <p className="eyebrow text-clay-700/60">Ready to partner?</p>
-          <h2 className="serif-display text-display-lg mt-5">
-            Three simple ways to start.
-          </h2>
-          <p className="mt-6 text-lg leading-relaxed text-clay-700/75">
-            Whether you&rsquo;re prototyping a single style or scaling a global
-            line, we&rsquo;ll meet you where you are.
-          </p>
-        </div>
-
-        <div className="mt-16 grid gap-6 md:grid-cols-3">
-          {CARDS.map((c) => (
-            <article
-              key={c.title}
-              className={`relative flex flex-col justify-between rounded-md p-10 min-h-[420px] ${variantStyles[c.variant]}`}
-            >
-              <h3 className="serif-display text-display-sm">{c.title}</h3>
-              <div>
-                <p className="text-base leading-relaxed text-current/85">
-                  {c.body}
-                </p>
-                <Link
-                  href={c.href}
-                  className="mt-8 inline-flex items-center gap-2 text-sm font-semibold tracking-tight link-underline"
-                >
-                  {c.cta} →
-                </Link>
-              </div>
-            </article>
-          ))}
-        </div>
-      </Container>
+    <section
+      id="partner"
+      className="w-[1440px] bg-white flex flex-col gap-[120px] items-center justify-center px-[80px] py-[120px] min-h-[594px]"
+      data-node-id="4156:6771"
+    >
+      <div className="flex flex-col gap-[9px] items-center justify-center text-black w-full">
+        <h2 className="font-display font-normal text-[64px] tracking-[-1.28px] leading-[1.2] whitespace-nowrap">
+          Ready to Partner
+        </h2>
+        <p className="text-[20px] leading-[30px] text-center">
+          Three honest ways to start a conversation with our workshop.
+        </p>
+      </div>
+      <div className="flex gap-[32px] w-full">
+        {CARDS.map((c, idx) => (
+          <div
+            key={c.title}
+            className={`${c.width} h-[360px] rounded-[9px] p-[24px] flex flex-col items-start text-white ${idx === 0 ? "" : "justify-end"}`}
+            style={c.style}
+          >
+            <div className="flex flex-col gap-[29px] h-full w-full">
+              <p
+                className={`font-bold text-[40px] leading-[56px] flex-1 ${idx === 0 ? "" : "w-[272px]"}`}
+              >
+                {c.title}
+              </p>
+              <p
+                className={`text-[14px] leading-[21px] ${idx === 0 ? "w-[353px]" : "w-[272px]"}`}
+              >
+                {c.body}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
     </section>
   );
 }

@@ -1,92 +1,101 @@
 import Image from "next/image";
-import { Container } from "@/components/ui/Container";
 import { images } from "@/lib/images";
+
+const PastWorkBg =
+  "linear-gradient(0deg, rgba(0,0,0,0.6) 0%, rgba(102,102,102,0.4) 38%, transparent 100%), linear-gradient(90deg, rgb(147,153,133) 0%, rgb(147,153,133) 100%)";
 
 export function PastWork() {
   return (
-    <section id="brands" className="bg-ivory py-32 md:py-40">
-      <Container>
-        <div className="grid gap-8 md:grid-cols-12 md:items-end">
-          <div className="md:col-span-7">
-            <p className="eyebrow text-clay-700/60">Past Work</p>
-            <h2 className="serif-display text-display-md mt-4">
-              Quietly behind brands you already trust.
-            </h2>
-          </div>
-          <p className="md:col-span-5 text-base leading-relaxed text-clay-700/75">
-            We&rsquo;ve been the workshop behind beloved Fair Trade lines for
-            over two decades. Two of the partnerships closest to our hearts:
-          </p>
-        </div>
+    <section
+      id="brands"
+      className="w-[1440px] flex flex-col gap-[160px] pt-[120px] px-[80px] pb-[120px]"
+      style={{ backgroundImage: PastWorkBg }}
+      data-node-id="4156:6735"
+    >
+      <div className="flex flex-col gap-[9px] justify-center text-white w-full">
+        <h2 className="font-display font-normal text-[64px] tracking-[-1.28px] leading-[1.2] whitespace-nowrap">
+          Past Work
+        </h2>
+        <p className="text-[20px] leading-[30px]">
+          Two decades of quiet partnerships behind beloved Fair Trade brands.
+        </p>
+      </div>
 
-        {/* Row 1: large image + small product card + testimonial */}
-        <div className="mt-16 grid gap-8 md:grid-cols-12">
-          <div className="relative md:col-span-6 aspect-[5/4] overflow-hidden rounded-md">
+      <div className="flex flex-col gap-[32px] w-full">
+        {/* Row 1 */}
+        <div className="flex gap-[32px] w-full">
+          {/* Large hero image card */}
+          <div className="relative w-[576px] h-[442px] rounded-[9px] overflow-hidden p-[24px] flex flex-col items-start justify-end">
             <Image
               src={images.workServv.src}
               alt={images.workServv.alt}
               fill
-              sizes="(min-width: 768px) 50vw, 100vw"
+              sizes="576px"
               className="object-cover"
             />
           </div>
 
-          <div className="md:col-span-3 bg-sand p-8 rounded-md flex flex-col justify-between">
-            <div className="text-clay-700/60 text-xs font-semibold uppercase tracking-[0.2em]">
-              Servv International
+          {/* White card with logo + title + desc */}
+          <div className="bg-white flex-1 h-[442px] rounded-[9px] p-[24px] flex flex-col justify-end gap-[48px]">
+            <div className="h-[40px] w-[113px] flex items-center text-[#3c1b1b] font-display text-[22px] font-medium tracking-tight">
+              SERRV
             </div>
-            <div>
-              <h3 className="serif-display text-2xl text-clay-700">
-                Adhya Leather Tote for Servv
-              </h3>
-              <p className="mt-3 text-sm leading-relaxed text-clay-700/75">
-                We built this leather tote bag for SERRV International for their
-                handbags collection.
-              </p>
+            <div className="flex flex-1 items-end">
+              <div className="flex flex-col gap-[29px] text-black w-full">
+                <h3 className="font-display font-normal text-[40px] tracking-[-1.2px] leading-[56px]">
+                  Adhya Leather Tote for Servv
+                </h3>
+                <p className="text-[18px] leading-[25px] font-light">
+                  We built this leather tote bag for Servv International for
+                  their handbags collection.
+                </p>
+              </div>
             </div>
           </div>
 
-          <blockquote className="md:col-span-3 bg-clay-700 text-ivory p-8 rounded-md flex flex-col justify-between">
-            <p className="serif-italic text-lg leading-relaxed">
-              &ldquo;MKS is a valued long-term partner of SERRV&apos;s and are
+          {/* Testimonial card */}
+          <div className="bg-black/20 flex-1 h-[442px] rounded-[9px] p-[24px] flex flex-col items-start justify-end">
+            <p className="text-[24px] tracking-[-0.24px] leading-[1.3] text-white w-full">
+              &ldquo;MKS is a valued long term partner of SERRV&apos;s and are
               experts in what they do. They always provide excellent
               communication and deliver quality product that our customers
               love.&rdquo;
             </p>
-            <footer className="mt-6 text-xs uppercase tracking-[0.2em] text-ivory/65">
-              SERRV · Sourcing Team
-            </footer>
-          </blockquote>
+          </div>
         </div>
 
-        {/* Row 2: text-led card + large image */}
-        <div className="mt-8 grid gap-8 md:grid-cols-12">
-          <div className="md:col-span-7 bg-cream p-10 md:p-14 rounded-md flex flex-col justify-between">
-            <div className="text-clay-700/60 text-xs font-semibold uppercase tracking-[0.2em]">
+        {/* Row 2 */}
+        <div className="flex gap-[32px] w-full">
+          {/* Indigo navy card */}
+          <div className="bg-indigo-deep flex-1 h-[442px] rounded-[9px] p-[24px] flex flex-col justify-end gap-[48px]">
+            <div className="h-[71px] w-[162px] flex items-center text-white font-display text-[28px] font-medium tracking-tight">
               MadeFree®
             </div>
-            <div>
-              <h3 className="serif-display text-display-sm text-clay-700">
-                Backpacks for MadeFree®
-              </h3>
-              <p className="mt-4 max-w-xl text-base leading-relaxed text-clay-700/75">
-                We designed this stylish leather backpack line for MadeFree,
-                showcasing both elegance and functionality — a quiet workhorse
-                for everyday use.
-              </p>
+            <div className="flex flex-1 items-end">
+              <div className="flex flex-col gap-[29px] text-white w-full">
+                <h3 className="font-display font-normal text-[40px] tracking-[-1.2px] leading-[56px]">
+                  Backpacks for MadeFree®
+                </h3>
+                <p className="text-[18px] leading-[25px] font-light">
+                  We designed this stylish leather tote for MadeFree&apos;s
+                  handbag line, showcasing both elegance and functionality.
+                </p>
+              </div>
             </div>
           </div>
-          <div className="relative md:col-span-5 aspect-[4/5] overflow-hidden rounded-md">
+
+          {/* Image card */}
+          <div className="relative w-[536px] h-[442px] rounded-[9px] overflow-hidden p-[24px] flex flex-col items-start justify-end">
             <Image
-              src={images.workMadeFree.src}
-              alt={images.workMadeFree.alt}
+              src={images.workMadeFreeImage.src}
+              alt={images.workMadeFreeImage.alt}
               fill
-              sizes="(min-width: 768px) 41vw, 100vw"
+              sizes="536px"
               className="object-cover"
             />
           </div>
         </div>
-      </Container>
+      </div>
     </section>
   );
 }

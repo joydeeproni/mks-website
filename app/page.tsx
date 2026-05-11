@@ -1,8 +1,6 @@
-import { Header } from "@/components/sections/Header";
 import { Hero } from "@/components/sections/Hero";
 import { Certifications } from "@/components/sections/Certifications";
 import { Story } from "@/components/sections/Story";
-import { Materials } from "@/components/sections/Materials";
 import { Featured } from "@/components/sections/Featured";
 import { Artisanal } from "@/components/sections/Artisanal";
 import { BagCategories } from "@/components/sections/BagCategories";
@@ -14,18 +12,20 @@ import { Footer } from "@/components/sections/Footer";
 
 export default function Home() {
   return (
-    <main className="flex-1">
-      <div className="relative">
-        <Header />
-        <Hero />
-      </div>
+    <main className="flex-1 w-[1440px] mx-auto">
+      <Hero />
       <Certifications />
       <Story />
-      <Materials />
       <Featured />
-      <Artisanal />
-      <BagCategories />
-      <Sustainability />
+      {/* Artisanal + BagCategories + Sustainability share #39241d bg per Figma */}
+      <section
+        className="w-[1440px] bg-clay-800 flex flex-col gap-[160px] items-start px-[80px] py-[120px]"
+        data-node-id="4156:6621"
+      >
+        <Artisanal />
+        <BagCategories />
+        <Sustainability />
+      </section>
       <PastWork />
       <Partner />
       <ValueProps />
