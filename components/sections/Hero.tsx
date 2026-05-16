@@ -1,89 +1,146 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+import { Container } from "@/components/ui/Container";
+import { Heading } from "@/components/ui/Heading";
+import { Button } from "@/components/ui/Button";
+import { Section } from "@/components/ui/Section";
 import { images } from "@/lib/images";
 
 const NAV = ["Values", "Story", "Brands", "Materials", "Products"];
 
 export function Hero() {
+  const [open, setOpen] = useState(false);
   return (
-    <section
-      className="relative isolate w-[1440px] overflow-hidden"
-      data-node-id="4156:6531"
-    >
+    <Section className="relative isolate overflow-hidden text-white">
       <div aria-hidden className="absolute inset-0 -z-10">
         <Image
           src={images.heroWorkshop.src}
           alt=""
           fill
           priority
-          sizes="1440px"
+          sizes="100vw"
           className="object-cover"
           style={{ objectPosition: "center 30%" }}
         />
-        <div className="absolute inset-0 bg-black/30" />
+        <div className="absolute inset-0 bg-black/40" />
       </div>
 
-      {/* Nav row */}
-      <div
-        className="flex items-center gap-[285px] px-[80px] py-[24px] w-[1440px]"
-        data-node-id="4156:6533"
-      >
+      {/* Nav */}
+      <Container className="flex items-center justify-between py-[24px]">
         <Link
           href="/"
           aria-label="MKS — home"
-          className="font-display text-[28px] font-medium tracking-[-0.02em] text-white leading-[61.193px] h-[61.193px] w-[80px]"
+          className="font-display text-[clamp(22px,2vw,28px)] font-medium tracking-tight"
         >
           MKS
         </Link>
-        <nav className="flex items-center gap-[71px] text-[16px] text-white tracking-[-0.16px] font-bold whitespace-nowrap">
+        <nav className="hidden lg:flex items-center gap-[clamp(28px,4vw,71px)] text-[16px] font-bold tracking-[-0.16px]">
           {NAV.map((item) => (
             <Link
               key={item}
               href={`#${item.toLowerCase()}`}
-              className="leading-[30px]"
+              className="link-underline"
             >
               {item}
             </Link>
           ))}
         </nav>
-        <Link
-          href="#partner"
-          className="text-[16px] text-white tracking-[-0.16px] font-bold leading-[30px] text-right whitespace-nowrap"
+        <div className="hidden lg:block">
+          <Button href="#partner" variant="link" tone="light" size="md">
+            Get Quote
+          </Button>
+        </div>
+        <button
+          type="button"
+          className="lg:hidden p-2 -mr-2"
+          aria-label="Open menu"
+          aria-expanded={open}
+          onClick={() => setOpen((v) => !v)}
         >
-          Get Quote
-        </Link>
-      </div>
+          <svg viewBox="0 0 24 24" className="w-7 h-7" fill="none">
+            {open ? (
+              <path
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                d="M5 5l14 14M19 5L5 19"
+              />
+            ) : (
+              <path
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                d="M4 7h16M4 12h16M4 17h16"
+              />
+            )}
+          </svg>
+        </button>
+      </Container>
+
+      {/* Mobile menu drawer */}
+      {open && (
+        <div className="lg:hidden absolute inset-x-0 top-[72px] z-20 bg-black/80 backdrop-blur-md">
+          <Container className="flex flex-col py-6 gap-4">
+            {NAV.map((item) => (
+              <Link
+                key={item}
+                href={`#${item.toLowerCase()}`}
+                className="text-lg font-bold tracking-tight py-2 border-b border-white/10"
+                onClick={() => setOpen(false)}
+              >
+                {item}
+              </Link>
+            ))}
+            <Button
+              href="#partner"
+              variant="solid"
+              tone="light"
+              className="mt-3 self-start"
+            >
+              Get Quote
+            </Button>
+          </Container>
+        </div>
+      )}
 
       {/* Hero copy */}
-      <div className="flex flex-col items-center justify-center overflow-clip pt-[120px] pb-[200px] px-[190px] w-full">
-        <div className="flex flex-col gap-[72px] items-center">
-          <div className="flex flex-col gap-[8px] items-center text-center text-white">
-            <h1 className="font-display font-normal text-[104px] tracking-[-2.08px] leading-[1.1] whitespace-nowrap">
-              <span className="block">Bags Made Responsibly</span>
+      <Container className="flex flex-col items-center justify-center text-center pt-[clamp(64px,9vw,120px)] pb-[clamp(96px,14vw,200px)]">
+        <div className="flex flex-col gap-[clamp(40px,5vw,72px)] items-center max-w-[920px]">
+          <div className="flex flex-col gap-[clamp(12px,1vw,16px)] items-center">
+            <Heading variant="display-xl" className="text-balance">
+              Bags Made Responsibly
+              <br className="hidden sm:block" />
               <span className="block">For Global Brands</span>
-            </h1>
-            <p className="text-[20px] tracking-[-0.4px] leading-[30px] w-[682px]">
+            </Heading>
+            <p className="text-body-lg tracking-[-0.4px] max-w-[682px]">
               Premium leather bags, accessories, and handcrafted goods —
               manufactured in Kolkata, India, and exported worldwide under the
               Fair Trade banner.
             </p>
           </div>
-          <div className="flex gap-[16px] items-center justify-center">
-            <Link
+          <div className="flex flex-col sm:flex-row gap-[16px] items-center justify-center w-full sm:w-auto">
+            <Button
               href="#products"
-              className="border-2 border-white px-[24px] pt-[9px] pb-[8px] text-[16px] text-white tracking-[-0.16px] font-bold leading-[30px] hover:bg-white hover:text-[#3c1b1b] transition-colors"
+              variant="outline"
+              tone="light"
+              className="w-full sm:w-auto"
             >
               Browse Our Work
-            </Link>
-            <Link
+            </Button>
+            <Button
               href="#partner"
-              className="bg-white border-2 border-white px-[24px] pt-[9px] pb-[8px] text-[16px] text-[#3c1b1b] tracking-[-0.16px] font-bold leading-[30px] hover:bg-transparent hover:text-white transition-colors"
+              variant="solid"
+              tone="light"
+              className="w-full sm:w-auto"
             >
               Start An Order
-            </Link>
+            </Button>
           </div>
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }

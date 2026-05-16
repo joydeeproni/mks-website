@@ -10,10 +10,10 @@
   --color-mist: #ece9cf;
 
   /* Brand "clay" — red-browns */
-  --color-clay-500: #6f1919; /* burgundy */
-  --color-clay-600: #5d1f0e; /* deep clay / Story bg */
-  --color-clay-700: #3c1b1b; /* CTA dark text */
-  --color-clay-800: #39241d; /* dark brown / Artisanal bg */
+  --color-clay-500: #6f1919;
+  --color-clay-600: #5d1f0e;
+  --color-clay-700: #3c1b1b;
+  --color-clay-800: #39241d;
   --color-clay-900: #2a1812;
 
   /* Earth */
@@ -34,19 +34,64 @@
   --color-pebble: #b1b3ad;
   --color-fog: #d9d9d9;
   --color-paper: #ffffff;
-
-  /* Floating stat card grey */
   --color-stat: #5f5e5d;
 
-  /* Typography */
+  /* Typography
+     Body / sans: Trade Gothic Next from Typekit (weights 400 & 700 only).
+     Display / serif: Newsreader (Google Fonts) for all headings. */
+  --font-sans: "trade-gothic-next", var(--font-manrope), ui-sans-serif,
+    system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    sans-serif;
   --font-display: var(--font-newsreader), ui-serif, Georgia, "Times New Roman",
     serif;
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: var(--font-manrope), ui-monospace, "SF Mono", Menlo, monospace;
 
-  /* Layout */
+  /* ------- Fluid type scale -------
+     Each ramp uses clamp(min, viewport-based, max).
+     Designed against the 1440px Figma where max = Figma value.       */
+  --text-display-xl: clamp(40px, 7vw, 104px);
+  --text-display-xl--line-height: 1.05;
+  --text-display-xl--letter-spacing: -0.02em;
+
+  --text-display-lg: clamp(44px, 6.7vw, 96px);
+  --text-display-lg--line-height: 1.05;
+  --text-display-lg--letter-spacing: -0.01em;
+
+  --text-display-md: clamp(36px, 4.6vw, 64px);
+  --text-display-md--line-height: 1.15;
+  --text-display-md--letter-spacing: -0.02em;
+
+  --text-display-sm: clamp(32px, 4.2vw, 60px);
+  --text-display-sm--line-height: 1.2;
+  --text-display-sm--letter-spacing: -0.01em;
+
+  --text-h1: clamp(32px, 3.4vw, 48px);
+  --text-h1--line-height: 1.15;
+  --text-h1--letter-spacing: -0.01em;
+
+  --text-h2: clamp(28px, 2.8vw, 40px);
+  --text-h2--line-height: 1.2;
+  --text-h2--letter-spacing: -0.02em;
+
+  --text-h3: clamp(22px, 2.1vw, 30px);
+  --text-h3--line-height: 1.2;
+
+  --text-h4: clamp(18px, 1.7vw, 24px);
+  --text-h4--line-height: 1.25;
+  --text-h4--letter-spacing: -0.02em;
+
+  --text-body-lg: clamp(17px, 1.4vw, 20px);
+  --text-body-lg--line-height: 1.5;
+
+  --text-body: clamp(15px, 1.15vw, 16px);
+  --text-body--line-height: 1.55;
+
+  --text-quote: clamp(22px, 2.8vw, 40px);
+  --text-quote--line-height: 1.15;
+
+  /* Container / breakpoints */
   --container-shell: 1440px;
+  --breakpoint-3xl: 1440px;
 }
 
 :root {
@@ -63,27 +108,38 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 ::selection {
   background: var(--color-clay-600);
   color: var(--color-ivory);
 }
 
-/* The page is locked to 1440px to preserve pixel-perfect Figma fidelity.
-   Below 1440px, horizontal scroll is acceptable per the Figma source. */
-@utility canvas {
-  width: 1440px;
+/* Full-bleed section: bg fills viewport, content centered inside a Container */
+@utility section {
+  width: 100%;
+  position: relative;
+}
+
+/* Centered, fluid-padding content container with 1440px cap. */
+@utility shell {
+  width: 100%;
+  max-width: var(--container-shell);
   margin-inline: auto;
+  padding-inline: clamp(20px, 5vw, 80px);
 }
 
-/* Allow horizontal scrolling on smaller viewports without breaking layout. */
-@media (max-width: 1440px) {
-  html,
-  body {
-    overflow-x: auto;
-  }
+/* Vertical section rhythm — collapses on small screens. */
+@utility v-pad {
+  padding-block: clamp(64px, 8vw, 120px);
+}
+@utility v-pad-lg {
+  padding-block: clamp(80px, 9vw, 160px);
 }
 
-/* The Manrope micro-label used across the design */
+/* Manrope micro labels used across the design */
 @utility micro-label {
   font-family: var(--font-manrope), ui-monospace, monospace;
   font-weight: 200;
@@ -92,7 +148,6 @@ body {
   letter-spacing: 1.1px;
   text-transform: uppercase;
 }
-
 @utility micro-step {
   font-family: var(--font-manrope), ui-monospace, monospace;
   font-weight: 200;
@@ -102,22 +157,26 @@ body {
   text-transform: uppercase;
 }
 
-/* Pill link used in the footer */
-@utility pill-link {
+/* Subtle underline-on-hover for inline links */
+@utility link-underline {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  padding: 9.25px 29px 9.95px;
-  border: 1px solid #ffffff;
-  border-radius: 30px;
-  font-size: 16px;
-  line-height: 19.2px;
-  color: #ffffff;
-  text-align: center;
-  white-space: nowrap;
-  transition: background-color 200ms ease, color 200ms ease;
+  gap: 6px;
 }
-.pill-link:hover {
-  background-color: #ffffff;
-  color: #000000;
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(1);
+  transform-origin: left;
+  transition: transform 250ms ease;
+}
+.link-underline:hover::after {
+  transform: scaleX(0);
+  transform-origin: right;
 }

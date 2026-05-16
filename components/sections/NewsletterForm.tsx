@@ -3,7 +3,7 @@
 export function NewsletterForm() {
   return (
     <form
-      className="flex flex-col gap-[12px] w-[384px]"
+      className="flex flex-col gap-[12px] w-full max-w-[420px]"
       onSubmit={(e) => e.preventDefault()}
     >
       <label className="sr-only" htmlFor="newsletter-email">
@@ -18,7 +18,7 @@ export function NewsletterForm() {
       />
       <button
         type="submit"
-        className="bg-white text-black px-[20px] py-[14px] text-[16px] font-bold tracking-[-0.16px] hover:bg-white/90"
+        className="bg-white text-black px-[20px] py-[14px] text-[16px] font-bold tracking-[-0.16px] hover:bg-white/90 self-start"
       >
         Subscribe
       </button>

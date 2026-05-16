@@ -1,12 +1,6 @@
 import type { Metadata } from "next";
-import { Inter, Manrope, Newsreader } from "next/font/google";
+import { Manrope, Newsreader } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-});
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -44,9 +38,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${manrope.variable} ${newsreader.variable} h-full antialiased`}
+      className={`${manrope.variable} ${newsreader.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-ivory text-clay-700">
+      <head>
+        <link rel="stylesheet" href="https://use.typekit.net/qjl3row.css" />
+      </head>
+      <body className="min-h-full flex flex-col bg-ivory text-clay-700 font-sans">
         {children}
       </body>
     </html>

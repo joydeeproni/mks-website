@@ -2,30 +2,52 @@ import Link from "next/link";
 import { cn } from "@/lib/cn";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
-type Variant = "filled" | "outline" | "ghost" | "filled-dark";
-type Size = "md" | "lg";
+export type ButtonVariant = "solid" | "outline" | "pill" | "link";
+export type ButtonSize = "sm" | "md" | "lg";
+export type ButtonTone = "light" | "dark";
 
 const base =
-  "inline-flex items-center justify-center gap-2 font-medium tracking-tight transition-colors duration-200 select-none";
+  "inline-flex items-center justify-center gap-2 font-bold tracking-[-0.16px] " +
+  "transition-colors duration-200 select-none whitespace-nowrap";
 
-const sizeStyles: Record<Size, string> = {
-  md: "px-6 py-2 text-[15px]",
-  lg: "px-7 py-3 text-base",
+const sizeStyles: Record<ButtonSize, string> = {
+  sm: "px-[18px] pt-[7px] pb-[6px] text-[14px] leading-[24px]",
+  md: "px-[24px] pt-[9px] pb-[8px] text-[16px] leading-[30px]",
+  lg: "px-[28px] pt-[11px] pb-[10px] text-[17px] leading-[32px]",
 };
 
-const variantStyles: Record<Variant, string> = {
-  filled:
-    "bg-ivory text-clay-700 border-2 border-ivory hover:bg-transparent hover:text-ivory",
-  outline:
-    "bg-transparent text-ivory border-2 border-ivory hover:bg-ivory hover:text-clay-700",
-  ghost: "bg-transparent text-clay-700 hover:bg-clay-700 hover:text-ivory",
-  "filled-dark":
-    "bg-clay-700 text-ivory border-2 border-clay-700 hover:bg-transparent hover:text-clay-700",
+const pillSize: Record<ButtonSize, string> = {
+  sm: "px-[22px] py-[7px] text-[14px] leading-[18px] rounded-full font-normal",
+  md: "px-[29px] pt-[9.25px] pb-[9.95px] text-[16px] leading-[19.2px] rounded-full font-normal",
+  lg: "px-[32px] pt-[11px] pb-[12px] text-[17px] leading-[20px] rounded-full font-normal",
+};
+
+const variantStyles = (variant: ButtonVariant, tone: ButtonTone) => {
+  if (variant === "pill") {
+    return tone === "light"
+      ? "border border-white text-white hover:bg-white hover:text-black"
+      : "border border-black text-black hover:bg-black hover:text-white";
+  }
+  if (variant === "solid") {
+    return tone === "light"
+      ? "bg-white border-2 border-white text-clay-700 hover:bg-transparent hover:text-white"
+      : "bg-clay-700 border-2 border-clay-700 text-white hover:bg-transparent hover:text-clay-700";
+  }
+  if (variant === "outline") {
+    return tone === "light"
+      ? "border-2 border-white text-white hover:bg-white hover:text-clay-700"
+      : "border-2 border-clay-700 text-clay-700 hover:bg-clay-700 hover:text-white";
+  }
+  // link
+  return tone === "light"
+    ? "text-white link-underline"
+    : "text-clay-700 link-underline";
 };
 
 type CommonProps = {
-  variant?: Variant;
-  size?: Size;
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  tone?: ButtonTone;
   children: ReactNode;
   className?: string;
 };
@@ -35,20 +57,28 @@ type AnchorProps = CommonProps &
     href: string;
   };
 
-type ButtonProps = CommonProps &
+type NativeButtonProps = CommonProps &
   Omit<ComponentPropsWithoutRef<"button">, "className" | "children">;
 
-export function Button(props: AnchorProps | ButtonProps) {
-  const { variant = "filled", size = "md", className, children } = props;
-  const classes = cn(base, sizeStyles[size], variantStyles[variant], className);
+export function Button(props: AnchorProps | NativeButtonProps) {
+  const { variant = "solid", size = "md", tone = "light", className } = props;
+  const sizing = variant === "pill" ? pillSize[size] : sizeStyles[size];
+  const classes = cn(base, sizing, variantStyles(variant, tone), className);
 
   if ("href" in props && props.href) {
-    const { href, variant: _v, size: _s, className: _c, children: _ch, ...rest } =
-      props as AnchorProps;
+    const {
+      variant: _v,
+      size: _s,
+      tone: _t,
+      className: _c,
+      children,
+      href,
+      ...rest
+    } = props as AnchorProps;
     void _v;
     void _s;
+    void _t;
     void _c;
-    void _ch;
     return (
       <Link href={href} className={classes} {...rest}>
         {children}
@@ -58,14 +88,15 @@ export function Button(props: AnchorProps | ButtonProps) {
   const {
     variant: _v,
     size: _s,
+    tone: _t,
     className: _c,
-    children: _ch,
+    children,
     ...rest
-  } = props as ButtonProps;
+  } = props as NativeButtonProps;
   void _v;
   void _s;
+  void _t;
   void _c;
-  void _ch;
   return (
     <button type="button" className={classes} {...rest}>
       {children}

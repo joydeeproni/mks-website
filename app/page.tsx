@@ -9,23 +9,24 @@ import { PastWork } from "@/components/sections/PastWork";
 import { Partner } from "@/components/sections/Partner";
 import { ValueProps } from "@/components/sections/ValueProps";
 import { Footer } from "@/components/sections/Footer";
+import { Container } from "@/components/ui/Container";
+import { Section } from "@/components/ui/Section";
 
 export default function Home() {
   return (
-    <main className="flex-1 w-[1440px] mx-auto">
+    <main className="flex-1 w-full">
       <Hero />
       <Certifications />
       <Story />
       <Featured />
-      {/* Artisanal + BagCategories + Sustainability share #39241d bg per Figma */}
-      <section
-        className="w-[1440px] bg-clay-800 flex flex-col gap-[160px] items-start px-[80px] py-[120px]"
-        data-node-id="4156:6621"
-      >
-        <Artisanal />
-        <BagCategories />
-        <Sustainability />
-      </section>
+      {/* Artisanal + Bag Categories + Sustainability share #39241d bg per Figma */}
+      <Section className="bg-clay-800 text-white">
+        <Container className="flex flex-col gap-[clamp(64px,10vw,160px)] v-pad-lg">
+          <Artisanal />
+          <BagCategories />
+          <Sustainability />
+        </Container>
+      </Section>
       <PastWork />
       <Partner />
       <ValueProps />

@@ -1,101 +1,92 @@
 import Image from "next/image";
+import { Container } from "@/components/ui/Container";
+import { Section } from "@/components/ui/Section";
+import { Heading } from "@/components/ui/Heading";
 import { images } from "@/lib/images";
 
 const PastWorkBg =
-  "linear-gradient(0deg, rgba(0,0,0,0.6) 0%, rgba(102,102,102,0.4) 38%, transparent 100%), linear-gradient(90deg, rgb(147,153,133) 0%, rgb(147,153,133) 100%)";
+  "linear-gradient(0deg, rgba(0,0,0,0.65) 0%, rgba(60,60,60,0.5) 38%, rgba(147,153,133,0.4) 100%), linear-gradient(90deg, rgb(147,153,133) 0%, rgb(147,153,133) 100%)";
 
 export function PastWork() {
   return (
-    <section
+    <Section
       id="brands"
-      className="w-[1440px] flex flex-col gap-[160px] pt-[120px] px-[80px] pb-[120px]"
+      className="text-white"
       style={{ backgroundImage: PastWorkBg }}
-      data-node-id="4156:6735"
     >
-      <div className="flex flex-col gap-[9px] justify-center text-white w-full">
-        <h2 className="font-display font-normal text-[64px] tracking-[-1.28px] leading-[1.2] whitespace-nowrap">
-          Past Work
-        </h2>
-        <p className="text-[20px] leading-[30px]">
-          Two decades of quiet partnerships behind beloved Fair Trade brands.
-        </p>
-      </div>
+      <Container className="flex flex-col gap-[clamp(56px,10vw,160px)] v-pad-lg">
+        <div className="flex flex-col gap-[clamp(8px,1vw,12px)] max-w-[820px]">
+          <Heading variant="display-md">Past Work</Heading>
+          <p className="text-body-lg">
+            Two decades of quiet partnerships behind beloved Fair Trade brands.
+          </p>
+        </div>
 
-      <div className="flex flex-col gap-[32px] w-full">
-        {/* Row 1 */}
-        <div className="flex gap-[32px] w-full">
-          {/* Large hero image card */}
-          <div className="relative w-[576px] h-[442px] rounded-[9px] overflow-hidden p-[24px] flex flex-col items-start justify-end">
-            <Image
-              src={images.workServv.src}
-              alt={images.workServv.alt}
-              fill
-              sizes="576px"
-              className="object-cover"
-            />
-          </div>
-
-          {/* White card with logo + title + desc */}
-          <div className="bg-white flex-1 h-[442px] rounded-[9px] p-[24px] flex flex-col justify-end gap-[48px]">
-            <div className="h-[40px] w-[113px] flex items-center text-[#3c1b1b] font-display text-[22px] font-medium tracking-tight">
-              SERRV
+        <div className="flex flex-col gap-[clamp(16px,2.5vw,32px)] w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.8fr_1fr_1fr] gap-[clamp(16px,2.5vw,32px)]">
+            <div className="relative aspect-[5/4] md:h-[442px] md:aspect-auto rounded-[9px] overflow-hidden">
+              <Image
+                src={images.workServv.src}
+                alt={images.workServv.alt}
+                fill
+                sizes="(min-width: 1024px) 40vw, 100vw"
+                className="object-cover"
+              />
             </div>
-            <div className="flex flex-1 items-end">
-              <div className="flex flex-col gap-[29px] text-black w-full">
-                <h3 className="font-display font-normal text-[40px] tracking-[-1.2px] leading-[56px]">
+
+            <div className="bg-white md:h-[442px] rounded-[9px] p-[clamp(20px,2vw,24px)] flex flex-col justify-end gap-[clamp(24px,3vw,48px)]">
+              <div className="font-display text-[clamp(18px,1.7vw,24px)] font-medium text-clay-700">
+                SERRV
+              </div>
+              <div className="flex flex-col gap-[clamp(16px,2vw,29px)] text-black">
+                <h3 className="font-display font-normal text-h2 tracking-[-0.02em]">
                   Adhya Leather Tote for Servv
                 </h3>
-                <p className="text-[18px] leading-[25px] font-light">
+                <p className="text-[clamp(15px,1.3vw,18px)] leading-[1.45] font-normal">
                   We built this leather tote bag for Servv International for
                   their handbags collection.
                 </p>
               </div>
             </div>
-          </div>
 
-          {/* Testimonial card */}
-          <div className="bg-black/20 flex-1 h-[442px] rounded-[9px] p-[24px] flex flex-col items-start justify-end">
-            <p className="text-[24px] tracking-[-0.24px] leading-[1.3] text-white w-full">
-              &ldquo;MKS is a valued long term partner of SERRV&apos;s and are
-              experts in what they do. They always provide excellent
-              communication and deliver quality product that our customers
-              love.&rdquo;
-            </p>
-          </div>
-        </div>
-
-        {/* Row 2 */}
-        <div className="flex gap-[32px] w-full">
-          {/* Indigo navy card */}
-          <div className="bg-indigo-deep flex-1 h-[442px] rounded-[9px] p-[24px] flex flex-col justify-end gap-[48px]">
-            <div className="h-[71px] w-[162px] flex items-center text-white font-display text-[28px] font-medium tracking-tight">
-              MadeFree®
+            <div className="bg-black/30 backdrop-blur-sm md:h-[442px] rounded-[9px] p-[clamp(20px,2vw,24px)] flex flex-col justify-end md:col-span-2 lg:col-span-1">
+              <p className="font-display italic text-[clamp(18px,1.7vw,24px)] tracking-[-0.24px] leading-[1.4] text-white">
+                &ldquo;MKS is a valued long term partner of SERRV&apos;s and are
+                experts in what they do. They always provide excellent
+                communication and deliver quality product that our customers
+                love.&rdquo;
+              </p>
             </div>
-            <div className="flex flex-1 items-end">
-              <div className="flex flex-col gap-[29px] text-white w-full">
-                <h3 className="font-display font-normal text-[40px] tracking-[-1.2px] leading-[56px]">
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr] lg:grid-cols-[1fr_0.7fr] gap-[clamp(16px,2.5vw,32px)]">
+            <div className="bg-indigo-deep md:h-[442px] rounded-[9px] p-[clamp(20px,2vw,24px)] flex flex-col justify-end gap-[clamp(24px,3vw,48px)]">
+              <div className="font-display text-[clamp(20px,2vw,28px)] font-medium text-white">
+                MadeFree®
+              </div>
+              <div className="flex flex-col gap-[clamp(16px,2vw,29px)] text-white">
+                <h3 className="font-display font-normal text-h2 tracking-[-0.02em]">
                   Backpacks for MadeFree®
                 </h3>
-                <p className="text-[18px] leading-[25px] font-light">
+                <p className="text-[clamp(15px,1.3vw,18px)] leading-[1.45]">
                   We designed this stylish leather tote for MadeFree&apos;s
                   handbag line, showcasing both elegance and functionality.
                 </p>
               </div>
             </div>
-          </div>
 
-          {/* Image card */}
-          <div className="relative w-[536px] h-[442px] rounded-[9px] overflow-hidden p-[24px] flex flex-col items-start justify-end">
-            <Image
-              src={images.workMadeFreeImage.src}
-              alt={images.workMadeFreeImage.alt}
-              fill
-              sizes="536px"
-              className="object-cover"
-            />
+            <div className="relative aspect-[5/4] md:h-[442px] md:aspect-auto rounded-[9px] overflow-hidden">
+              <Image
+                src={images.workMadeFreeImage.src}
+                alt={images.workMadeFreeImage.alt}
+                fill
+                sizes="(min-width: 1024px) 37vw, 100vw"
+                className="object-cover"
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }
