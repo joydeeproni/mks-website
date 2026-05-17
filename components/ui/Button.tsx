@@ -40,8 +40,8 @@ const variantStyles = (variant: ButtonVariant, tone: ButtonTone) => {
   }
   // link
   return tone === "light"
-    ? "text-white link-underline"
-    : "text-clay-700 link-underline";
+    ? "text-white link-button"
+    : "text-clay-700 link-button";
 };
 
 type CommonProps = {

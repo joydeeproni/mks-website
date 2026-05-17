@@ -15,19 +15,19 @@ const HELP = [
   "Accessibility Statement",
 ];
 
-const PRODUCTS = [
-  "Tote Handbag",
-  "Backpacks",
-  "Crossbody",
-  "Hobo",
-  "Sling",
+const PAGES = [
+  { label: "Home", href: "/" },
+  { label: "What we make", href: "/#products" },
+  { label: "Materials", href: "/#materials" },
+  { label: "Our process", href: "/our-process" },
+  { label: "Brands", href: "/brands" },
 ];
-const MATERIALS = [
-  "Full Grain Leather",
-  "Smooth Leather",
-  "Shanti Leather",
-  "Nubuck",
-  "Recycled Canvas",
+
+const FAMILIES = [
+  { label: "Bags", href: "/#products" },
+  { label: "Small leather goods", href: "/#products" },
+  { label: "Soft accessories", href: "/#products" },
+  { label: "Custom programs", href: "/#partner" },
 ];
 
 export function Footer() {
@@ -64,20 +64,20 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Products + Materials */}
+          {/* Pages + Families */}
           <div className="grid grid-cols-2 gap-[clamp(28px,4vw,64px)]">
             <div className="flex flex-col gap-[clamp(24px,2.5vw,37px)]">
               <h3 className="text-[clamp(20px,2vw,24px)] tracking-[-0.48px] leading-[1.1]">
-                Products
+                Pages
               </h3>
               <ul className="flex flex-col gap-[12px]">
-                {PRODUCTS.map((p) => (
-                  <li key={p}>
+                {PAGES.map((p) => (
+                  <li key={p.label}>
                     <Link
-                      href="#"
-                      className="text-[15px] md:text-[16px] leading-[24px] hover:opacity-80 link-underline"
+                      href={p.href}
+                      className="text-[15px] md:text-[16px] leading-[24px] link-button"
                     >
-                      {p}
+                      {p.label}
                     </Link>
                   </li>
                 ))}
@@ -85,16 +85,16 @@ export function Footer() {
             </div>
             <div className="flex flex-col gap-[clamp(24px,2.5vw,37px)]">
               <h3 className="text-[clamp(20px,2vw,24px)] tracking-[-0.48px] leading-[1.1]">
-                Materials
+                Families
               </h3>
               <ul className="flex flex-col gap-[12px]">
-                {MATERIALS.map((m) => (
-                  <li key={m}>
+                {FAMILIES.map((m) => (
+                  <li key={m.label}>
                     <Link
-                      href="#"
-                      className="text-[15px] md:text-[16px] leading-[24px] hover:opacity-80 link-underline"
+                      href={m.href}
+                      className="text-[15px] md:text-[16px] leading-[24px] link-button"
                     >
-                      {m}
+                      {m.label}
                     </Link>
                   </li>
                 ))}
@@ -108,8 +108,8 @@ export function Footer() {
               Newsletter Signup
             </h3>
             <p className="text-[15px] md:text-[16px] leading-[24px] opacity-80 max-w-[420px]">
-              Quarterly notes from the workshop — process essays, new materials
-              and partner stories. No marketing fluff.
+              Quarterly notes from the workshop — process essays, new
+              materials and partner stories. No marketing fluff.
             </p>
             <NewsletterForm />
           </div>
@@ -120,10 +120,10 @@ export function Footer() {
             © {new Date().getFullYear()} MKS Exports, Inc. All Rights Reserved.
           </p>
           <div className="flex items-center gap-5 text-[14px] opacity-70">
-            <Link href="#" className="link-underline">
+            <Link href="#" className="link-button">
               Privacy
             </Link>
-            <Link href="#" className="link-underline">
+            <Link href="#" className="link-button">
               Terms
             </Link>
             <span>English (US)</span>

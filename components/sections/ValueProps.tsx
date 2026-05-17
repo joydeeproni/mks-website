@@ -120,7 +120,7 @@ export function ValueProps() {
               </p>
               <a
                 href="#"
-                className="mt-auto pt-2 text-[14px] font-bold link-underline"
+                className="mt-auto pt-2 text-[14px] font-bold link-button"
               >
                 {item.cta}
               </a>

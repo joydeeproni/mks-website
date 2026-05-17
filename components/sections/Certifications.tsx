@@ -1,35 +1,35 @@
-import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
-import { images } from "@/lib/images";
+
+const CERTS = [
+  { code: "SEDEX", line1: "5-Pillar", line2: "Audited" },
+  { code: "WFTO", line1: "Aligned", line2: "Partner" },
+  { code: "BSCI", line1: "Compliant", line2: "Member" },
+  { code: "ISO", line1: "9001", line2: "Quality systems" },
+];
 
 export function Certifications() {
   return (
-    <Section className="bg-ivory">
-      <Container className="flex flex-col sm:flex-row items-center justify-center gap-[clamp(24px,4vw,64px)] py-[clamp(56px,8vw,120px)]">
-        <div className="relative w-[120px] h-[120px] md:w-[140px] md:h-[140px] lg:w-[159px] lg:h-[159px] rounded-[8px] overflow-hidden flex-shrink-0">
-          <Image
-            src={images.certSedex1.src}
-            alt={images.certSedex1.alt}
-            fill
-            sizes="(min-width: 1024px) 159px, 140px"
-            className="object-contain"
-          />
-        </div>
-        <div className="flex flex-col sm:flex-row items-center gap-[16px]">
-          <div className="relative w-[120px] h-[120px] md:w-[140px] md:h-[140px] lg:w-[159px] lg:h-[159px] rounded-[8px] overflow-hidden flex-shrink-0">
-            <Image
-              src={images.certSedex2.src}
-              alt={images.certSedex2.alt}
-              fill
-              sizes="(min-width: 1024px) 159px, 140px"
-              className="object-cover"
-            />
-          </div>
-          <p className="text-[18px] md:text-[20px] font-bold text-[#626262] leading-[30px] text-center sm:text-left max-w-[262px]">
-            We are Sedex 5-pillar certified
-          </p>
-        </div>
+    <Section className="bg-ivory border-y border-clay-700/8">
+      <Container className="flex flex-col items-center gap-[clamp(20px,3vw,48px)] py-[clamp(56px,8vw,120px)]">
+        <p className="text-[11px] tracking-[0.2em] uppercase text-clay-700/55 font-bold">
+          Independently audited &middot; certified &middot; trusted
+        </p>
+        <ul className="grid grid-cols-2 sm:grid-cols-4 gap-[clamp(16px,2.5vw,40px)] w-full max-w-[1040px]">
+          {CERTS.map((c) => (
+            <li
+              key={c.code}
+              className="flex flex-col items-center justify-center gap-[6px] py-[clamp(20px,2.5vw,32px)] px-3 border border-clay-700/10 rounded-[6px]"
+            >
+              <p className="font-display text-[clamp(28px,3vw,42px)] leading-none text-clay-700 tracking-tight">
+                {c.code}
+              </p>
+              <p className="text-[12px] uppercase tracking-[0.15em] text-clay-700/60 text-center">
+                {c.line1} &middot; {c.line2}
+              </p>
+            </li>
+          ))}
+        </ul>
       </Container>
     </Section>
   );
