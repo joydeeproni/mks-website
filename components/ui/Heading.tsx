@@ -2,14 +2,14 @@ import { cn } from "@/lib/cn";
 import type { ElementType, HTMLAttributes, ReactNode } from "react";
 
 type Variant =
-  | "display-xl"
-  | "display-lg"
-  | "display-md"
-  | "display-sm"
   | "h1"
   | "h2"
   | "h3"
-  | "h4";
+  | "h4"
+  | "display-xl"
+  | "display-lg"
+  | "display-md"
+  | "display-sm";
 
 type HeadingProps = HTMLAttributes<HTMLHeadingElement> & {
   as?: ElementType;
@@ -19,19 +19,20 @@ type HeadingProps = HTMLAttributes<HTMLHeadingElement> & {
 };
 
 const variantStyles: Record<Variant, string> = {
-  "display-xl": "text-display-xl",
-  "display-lg": "text-display-lg",
-  "display-md": "text-display-md",
-  "display-sm": "text-display-sm",
   h1: "text-h1",
   h2: "text-h2",
   h3: "text-h3",
   h4: "text-h4",
+  // Legacy aliases (used by /brands and /our-process) — mapped to new ramp.
+  "display-xl": "text-h1",
+  "display-lg": "text-h1",
+  "display-md": "text-h2",
+  "display-sm": "text-h3",
 };
 
 /**
- * Display & heading typography primitive. Defaults to the Newsreader
- * serif family used across the design.
+ * Display & heading typography primitive. Maps directly to the Figma
+ * Hardcover (h1–h3) + Trade Gothic (h4) type ramp.
  */
 export function Heading({
   as,
@@ -41,18 +42,22 @@ export function Heading({
   children,
   ...props
 }: HeadingProps) {
-  const Component =
-    as ||
-    (variant === "display-xl" || variant === "display-lg" || variant === "h1"
+  const tagFromVariant: ElementType =
+    variant === "h1" || variant === "display-xl" || variant === "display-lg"
       ? "h1"
-      : variant.startsWith("h")
-        ? (variant as ElementType)
-        : "h2");
+      : variant === "h2" || variant === "display-md"
+        ? "h2"
+        : variant === "h3" || variant === "display-sm"
+          ? "h3"
+          : "h4";
+  const Component = as || tagFromVariant;
   return (
     <Component
       className={cn(
         variantStyles[variant],
-        serif ? "font-display font-normal" : "font-sans font-bold",
+        serif && variant !== "h4"
+          ? "font-display font-normal"
+          : "font-sans font-bold",
         className
       )}
       {...props}

@@ -1,137 +1,141 @@
-import { type ImageKey } from "@/lib/images";
+"use client";
 
-export type CategoryItem = {
-  /** Optional image key — currently unused as variants render as CSS swatch tiles for visual consistency. */
-  imgKey?: ImageKey;
-  name: string;
-  material?: string;
-  /** Override tile leather tone. Defaults rotate through a small palette. */
-  tone?: number;
+import Image from "next/image";
+import { useState } from "react";
+import { Section } from "@/components/ui/Section";
+import { Container } from "@/components/ui/Container";
+import { Button } from "@/components/ui/Button";
+import { images } from "@/lib/images";
+
+type Category = {
+  key: string;
+  label: string;
+  description: string;
+  tiles: { label: string; img: { src: string; alt: string }; tone: "cream" | "clay" }[];
 };
 
-type Props = {
-  eyebrow: string;
-  title: string;
-  intro: string;
-  materials: string[];
-  items: CategoryItem[];
-  bg?: "ivory" | "cream" | "bone" | "sand";
-};
-
-const bgClass = {
-  ivory: "bg-ivory",
-  cream: "bg-cream",
-  bone: "bg-bone",
-  sand: "bg-sand",
-} as const;
-
-/**
- * Rotating leather-tone palette used for variant tiles. Each entry is a
- * trio (highlight / base / shadow) used to build a soft radial gradient.
- */
-const PALETTE: { hi: string; base: string; sh: string }[] = [
-  { hi: "#a3613d", base: "#7a3e22", sh: "#3a1a0a" }, // tan
-  { hi: "#c58e69", base: "#a36c46", sh: "#5a3a25" }, // caramel
-  { hi: "#8a3b2a", base: "#5a2418", sh: "#1f0c07" }, // burgundy
-  { hi: "#b6957a", base: "#9b7a5f", sh: "#604a37" }, // nubuck
-  { hi: "#d6cba8", base: "#b9ad8a", sh: "#7c714f" }, // canvas
-  { hi: "#5d605b", base: "#3f423f", sh: "#1c1d1c" }, // ink
+const CATEGORIES: Category[] = [
+  {
+    key: "bags",
+    label: "Bags",
+    description:
+      "Handcrafted leather totes, slings, messengers, and more — built for daily use, designed for your brand.",
+    tiles: [
+      { label: "Hand Bags", img: images.bagHobo, tone: "cream" },
+      { label: "Tote Bags", img: images.bagTote, tone: "clay" },
+      { label: "Sling Bags", img: images.bagSling, tone: "cream" },
+      { label: "Messenger Bags", img: images.bagBriefcase, tone: "clay" },
+      { label: "Backpacks", img: images.bagBackpack, tone: "cream" },
+      { label: "Weekenders", img: images.bagWeekender, tone: "clay" },
+    ],
+  },
+  {
+    key: "belts",
+    label: "Belts",
+    description:
+      "Saddle-stitched belts in vegetable-tanned hides, brass and steel hardware.",
+    tiles: [
+      { label: "Dress Belts", img: images.sgBeltStrap, tone: "cream" },
+      { label: "Casual Straps", img: images.customStitch, tone: "clay" },
+    ],
+  },
+  {
+    key: "scarves",
+    label: "Scarves",
+    description: "Soft-goods crafted in partnership with Indian textile artisans.",
+    tiles: [{ label: "Scarves", img: images.softScarf, tone: "cream" }],
+  },
+  {
+    key: "accessories",
+    label: "Accessories",
+    description: "Wallets, cardholders, journals, and small leather goods.",
+    tiles: [
+      { label: "Wallets", img: images.sgWallet, tone: "cream" },
+      { label: "Journals", img: images.sgJournal, tone: "clay" },
+    ],
+  },
+  {
+    key: "misc",
+    label: "Misc.",
+    description: "Specialty items, prototypes, and seasonal pieces.",
+    tiles: [],
+  },
 ];
 
-function VariantTile({
-  name,
-  material,
-  toneIdx,
-}: {
-  name: string;
-  material?: string;
-  toneIdx: number;
-}) {
-  const tone = PALETTE[toneIdx % PALETTE.length];
-  const gradient = `radial-gradient(110% 100% at 25% 18%, ${tone.hi} 0%, ${tone.base} 50%, ${tone.sh} 100%)`;
-  return (
-    <div className="group flex flex-col gap-[10px]">
-      <div
-        className="relative aspect-[4/5] overflow-hidden rounded-[clamp(4px,0.5vw,8px)] grain"
-        style={{ backgroundImage: gradient }}
-        aria-hidden="true"
-      >
-        {/* SVG noise overlay for grain feel */}
-        <div
-          className="absolute inset-0 opacity-[0.15] mix-blend-overlay pointer-events-none"
-          style={{
-            backgroundImage:
-              "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\")",
-            backgroundSize: "160px 160px",
-          }}
-        />
-        {/* Highlight line */}
-        <div className="absolute inset-x-6 top-6 h-px bg-white/15" />
-        {/* Bottom-left product label overlay */}
-        <div className="absolute inset-x-4 bottom-4 flex flex-col gap-[2px] text-white">
-          <p className="text-[13px] font-bold tracking-tight drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)]">
-            {name}
-          </p>
-          {material && (
-            <p className="text-[11px] tracking-[0.04em] opacity-80 drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)]">
-              {material}
-            </p>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
 /**
- * Editorial category showcase used to highlight one product family
- * (Bags, Small Leather Goods, Soft Accessories, etc.).
+ * Category showcase — Figma 1:100.
+ * Left column: active category at top (label + description + Learn More),
+ * inactive categories pinned at the bottom of the column via flex justify-between.
+ * Right column: 2-col image grid of the active category's tiles.
  */
-export function CategoryShowcase({
-  eyebrow,
-  title,
-  intro,
-  materials,
-  items,
-  bg = "ivory",
-}: Props) {
-  return (
-    <div className={`${bgClass[bg]} rounded-[clamp(8px,1vw,16px)]`}>
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-[clamp(24px,3vw,48px)] p-[clamp(24px,3vw,56px)]">
-        <div className="lg:col-span-4 flex flex-col gap-[clamp(12px,1.4vw,20px)]">
-          <p className="text-[11px] tracking-[0.2em] uppercase font-bold text-clay-700/65">
-            {eyebrow}
-          </p>
-          <h3 className="font-display text-h1 text-clay-700 tracking-[-0.02em] leading-[1.1]">
-            {title}
-          </h3>
-          <p className="text-[15px] leading-[1.55] text-clay-700/75 max-w-[420px]">
-            {intro}
-          </p>
-          <ul className="flex flex-wrap gap-[8px] pt-[8px]">
-            {materials.map((m) => (
-              <li
-                key={m}
-                className="text-[11px] tracking-[0.12em] uppercase font-bold text-clay-700/70 border border-clay-700/15 rounded-full px-[10px] py-[5px]"
-              >
-                {m}
-              </li>
-            ))}
-          </ul>
-        </div>
+export function CategoryShowcase() {
+  const [activeKey, setActiveKey] = useState("bags");
+  const active = CATEGORIES.find((c) => c.key === activeKey) ?? CATEGORIES[0];
+  const inactive = CATEGORIES.filter((c) => c.key !== activeKey);
 
-        <ul className="lg:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-[clamp(12px,1.5vw,20px)]">
-          {items.map((item, i) => (
-            <li key={`${item.name}-${i}`}>
-              <VariantTile
-                name={item.name}
-                material={item.material}
-                toneIdx={item.tone ?? i}
-              />
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
+  return (
+    <Section id="products" className="bg-cream text-clay-800">
+      <Container className="v-pad min-h-screen flex">
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-[clamp(48px,11vw,155px)] items-stretch w-full">
+          {/* Left column: active at top, inactive list pinned at bottom */}
+          <nav className="w-full lg:w-[337px] shrink-0 flex flex-col justify-between gap-12">
+            {/* Active category — top */}
+            <div className="flex flex-col gap-6">
+              <h3 className="font-sans text-h4 text-clay-800 font-bold">
+                {active.label}
+              </h3>
+              <p className="text-body text-black">{active.description}</p>
+              <Button
+                href={`#${active.key}`}
+                variant="link"
+                tone="dark"
+                className="self-start text-black"
+              >
+                Learn More
+              </Button>
+            </div>
+
+            {/* Inactive categories — bottom */}
+            <ul className="flex flex-col gap-6 lg:gap-8">
+              {inactive.map((c) => (
+                <li key={c.key}>
+                  <button
+                    type="button"
+                    onClick={() => setActiveKey(c.key)}
+                    className="font-sans text-h4 text-left text-clay-800/45 hover:text-clay-800/80 transition-colors w-full"
+                  >
+                    {c.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Right tile grid */}
+          <div className="flex-1 w-full grid grid-cols-1 sm:grid-cols-2 gap-8 self-stretch">
+            {active.tiles.map((t) => (
+              <div
+                key={t.label}
+                className={`relative aspect-[336/400] flex items-center justify-center p-6 overflow-hidden ${
+                  t.tone === "clay" ? "bg-clay-500" : "bg-mist"
+                }`}
+              >
+                <Image
+                  src={t.img.src}
+                  alt={t.img.alt}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 336px"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-black/15" />
+                <h3 className="relative font-display text-h3 text-white text-center">
+                  {t.label}
+                </h3>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Container>
+    </Section>
   );
 }

@@ -4,12 +4,14 @@ import Link from "next/link";
 import { useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { Logo } from "@/components/ui/Logo";
 
 const NAV = [
-  { href: "/#products", label: "What we make" },
-  { href: "/#materials", label: "Materials" },
-  { href: "/our-process", label: "Our process" },
+  { href: "/#values", label: "Values" },
+  { href: "/#story", label: "Story" },
   { href: "/brands", label: "Brands" },
+  { href: "/#materials", label: "Materials" },
+  { href: "/#products", label: "Products" },
 ];
 
 type Tone = "light" | "dark";
@@ -30,12 +32,8 @@ export function SiteHeader({
       className={`${absolute ? "absolute inset-x-0 top-0 z-30" : "relative"} ${textClass}`}
     >
       <Container className="flex items-center justify-between py-[24px]">
-        <Link
-          href="/"
-          aria-label="MKS — home"
-          className="font-display text-[clamp(22px,2vw,28px)] font-medium tracking-tight"
-        >
-          MKS
+        <Link href="/" aria-label="MKS — home" className="flex items-center">
+          <Logo className="h-10 md:h-12 w-auto" />
         </Link>
         <nav className="hidden lg:flex items-center gap-[clamp(28px,4vw,56px)] text-[15px] font-bold tracking-[-0.16px]">
           {NAV.map((item) => (
@@ -46,7 +44,7 @@ export function SiteHeader({
         </nav>
         <div className="hidden lg:block">
           <Button href="/#partner" variant="link" tone={tone} size="md">
-            Get Quote →
+            Get Quote
           </Button>
         </div>
         <button

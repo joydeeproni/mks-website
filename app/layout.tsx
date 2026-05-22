@@ -1,19 +1,12 @@
 import type { Metadata } from "next";
-import { Manrope, Newsreader } from "next/font/google";
+import { Manrope } from "next/font/google";
 import "./globals.css";
+import { ClientProviders } from "@/components/ClientProviders";
 
 const manrope = Manrope({
   variable: "--font-manrope",
   subsets: ["latin"],
   weight: ["200", "300", "400", "500", "600", "700"],
-  display: "swap",
-});
-
-const newsreader = Newsreader({
-  variable: "--font-newsreader",
-  subsets: ["latin"],
-  weight: ["200", "300", "400", "500", "600"],
-  style: ["normal", "italic"],
   display: "swap",
 });
 
@@ -38,13 +31,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${manrope.variable} ${newsreader.variable} h-full antialiased`}
+      className={`${manrope.variable} h-full antialiased`}
     >
       <head>
         <link rel="stylesheet" href="https://use.typekit.net/qjl3row.css" />
       </head>
       <body className="min-h-full flex flex-col bg-ivory text-clay-700 font-sans">
-        {children}
+        <ClientProviders>{children}</ClientProviders>
       </body>
     </html>
   );

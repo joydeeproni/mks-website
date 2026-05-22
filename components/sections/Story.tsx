@@ -1,55 +1,53 @@
 import Image from "next/image";
-import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
-import { Heading } from "@/components/ui/Heading";
+import { Container } from "@/components/ui/Container";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Button } from "@/components/ui/Button";
 import { images } from "@/lib/images";
 
+/**
+ * Family run, women led — Figma 1:75.
+ * Section bg clay-600. 6+6 asymmetric heading. Below: 800px-tall image with
+ * a Hardcover Light Italic pull-quote + attribution overlaid at the bottom.
+ */
 export function Story() {
   return (
     <Section id="story" className="bg-clay-600 text-white">
-      <Container className="flex flex-col gap-[clamp(56px,10vw,160px)] v-pad-lg">
-        <div className="flex flex-col gap-[clamp(6px,0.6vw,8px)] max-w-[820px]">
-          <Heading variant="h1">Our Story</Heading>
-          <p className="text-body-lg tracking-[-0.4px] max-w-[775px]">
-            MKS is a second-generation, women-led leather goods manufacturer
-            based in Kolkata, India. We work with brands of all sizes — from
-            independent designers to global retailers — delivering high-quality,
-            ethically made leather products that are built to last and made to
-            be proud of.
-          </p>
-        </div>
+      <Container className="v-pad flex flex-col gap-[clamp(64px,11vw,160px)]">
+        <SectionHeader
+          tone="light"
+          heading={
+            <>
+              Family run
+              <br />
+              <span className="italic">women</span> led
+            </>
+          }
+          body="MKS is a second-generation, women-led leather goods manufacturer based in Kolkata, India. We work with brands of all sizes — from independent designers to global retailers."
+          cta={
+            <Button href="/about" variant="solid" tone="light" className="self-start">
+              Learn More
+            </Button>
+          }
+        />
 
-        <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] lg:h-[800px] lg:aspect-auto rounded-[9px] overflow-hidden">
+        <div className="relative h-[clamp(360px,55vw,800px)] w-full overflow-hidden">
           <Image
             src={images.storyFloor.src}
             alt={images.storyFloor.alt}
             fill
-            sizes="(min-width: 1440px) 1280px, 100vw"
+            sizes="100vw"
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-black/35" />
-          <div className="absolute inset-x-0 bottom-0 p-[clamp(16px,2.5vw,32px)]">
-            <div className="flex flex-col gap-6 lg:flex-row lg:gap-[48px] lg:items-end">
-              <div className="flex flex-col gap-[clamp(16px,2vw,29px)] flex-1">
-                <p className="font-display font-normal text-quote tracking-tight max-w-[800px]">
-                  &ldquo;Our mission is to create job opportunities for
-                  economically disadvantaged groups, helping them lead decent
-                  lives.&rdquo;
-                </p>
-                <p className="text-[14px] md:text-[16px] tracking-[-0.32px] leading-[26px]">
-                  Mithu Dam, Founder – MKS Exports
-                </p>
-              </div>
-              <Button
-                href="#story-more"
-                variant="solid"
-                tone="light"
-                className="self-start lg:self-end shrink-0"
-              >
-                Learn More
-              </Button>
-            </div>
+          <div className="absolute inset-0 bg-black/20" />
+          <div className="absolute inset-0 flex flex-col justify-end p-[clamp(20px,2.5vw,40px)] text-white gap-4">
+            <blockquote className="font-display italic text-quote font-light max-w-[min(671px,90%)]">
+              &ldquo;Our mission is to create job opportunities for economically
+              disadvantaged groups, helping them lead decent lives.&rdquo;
+            </blockquote>
+            <cite className="text-body not-italic">
+              Mithu Dam, Founder – MKS Exports
+            </cite>
           </div>
         </div>
       </Container>

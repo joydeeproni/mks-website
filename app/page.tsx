@@ -1,45 +1,39 @@
 import { Hero } from "@/components/sections/Hero";
 import { Certifications } from "@/components/sections/Certifications";
-import { Capabilities } from "@/components/sections/Capabilities";
+import { Story } from "@/components/sections/Story";
 import { Materials } from "@/components/sections/Materials";
-import { Customization } from "@/components/sections/Customization";
+import { CategoryShowcase } from "@/components/sections/CategoryShowcase";
+import { Artisanal } from "@/components/sections/Artisanal";
 import { WorkshopTeaser } from "@/components/sections/WorkshopTeaser";
-import { BrandsTeaser } from "@/components/sections/BrandsTeaser";
 import { Partner } from "@/components/sections/Partner";
-import { ValueProps } from "@/components/sections/ValueProps";
+import { Sustainability } from "@/components/sections/Sustainability";
 import { Footer } from "@/components/sections/Footer";
-import { Container } from "@/components/ui/Container";
-import { Section } from "@/components/ui/Section";
-import { Heading } from "@/components/ui/Heading";
 
+/**
+ * MKS landing page — sections composed in Figma order (file YMcjZDwEk3...):
+ *   1. Hero (1:43) — full-bleed image, centred H1 + CTAs
+ *   2. Certifications (1:69) — Sedex / WFTO logos
+ *   3. Story (1:75) — Family run, women led + workshop quote
+ *   4. Materials (1:87) — Your vision, our work · leather carousel
+ *   5. CategoryShowcase (1:100) — Bags / Belts / Scarves nav + image grid
+ *   6. Artisanal (1:141) — Honoring the Artisanal Path
+ *   7. WorkshopTeaser (1:162) — Our Processes and Practices
+ *   8. Partner (1:188) — Ready to Partner? · 3-card CTA
+ *   9. Sustainability (1:206) — 5-column values strip
+ *  10. Footer (1:254)
+ */
 export default function Home() {
   return (
     <main className="flex-1 w-full">
       <Hero />
       <Certifications />
-      <Capabilities />
-
-      {/* Materials section gets its own quiet block */}
-      <Section id="materials" className="bg-cream">
-        <Container className="v-pad-lg flex flex-col gap-[clamp(40px,5vw,80px)]">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:items-end">
-            <Heading variant="display-md" className="lg:col-span-7 text-clay-700">
-              Material library
-            </Heading>
-            <p className="lg:col-span-5 text-body-lg text-clay-700/75 max-w-[460px]">
-              Every project begins with the right hide or weave. Specify with
-              confidence — we stock a curated, responsibly sourced library.
-            </p>
-          </div>
-          <Materials />
-        </Container>
-      </Section>
-
-      <Customization />
+      <Story />
+      <Materials />
+      <CategoryShowcase />
+      <Artisanal />
       <WorkshopTeaser />
-      <BrandsTeaser />
       <Partner />
-      <ValueProps />
+      <Sustainability />
       <Footer />
     </main>
   );

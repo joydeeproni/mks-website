@@ -10,7 +10,7 @@ const CERTS = [
 
 export function Certifications() {
   return (
-    <Section className="bg-ivory border-y border-clay-700/8">
+    <Section snap={false} className="bg-ivory border-y border-clay-700/8">
       <Container className="flex flex-col items-center gap-[clamp(20px,3vw,48px)] py-[clamp(56px,8vw,120px)]">
         <p className="text-[11px] tracking-[0.2em] uppercase text-clay-700/55 font-bold">
           Independently audited &middot; certified &middot; trusted
