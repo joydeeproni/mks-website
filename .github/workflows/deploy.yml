@@ -37,6 +37,9 @@ jobs:
       - run: touch out/.nojekyll
 
       - uses: actions/configure-pages@v5
+        with:
+          # Auto-enable Pages with Actions as the source if not yet configured.
+          enablement: true
 
       - uses: actions/upload-pages-artifact@v3
         with:
