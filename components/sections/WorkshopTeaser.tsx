@@ -44,12 +44,18 @@ export function WorkshopTeaser() {
       <ProcessesParallax />
 
       {/* Mobile/tablet fallback */}
-      <div className="lg:hidden min-h-screen v-pad px-[var(--shell-pad)] flex flex-col gap-12 items-center justify-center">
-        <h2 className="font-display text-h2 text-white text-center">
-          Our <span className="italic">Processes</span>
-          <br />
-          and Practices
-        </h2>
+      <div className="lg:hidden min-h-screen v-pad px-[var(--shell-pad)] flex flex-col gap-10 items-center justify-center">
+        <div className="flex flex-col gap-5 items-center">
+          <h2 className="font-display text-h2 text-white text-center">
+            Slow craft,
+            <br />
+            <span className="italic">built to last</span>
+          </h2>
+          <p className="text-body text-white/85 text-center max-w-[440px]">
+            Each piece moves through six pairs of hands — the same patient
+            sequence we&apos;ve practised in Kolkata for two generations.
+          </p>
+        </div>
         <div className="grid grid-cols-2 gap-4 w-full">
           {TILES.map((t) => (
             <figure key={t.label} className="flex flex-col gap-3">
@@ -122,13 +128,17 @@ function ParallaxTitle({ progress }: { progress: MotionValue<number> }) {
   return (
     <motion.div
       style={{ opacity, x }}
-      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 px-6 will-change-transform pointer-events-none"
+      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 px-6 will-change-transform pointer-events-none flex flex-col gap-5 items-center"
     >
       <h2 className="font-display text-h2 text-white text-center whitespace-nowrap drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)]">
-        Our <span className="italic">Processes</span>
+        Slow craft,
         <br />
-        and Practices
+        <span className="italic">built to last</span>
       </h2>
+      <p className="text-body text-white/85 text-center max-w-[440px] drop-shadow-[0_2px_16px_rgba(0,0,0,0.6)]">
+        Each piece moves through six pairs of hands — the same patient
+        sequence we&apos;ve practised in Kolkata for two generations.
+      </p>
     </motion.div>
   );
 }

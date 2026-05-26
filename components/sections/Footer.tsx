@@ -37,7 +37,7 @@ const MATERIALS = [
 export function Footer() {
   return (
     <Section as="footer" snap={false} className="bg-black text-white">
-      <Container className="pt-[clamp(56px,8.3vw,120px)] pb-[clamp(40px,4vw,64px)] flex flex-col gap-[clamp(48px,5.5vw,80px)]">
+      <Container className="pt-[clamp(56px,8.3vw,120px)] pb-[clamp(40px,4vw,64px)] flex flex-col">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[clamp(40px,4.4vw,64px)]">
           {/* Partner Resources */}
           <div className="flex flex-col gap-[clamp(28px,3vw,42px)]">

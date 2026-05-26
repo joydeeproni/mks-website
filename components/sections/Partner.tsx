@@ -35,11 +35,12 @@ const CARDS = [
 export function Partner() {
   return (
     <Section id="partner" className="bg-white text-clay-900">
-      <Container className="v-pad flex flex-col gap-[clamp(56px,8.3vw,120px)]">
+      <Container className="min-h-screen v-pad flex flex-col justify-center gap-[clamp(48px,6vw,80px)]">
         <div className="flex flex-col gap-2">
           <h2 className="font-display text-h2 text-black">Ready to Partner?</h2>
-          <p className="text-body text-black">
-            Nisi et voluptate officia dolore dolor laborum ea.
+          <p className="text-body text-black/75 max-w-[520px]">
+            Three honest ways to begin — from a fast quote to a sample
+            in your hands, in days, not weeks.
           </p>
         </div>
 
