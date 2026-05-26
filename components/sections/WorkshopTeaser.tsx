@@ -123,23 +123,34 @@ function ProcessesParallax() {
 }
 
 function ParallaxTitle({ progress }: { progress: MotionValue<number> }) {
-  const opacity = useTransform(progress, [0, 0.55, 0.8], [1, 1, 0]);
-  const x = useTransform(progress, [0, 0.55, 1], ["0%", "0%", "-30%"]);
+  /* Fade out completely by progress 0.65 and stay invisible through to 1.
+     Past 0.7 also flip CSS visibility so the element is fully removed from
+     paint — protects against any motion/Lenis edge oscillation reviving it. */
+  const opacity = useTransform(progress, [0, 0.5, 0.65], [1, 1, 0]);
+  const x = useTransform(progress, [0, 0.5, 1], ["0%", "0%", "-30%"]);
+  const visibility = useTransform(progress, (v) =>
+    v > 0.7 ? "hidden" : "visible"
+  );
+  /* Outer div owns the CSS centering (Tailwind translate-x/y). The inner
+     motion.div owns the dynamic transforms — motion's style.x would otherwise
+     override the centering classes on the same element. */
   return (
-    <motion.div
-      style={{ opacity, x }}
-      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 px-6 will-change-transform pointer-events-none flex flex-col gap-5 items-center"
-    >
-      <h2 className="font-display text-h2 text-white text-center whitespace-nowrap drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)]">
-        Slow craft,
-        <br />
-        <span className="italic">built to last</span>
-      </h2>
-      <p className="text-body text-white/85 text-center max-w-[440px] drop-shadow-[0_2px_16px_rgba(0,0,0,0.6)]">
-        Each piece moves through six pairs of hands — the same patient
-        sequence we&apos;ve practised in Kolkata for two generations.
-      </p>
-    </motion.div>
+    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none">
+      <motion.div
+        style={{ opacity, x, visibility }}
+        className="px-6 will-change-transform flex flex-col gap-5 items-center"
+      >
+        <h2 className="font-display text-h2 text-white text-center whitespace-nowrap drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)]">
+          Slow craft,
+          <br />
+          <span className="italic">built to last</span>
+        </h2>
+        <p className="text-body text-white/85 text-center max-w-[440px] drop-shadow-[0_2px_16px_rgba(0,0,0,0.6)]">
+          Each piece moves through six pairs of hands — the same patient
+          sequence we&apos;ve practised in Kolkata for two generations.
+        </p>
+      </motion.div>
+    </div>
   );
 }
 
