@@ -116,11 +116,9 @@
   --foreground: var(--color-clay-700);
 }
 
-html {
-  /* Snap each section to the viewport — gentle proximity snap so scrolling
-     inside taller sections (e.g. the Processes parallax at ~300vh) stays free. */
-  scroll-snap-type: y proximity;
-}
+/* Scroll behavior is owned by Lenis (see ClientProviders) — no CSS snap, no
+   native smooth-scroll. Sections still use min-h-screen so each fills the
+   viewport; Lenis adds momentum/drag without locking the user mid-section. */
 
 html,
 body {
@@ -129,13 +127,6 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-}
-
-/* Respect user preference: no snap or fade animations. */
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-snap-type: none;
-  }
 }
 
 body {
