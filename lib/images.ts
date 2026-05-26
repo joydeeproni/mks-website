@@ -19,6 +19,10 @@ export const images = {
     src: local("DSCF3653.jpg"),
     alt: "Inside the MKS workshop in Kolkata",
   },
+  mksFounder: {
+    src: local("mks-founder.jpg"),
+    alt: "Mithu Dam, MKS founder, at an early craft fair stall — textiles, scarves and small leather goods on display.",
+  },
   artisanHands: {
     src: local("DSCF3691.jpg"),
     alt: "Artisan hand-stitching premium leather",

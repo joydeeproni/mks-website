@@ -33,13 +33,13 @@ export function Story() {
 
         <div className="relative h-[clamp(360px,55vw,800px)] w-full overflow-hidden">
           <Image
-            src={images.storyFloor.src}
-            alt={images.storyFloor.alt}
+            src={images.mksFounder.src}
+            alt={images.mksFounder.alt}
             fill
             sizes="100vw"
-            className="object-cover"
+            className="object-cover object-[center_30%]"
           />
-          <div className="absolute inset-0 bg-black/20" />
+          <div className="absolute inset-0 bg-black/35" />
           <div className="absolute inset-0 flex flex-col justify-end p-[clamp(20px,2.5vw,40px)] text-white gap-4">
             <blockquote className="font-display italic text-quote font-light max-w-[min(671px,90%)]">
               &ldquo;Our mission is to create job opportunities for economically
