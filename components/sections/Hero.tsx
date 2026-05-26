@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { Section } from "@/components/ui/Section";
@@ -13,13 +12,15 @@ export function Hero() {
   return (
     <Section fade={false} className="relative isolate overflow-hidden text-white">
       <div aria-hidden className="absolute inset-0 -z-10">
-        <Image
-          src={images.heroWorkshop.src}
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
+        <video
+          src="/mks-videoreel.mp4"
+          poster={images.heroWorkshop.src}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          className="absolute inset-0 w-full h-full object-cover"
           style={{ objectPosition: "center 30%" }}
         />
         <div className="absolute inset-0 bg-black/30" />
