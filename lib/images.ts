@@ -1,31 +1,81 @@
-// Curated Unsplash photos for the MKS landing page. Each entry has been
-// chosen to stay within the brand's leather / workshop / soft-goods world.
+// Image library for the MKS landing page.
+// Workshop / process photos are real shots from the MKS workshop in Kolkata,
+// served from /public/photos/. Finished-product imagery (bags, small leather
+// goods, soft accessories) is still Unsplash placeholder until real product
+// photography is available.
+
+const local = (filename: string) => `/photos/${filename}`;
 
 const u = (id: string, w = 1600) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
 
 export const images = {
-  // Hero & workshop
+  // ===== Workshop / atmospheric =====
   heroWorkshop: {
-    src: u("photo-1559563458-527698bf5295", 2400),
-    alt: "",
+    src: local("DSCF3637.jpg"),
+    alt: "MKS workshop sewing floor, Kolkata",
   },
   storyFloor: {
-    src: u("photo-1622560480605-d83c853bc5c3", 2000),
+    src: local("DSCF3653.jpg"),
     alt: "Inside the MKS workshop in Kolkata",
   },
-
-  // Artisanal
   artisanHands: {
-    src: u("photo-1452860606245-08befc0ff44b", 2000),
-    alt: "Artisan hands stitching premium leather",
+    src: local("DSCF3691.jpg"),
+    alt: "Artisan hand-stitching premium leather",
   },
   leatherMacro: {
-    src: u("photo-1620966408969-b2a2bb1e9cd3", 1000),
-    alt: "Macro leather texture",
+    src: local("DSCF3589.jpg"),
+    alt: "Folded full-grain leather hides",
   },
 
-  // Bags — varied product photos
+  // ===== Process tiles — Our Processes and Practices =====
+  processLeatherSelection: {
+    src: local("DSCF3597.jpg"),
+    alt: "Selecting full-grain leather hides",
+  },
+  processEdgeFinishing: {
+    src: local("DSCF3711.jpg"),
+    alt: "Hand-finishing the edge of a leather piece",
+  },
+  processHandStitching: {
+    src: local("DSCF3686.jpg"),
+    alt: "Saddle-stitching a leather seam by hand",
+  },
+  processWorkshopWall: {
+    src: local("DSCF3753.jpg"),
+    alt: "Workshop interior — quality check station",
+  },
+  processTheBench: {
+    src: local("DSCF3470.jpg"),
+    alt: "Pattern cutting at the workbench",
+  },
+  processArtisanFocus: {
+    src: local("DSCF3553.jpg"),
+    alt: "Artisan finishing dyed leather pieces",
+  },
+
+  // ===== Customization / material details (Materials carousel) =====
+  customStitch: {
+    src: local("DSCF3697.jpg"),
+    alt: "Stitching detail on a leather panel",
+  },
+  customHardware: {
+    src: local("DSCF3613.jpg"),
+    alt: "Smooth tan leather hide",
+  },
+  customEmboss: {
+    src: local("DSCF3705.jpg"),
+    alt: "Embossed hide detail",
+  },
+
+  // ===== Sustainability =====
+  sustainability: {
+    src: local("DSCF3593.jpg"),
+    alt: "Vegetable-tanned leather, natural finish",
+  },
+
+  // ===== Finished products — Unsplash placeholders until real shots arrive =====
+  // Bags
   bagTote: { src: u("photo-1584917865442-de89df76afd3", 1400), alt: "Leather tote" },
   bagBackpack: { src: u("photo-1553062407-98eeb64c6a62"), alt: "Leather backpack" },
   bagCrossbody: { src: u("photo-1591348122449-02525d70379b"), alt: "Crossbody bag" },
@@ -51,18 +101,7 @@ export const images = {
   softTote: { src: u("photo-1582510003544-4d00b7f74220"), alt: "Canvas tote" },
   softBandana: { src: u("photo-1599643477877-530eb83abc8e"), alt: "Bandana" },
 
-  // Customization / details
-  customStitch: { src: u("photo-1473496169904-658ba7c44d8a"), alt: "Stitching detail" },
-  customHardware: { src: u("photo-1620966408969-b2a2bb1e9cd3"), alt: "Hardware detail" },
-  customEmboss: { src: u("photo-1606107557195-0e29a4b5b4aa"), alt: "Embossing detail" },
-
-  // Sustainability
-  sustainability: {
-    src: u("photo-1604176354204-9268737828e4", 1600),
-    alt: "Natural vegetable-tanned leather",
-  },
-
-  // Past work
+  // Past work (used by /brands)
   workServv: {
     src: u("photo-1590874103328-eac38a683ce7", 1600),
     alt: "Tote bag for SERRV International",

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
+import { Button } from "@/components/ui/Button";
 import { NewsletterForm } from "@/components/sections/NewsletterForm";
 
 /**
@@ -46,12 +47,9 @@ export function Footer() {
             <ul className="flex flex-wrap gap-3">
               {HELP.map((label) => (
                 <li key={label}>
-                  <Link
-                    href="#"
-                    className="inline-flex items-center justify-center border border-white rounded-full px-7 py-2 text-button font-bold text-white hover:bg-white hover:text-black transition-colors"
-                  >
+                  <Button href="#" variant="pill" tone="light">
                     {label}
-                  </Link>
+                  </Button>
                 </li>
               ))}
             </ul>

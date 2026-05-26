@@ -1,5 +1,6 @@
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
+import { Button } from "@/components/ui/Button";
 
 const ITEMS = [
   {
@@ -118,12 +119,14 @@ export function ValueProps() {
               <p className="text-[clamp(20px,2.3vw,32px)] leading-[1.1] font-normal">
                 {item.label}
               </p>
-              <a
+              <Button
                 href="#"
-                className="mt-auto pt-2 text-[14px] font-bold link-button"
+                variant="link"
+                tone="light"
+                className="mt-auto pt-2"
               >
                 {item.cta}
-              </a>
+              </Button>
             </li>
           ))}
         </ul>

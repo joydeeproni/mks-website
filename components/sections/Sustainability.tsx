@@ -1,5 +1,6 @@
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
+import { Button } from "@/components/ui/Button";
 
 /**
  * Sustainability / values strip — Figma 1:206.
@@ -53,12 +54,14 @@ export function Sustainability() {
                 <it.icon />
                 <p className="text-body text-white">{it.body}</p>
               </div>
-              <a
+              <Button
                 href={it.href}
-                className="font-bold text-button text-white link-button self-start"
+                variant="link"
+                tone="light"
+                className="self-start"
               >
                 {it.link}
-              </a>
+              </Button>
             </li>
           ))}
         </ul>

@@ -1,9 +1,11 @@
 "use client";
 
+import { Button } from "@/components/ui/Button";
+
 export function NewsletterForm() {
   return (
     <form
-      className="flex flex-col gap-[12px] w-full max-w-[420px]"
+      className="flex flex-col gap-3 w-full max-w-[420px]"
       onSubmit={(e) => e.preventDefault()}
     >
       <label className="sr-only" htmlFor="newsletter-email">
@@ -14,14 +16,11 @@ export function NewsletterForm() {
         type="email"
         required
         placeholder="you@studio.com"
-        className="bg-transparent border border-white/40 rounded-sm px-[16px] py-[14px] text-[16px] text-white placeholder:text-white/40 focus:outline-none focus:border-white"
+        className="bg-transparent border border-white/40 rounded-sm px-4 py-3.5 text-body text-white placeholder:text-white/40 focus:outline-none focus:border-white"
       />
-      <button
-        type="submit"
-        className="bg-white text-black px-[20px] py-[14px] text-[16px] font-bold tracking-[-0.16px] hover:bg-white/90 self-start"
-      >
+      <Button type="submit" variant="solid" tone="light" className="self-start">
         Subscribe
-      </button>
+      </Button>
     </form>
   );
 }

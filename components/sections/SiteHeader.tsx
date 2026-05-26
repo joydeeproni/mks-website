@@ -35,7 +35,7 @@ export function SiteHeader({
         <Link href="/" aria-label="MKS — home" className="flex items-center">
           <Logo className="h-10 md:h-12 w-auto" />
         </Link>
-        <nav className="hidden lg:flex items-center gap-[clamp(28px,4vw,56px)] text-[15px] font-bold tracking-[-0.16px]">
+        <nav className="hidden lg:flex items-center gap-[clamp(28px,4vw,56px)] text-button font-bold">
           {NAV.map((item) => (
             <Link key={item.href} href={item.href} className="link-button">
               {item.label}

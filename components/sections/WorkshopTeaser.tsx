@@ -21,12 +21,12 @@ import { images } from "@/lib/images";
  * Mobile (<lg): static 2-col grid.
  */
 const TILES = [
-  { label: "Leather Selection", img: images.customStitch, w: 420, h: 560, depth: 0.55 },
-  { label: "Edge Finishing", img: images.customHardware, w: 380, h: 460, depth: 1.0 },
-  { label: "Hand Stitching", img: images.artisanHands, w: 480, h: 620, depth: 0.4 },
-  { label: "Workshop Wall", img: images.storyFloor, w: 400, h: 500, depth: 1.2 },
-  { label: "The Bench", img: images.customEmboss, w: 360, h: 440, depth: 0.7 },
-  { label: "Artisan Focus", img: images.leatherMacro, w: 440, h: 540, depth: 0.9 },
+  { label: "Leather Selection", img: images.processLeatherSelection, w: 420, h: 560, depth: 0.55 },
+  { label: "Edge Finishing", img: images.processEdgeFinishing, w: 380, h: 460, depth: 1.0 },
+  { label: "Hand Stitching", img: images.processHandStitching, w: 480, h: 620, depth: 0.4 },
+  { label: "Workshop Wall", img: images.processWorkshopWall, w: 400, h: 500, depth: 1.2 },
+  { label: "The Bench", img: images.processTheBench, w: 360, h: 440, depth: 0.7 },
+  { label: "Artisan Focus", img: images.processArtisanFocus, w: 440, h: 540, depth: 0.9 },
 ];
 
 /* Tile container width (vw). 35vw → ~2.5 tiles visible across a 1440 viewport. */
