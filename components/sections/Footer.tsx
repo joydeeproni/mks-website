@@ -2,26 +2,26 @@ import Link from "next/link";
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { NewsletterForm } from "@/components/sections/NewsletterForm";
+import { Logo } from "@/components/ui/Logo";
+import { BrochureForm } from "@/components/sections/NewsletterForm";
 
 /**
- * Footer — Figma 1:254.
- * Section bg black. 3-column grid:
- *   1. Need Help? — heading + 8 pill buttons (1px white border, rounded-30) + body.
- *   2. Products + Materials — two stacked link lists.
- *   3. Newsletter Signup — heading + body + Input Field.
- * Bottom row: copyright (#ccc) + language switcher.
- * Mobile: columns stack.
+ * Footer — bg black, 3-column grid.
+ *   1. Partner Resources — B2B-relevant pill links (Capabilities, MOQ, sampling, white label…)
+ *   2. Products + Materials — two stacked link lists
+ *   3. Get Brochure Sample — heading + body + email form
+ * Big brand mark sits above the bottom row (copyright + language).
+ * Footer fades in subtly as it scrolls into view (Section default).
  */
-const HELP = [
-  "Help Center",
-  "Order Status",
-  "Size & Fit Guide",
-  "Returns & Exchanges",
-  "DIY Care & Repair",
-  "Trade In. Get Credit.",
-  "Login",
-  "Accessibility Statement",
+const PARTNER_RESOURCES = [
+  "Our Capabilities",
+  "Production Process",
+  "Materials Library",
+  "MOQ & Lead Times",
+  "White Label",
+  "Custom Design",
+  "Request a Sample",
+  "Certifications",
 ];
 
 const PRODUCTS = ["Bags", "Belts", "Scarves", "Accessories", "Misc."];
@@ -36,16 +36,16 @@ const MATERIALS = [
 
 export function Footer() {
   return (
-    <Section as="footer" snap={false} fade={false} className="bg-black text-white">
-      <Container className="pt-[clamp(56px,8.3vw,120px)] pb-[clamp(48px,6vw,80px)] flex flex-col gap-[clamp(64px,7vw,96px)]">
+    <Section as="footer" snap={false} className="bg-black text-white">
+      <Container className="pt-[clamp(56px,8.3vw,120px)] pb-[clamp(40px,4vw,64px)] flex flex-col gap-[clamp(48px,5.5vw,80px)]">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[clamp(40px,4.4vw,64px)]">
-          {/* Need Help? */}
+          {/* Partner Resources */}
           <div className="flex flex-col gap-[clamp(28px,3vw,42px)]">
             <h3 className="font-sans font-bold text-body text-white">
-              Need Help?
+              Partner Resources
             </h3>
             <ul className="flex flex-wrap gap-3">
-              {HELP.map((label) => (
+              {PARTNER_RESOURCES.map((label) => (
                 <li key={label}>
                   <Button href="#" variant="pill" tone="light">
                     {label}
@@ -53,10 +53,10 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-            <div className="flex flex-col gap-4 text-caption text-white max-w-[420px]">
+            <div className="flex flex-col gap-4 text-caption text-white/85 max-w-[420px]">
               <p>
                 Visit us in Kolkata or schedule a live walkthrough of the
-                workshop — we are happy to host.
+                workshop — we&apos;re happy to host.
               </p>
               <p>Mon – Fri · 9am to 6pm IST</p>
             </div>
@@ -68,22 +68,29 @@ export function Footer() {
             <FooterColumn title="Materials" items={MATERIALS} />
           </div>
 
-          {/* Newsletter */}
+          {/* Get Brochure Sample */}
           <div className="flex flex-col gap-[clamp(24px,3vw,48px)]">
             <h3 className="font-sans font-bold text-body text-white">
-              Newsletter Signup
+              Get Brochure Sample
             </h3>
-            <p className="text-caption text-white max-w-[420px]">
-              Quarterly notes from the workshop — process essays, new
-              materials and partner stories. No marketing fluff.
+            <p className="text-caption text-white/85 max-w-[420px]">
+              See what we make. Drop your email and we&apos;ll send our
+              capabilities brochure — full product range, materials, MOQs,
+              lead times, and past partner work — in minutes.
             </p>
-            <NewsletterForm />
+            <BrochureForm />
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        {/* Big brand mark */}
+        <div className="flex justify-center md:justify-end">
+          <Logo className="h-32 md:h-44 lg:h-52 w-auto text-white" />
+        </div>
+
+        {/* Bottom row — copyright + language */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-[clamp(20px,2vw,28px)] border-t border-white/10">
           <p className="text-body text-fog">
-            © {new Date().getFullYear()} MKS, Inc. All Rights Reserved.
+            © {new Date().getFullYear()} MKS Exports, Inc. All Rights Reserved.
           </p>
           <div className="flex items-center gap-2 text-body text-white">
             <span>English</span>
@@ -102,10 +109,7 @@ function FooterColumn({ title, items }: { title: string; items: string[] }) {
       <ul className="flex flex-col gap-3">
         {items.map((label) => (
           <li key={label}>
-            <Link
-              href="#"
-              className="text-body text-white link-button"
-            >
+            <Link href="#" className="text-body text-white link-button">
               {label}
             </Link>
           </li>

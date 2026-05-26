@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
@@ -111,28 +112,47 @@ export function CategoryShowcase() {
             </ul>
           </nav>
 
-          {/* Right tile grid */}
-          <div className="flex-1 w-full grid grid-cols-1 sm:grid-cols-2 gap-8 self-stretch">
-            {active.tiles.map((t) => (
-              <div
-                key={t.label}
-                className={`relative aspect-[336/400] flex items-center justify-center p-6 overflow-hidden ${
-                  t.tone === "clay" ? "bg-clay-500" : "bg-mist"
-                }`}
+          {/* Right tile grid — fades + staggers when active category changes */}
+          <div className="flex-1 w-full self-stretch">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeKey}
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+                variants={{
+                  hidden: { transition: { staggerChildren: 0.04, staggerDirection: -1 } },
+                  visible: { transition: { staggerChildren: 0.06, delayChildren: 0.05 } },
+                }}
+                className="grid grid-cols-1 sm:grid-cols-2 gap-8"
               >
-                <Image
-                  src={t.img.src}
-                  alt={t.img.alt}
-                  fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 336px"
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-black/15" />
-                <h3 className="relative font-display text-h3 text-white text-center">
-                  {t.label}
-                </h3>
-              </div>
-            ))}
+                {active.tiles.map((t) => (
+                  <motion.div
+                    key={t.label}
+                    variants={{
+                      hidden: { opacity: 0, y: 16 },
+                      visible: { opacity: 1, y: 0 },
+                    }}
+                    transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                    className={`relative aspect-[336/400] flex items-center justify-center p-6 overflow-hidden ${
+                      t.tone === "clay" ? "bg-clay-500" : "bg-mist"
+                    }`}
+                  >
+                    <Image
+                      src={t.img.src}
+                      alt={t.img.alt}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 336px"
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/15" />
+                    <h3 className="relative font-display text-h3 text-white text-center">
+                      {t.label}
+                    </h3>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
       </Container>
