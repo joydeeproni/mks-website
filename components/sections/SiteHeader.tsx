@@ -5,14 +5,7 @@ import { useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { Logo } from "@/components/ui/Logo";
-
-const NAV = [
-  { href: "/#values", label: "Values" },
-  { href: "/#story", label: "Story" },
-  { href: "/brands", label: "Brands" },
-  { href: "/#materials", label: "Materials" },
-  { href: "/#products", label: "Products" },
-];
+import { useT } from "@/components/LanguageProvider";
 
 type Tone = "light" | "dark";
 
@@ -23,6 +16,14 @@ export function SiteHeader({
   tone?: Tone;
   absolute?: boolean;
 }) {
+  const t = useT();
+  const NAV = [
+    { href: "/#values", label: t.nav.values },
+    { href: "/#story", label: t.nav.story },
+    { href: "/brands", label: t.nav.brands },
+    { href: "/#materials", label: t.nav.materials },
+    { href: "/#products", label: t.nav.products },
+  ];
   const [open, setOpen] = useState(false);
   const textClass = tone === "light" ? "text-white" : "text-clay-700";
   const dividerClass = tone === "light" ? "border-white/10" : "border-clay-700/10";
@@ -44,7 +45,7 @@ export function SiteHeader({
         </nav>
         <div className="hidden lg:block">
           <Button href="/#partner" variant="link" tone={tone} size="md">
-            Get Quote
+            {t.nav.getQuote}
           </Button>
         </div>
         <button
@@ -95,7 +96,7 @@ export function SiteHeader({
               tone={tone}
               className="mt-3 self-start"
             >
-              Get Quote
+              {t.nav.getQuote}
             </Button>
           </Container>
         </div>

@@ -15,14 +15,15 @@ import {
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { useT } from "@/components/LanguageProvider";
 import { images } from "@/lib/images";
 
-const LEATHERS = [
-  { label: "Full Grain Leather", img: images.leatherMacro },
-  { label: "Smooth Leather", img: images.customHardware },
-  { label: "Shanti Leather", img: images.customStitch },
-  { label: "Vegetable Tanned", img: images.sustainability },
-  { label: "Embossed Hide", img: images.customEmboss },
+const LEATHER_IMAGES = [
+  images.leatherMacro,
+  images.customHardware,
+  images.customStitch,
+  images.sustainability,
+  images.customEmboss,
 ];
 
 /* Number of strip copies in the DOM. 4 copies give enough overlap that the
@@ -37,17 +38,20 @@ const REPEATS = 4;
  * back to the gentle baseline drift.
  */
 export function Materials() {
+  const t = useT();
   return (
     <Section id="materials" className="bg-cream text-clay-700">
       <Container className="pt-[clamp(64px,11vw,160px)]">
         <SectionHeader
           heading={
             <>
-              Your <span className="italic">vision</span>,<br />
-              our work
+              {t.materials.lead}{" "}
+              <span className="italic">{t.materials.italic}</span>,
+              <br />
+              {t.materials.tail}
             </>
           }
-          body="Premium materials sourced from heritage tanneries and trusted partners. Specify with confidence — every hide is documented end-to-end."
+          body={t.materials.body}
         />
       </Container>
 
@@ -60,6 +64,14 @@ export function Materials() {
 }
 
 function MarqueeStrip() {
+  const t = useT();
+  const leathers = [
+    { label: t.materials.fullGrain, img: LEATHER_IMAGES[0] },
+    { label: t.materials.smooth, img: LEATHER_IMAGES[1] },
+    { label: t.materials.shanti, img: LEATHER_IMAGES[2] },
+    { label: t.materials.vegTanned, img: LEATHER_IMAGES[3] },
+    { label: t.materials.embossed, img: LEATHER_IMAGES[4] },
+  ];
   const baseX = useMotionValue(0);
   const { scrollY } = useScroll();
   const scrollVelocity = useVelocity(scrollY);
@@ -107,7 +119,7 @@ function MarqueeStrip() {
       className="flex gap-8 lg:gap-12 w-max will-change-transform"
     >
       {Array.from({ length: REPEATS }).flatMap((_, copy) =>
-        LEATHERS.map((m, i) => (
+        leathers.map((m, i) => (
           <li
             key={`${copy}-${i}`}
             className="shrink-0 w-[clamp(280px,28vw,420px)] flex flex-col gap-4"

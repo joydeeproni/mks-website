@@ -6,70 +6,60 @@ import { AnimatePresence, motion } from "motion/react";
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { useT } from "@/components/LanguageProvider";
 import { images } from "@/lib/images";
 
-type Category = {
-  key: string;
-  label: string;
-  description: string;
-  tiles: { label: string; img: { src: string; alt: string }; tone: "cream" | "clay" }[];
-};
+type Tile = { label: string; img: { src: string; alt: string }; tone: "cream" | "clay" };
+type Category = { key: string; label: string; description: string; tiles: Tile[] };
 
-const CATEGORIES: Category[] = [
-  {
-    key: "bags",
-    label: "Bags",
-    description:
-      "Handcrafted leather totes, slings, messengers, and more — built for daily use, designed for your brand.",
-    tiles: [
-      { label: "Hand Bags", img: images.bagHobo, tone: "cream" },
-      { label: "Tote Bags", img: images.bagTote, tone: "clay" },
-      { label: "Sling Bags", img: images.bagSling, tone: "cream" },
-      { label: "Messenger Bags", img: images.bagBriefcase, tone: "clay" },
-      { label: "Backpacks", img: images.bagBackpack, tone: "cream" },
-      { label: "Weekenders", img: images.bagWeekender, tone: "clay" },
-    ],
-  },
-  {
-    key: "belts",
-    label: "Belts",
-    description:
-      "Saddle-stitched belts in vegetable-tanned hides, brass and steel hardware.",
-    tiles: [
-      { label: "Dress Belts", img: images.sgBeltStrap, tone: "cream" },
-      { label: "Casual Straps", img: images.customStitch, tone: "clay" },
-    ],
-  },
-  {
-    key: "scarves",
-    label: "Scarves",
-    description: "Soft-goods crafted in partnership with Indian textile artisans.",
-    tiles: [{ label: "Scarves", img: images.softScarf, tone: "cream" }],
-  },
-  {
-    key: "accessories",
-    label: "Accessories",
-    description: "Wallets, cardholders, journals, and small leather goods.",
-    tiles: [
-      { label: "Wallets", img: images.sgWallet, tone: "cream" },
-      { label: "Journals", img: images.sgJournal, tone: "clay" },
-    ],
-  },
-  {
-    key: "misc",
-    label: "Misc.",
-    description: "Specialty items, prototypes, and seasonal pieces.",
-    tiles: [],
-  },
-];
-
-/**
- * Category showcase — Figma 1:100.
- * Left column: active category at top (label + description + Learn More),
- * inactive categories pinned at the bottom of the column via flex justify-between.
- * Right column: 2-col image grid of the active category's tiles.
- */
 export function CategoryShowcase() {
+  const t = useT();
+  const CATEGORIES: Category[] = [
+    {
+      key: "bags",
+      label: t.categories.bags.label,
+      description: t.categories.bags.description,
+      tiles: [
+        { label: t.categories.tiles.handBags, img: images.bagHobo, tone: "cream" },
+        { label: t.categories.tiles.toteBags, img: images.bagTote, tone: "clay" },
+        { label: t.categories.tiles.slingBags, img: images.bagSling, tone: "cream" },
+        { label: t.categories.tiles.messengerBags, img: images.bagBriefcase, tone: "clay" },
+        { label: t.categories.tiles.backpacks, img: images.bagBackpack, tone: "cream" },
+        { label: t.categories.tiles.weekenders, img: images.bagWeekender, tone: "clay" },
+      ],
+    },
+    {
+      key: "belts",
+      label: t.categories.belts.label,
+      description: t.categories.belts.description,
+      tiles: [
+        { label: t.categories.tiles.dressBelts, img: images.sgBeltStrap, tone: "cream" },
+        { label: t.categories.tiles.casualStraps, img: images.customStitch, tone: "clay" },
+      ],
+    },
+    {
+      key: "scarves",
+      label: t.categories.scarves.label,
+      description: t.categories.scarves.description,
+      tiles: [{ label: t.categories.tiles.scarves, img: images.softScarf, tone: "cream" }],
+    },
+    {
+      key: "accessories",
+      label: t.categories.accessories.label,
+      description: t.categories.accessories.description,
+      tiles: [
+        { label: t.categories.tiles.wallets, img: images.sgWallet, tone: "cream" },
+        { label: t.categories.tiles.journals, img: images.sgJournal, tone: "clay" },
+      ],
+    },
+    {
+      key: "misc",
+      label: t.categories.misc.label,
+      description: t.categories.misc.description,
+      tiles: [],
+    },
+  ];
+
   const [activeKey, setActiveKey] = useState("bags");
   const active = CATEGORIES.find((c) => c.key === activeKey) ?? CATEGORIES[0];
   const inactive = CATEGORIES.filter((c) => c.key !== activeKey);
@@ -78,9 +68,7 @@ export function CategoryShowcase() {
     <Section id="products" className="bg-cream text-clay-800">
       <Container className="v-pad min-h-screen flex">
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-[clamp(48px,11vw,155px)] items-stretch w-full">
-          {/* Left column: active at top, inactive list pinned at bottom */}
           <nav className="w-full lg:w-[337px] shrink-0 flex flex-col justify-between gap-12">
-            {/* Active category — top */}
             <div className="flex flex-col gap-6">
               <h3 className="font-sans text-h4 text-clay-800 font-bold">
                 {active.label}
@@ -92,11 +80,10 @@ export function CategoryShowcase() {
                 tone="dark"
                 className="self-start text-black"
               >
-                Learn More
+                {t.categories.learnMore}
               </Button>
             </div>
 
-            {/* Inactive categories — bottom */}
             <ul className="flex flex-col gap-6 lg:gap-8">
               {inactive.map((c) => (
                 <li key={c.key}>
@@ -112,7 +99,6 @@ export function CategoryShowcase() {
             </ul>
           </nav>
 
-          {/* Right tile grid — fades + staggers when active category changes */}
           <div className="flex-1 w-full self-stretch">
             <AnimatePresence mode="wait">
               <motion.div
@@ -126,28 +112,28 @@ export function CategoryShowcase() {
                 }}
                 className="grid grid-cols-1 sm:grid-cols-2 gap-8"
               >
-                {active.tiles.map((t) => (
+                {active.tiles.map((tile) => (
                   <motion.div
-                    key={t.label}
+                    key={tile.label}
                     variants={{
                       hidden: { opacity: 0, y: 16 },
                       visible: { opacity: 1, y: 0 },
                     }}
                     transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
                     className={`relative aspect-[336/400] flex items-center justify-center p-6 overflow-hidden ${
-                      t.tone === "clay" ? "bg-clay-500" : "bg-mist"
+                      tile.tone === "clay" ? "bg-clay-500" : "bg-mist"
                     }`}
                   >
                     <Image
-                      src={t.img.src}
-                      alt={t.img.alt}
+                      src={tile.img.src}
+                      alt={tile.img.alt}
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 336px"
                       className="object-cover"
                     />
                     <div className="absolute inset-0 bg-black/15" />
                     <h3 className="relative font-display text-h3 text-white text-center">
-                      {t.label}
+                      {tile.label}
                     </h3>
                   </motion.div>
                 ))}

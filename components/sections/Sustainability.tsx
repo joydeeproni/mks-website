@@ -1,46 +1,20 @@
+"use client";
+
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-
-/**
- * Sustainability / values strip — Figma 1:206.
- * Section bg black. 5 columns: 44px icon + 20/30 body + 16/700 link CTA.
- * Each column min-h 226. Wraps 5→2 on tablet, 2→1 on mobile.
- */
-const ITEMS = [
-  {
-    icon: IconShield,
-    body: "Fairly paid artisans, aligned with WFTO.",
-    link: "View Ironclad Guarantee",
-    href: "#wfto",
-  },
-  {
-    icon: IconShield,
-    body: "Sedex 5-pillar certified facility.",
-    link: "View Audit Summary",
-    href: "#sedex",
-  },
-  {
-    icon: IconHands,
-    body: "No child labor, forced work or discrimination",
-    link: "Visit Worn Wear",
-    href: "#labor",
-  },
-  {
-    icon: IconLeaf,
-    body: "A vision towards community and rehabilitation",
-    link: "Read Our Commitment",
-    href: "#community",
-  },
-  {
-    icon: IconLeaf,
-    body: "Vegetable-tanned leather, zero-waste patterning",
-    link: "Read Our Commitment",
-    href: "#sustainability",
-  },
-];
+import { useT } from "@/components/LanguageProvider";
 
 export function Sustainability() {
+  const t = useT();
+  const ITEMS = [
+    { icon: IconShield, ...t.sustainability.fairlyPaid, href: "#wfto" },
+    { icon: IconShield, ...t.sustainability.sedexCert, href: "#sedex" },
+    { icon: IconHands, ...t.sustainability.noChildLabor, href: "#labor" },
+    { icon: IconLeaf, ...t.sustainability.community, href: "#community" },
+    { icon: IconLeaf, ...t.sustainability.vegTanned, href: "#sustainability" },
+  ];
+
   return (
     <Section id="values" snap={false} className="bg-black text-white">
       <Container className="py-[clamp(64px,7.2vw,104px)]">

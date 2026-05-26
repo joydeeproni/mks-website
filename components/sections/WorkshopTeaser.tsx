@@ -4,6 +4,8 @@ import Image from "next/image";
 import { useRef } from "react";
 import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
 import { Section } from "@/components/ui/Section";
+import { useT } from "@/components/LanguageProvider";
+import type { Dictionary } from "@/lib/i18n";
 import { images } from "@/lib/images";
 
 /**
@@ -20,14 +22,25 @@ import { images } from "@/lib/images";
  *
  * Mobile (<lg): static 2-col grid.
  */
-const TILES = [
-  { label: "Leather Selection", img: images.processLeatherSelection, w: 420, h: 560, depth: 0.55 },
-  { label: "Edge Finishing", img: images.processEdgeFinishing, w: 380, h: 460, depth: 1.0 },
-  { label: "Hand Stitching", img: images.processHandStitching, w: 480, h: 620, depth: 0.4 },
-  { label: "Workshop Wall", img: images.processWorkshopWall, w: 400, h: 500, depth: 1.2 },
-  { label: "The Bench", img: images.processTheBench, w: 360, h: 440, depth: 0.7 },
-  { label: "Artisan Focus", img: images.processArtisanFocus, w: 440, h: 540, depth: 0.9 },
+type TileMeta = { img: { src: string; alt: string }; w: number; h: number; depth: number };
+const TILE_META: TileMeta[] = [
+  { img: images.processLeatherSelection, w: 420, h: 560, depth: 0.55 },
+  { img: images.processEdgeFinishing, w: 380, h: 460, depth: 1.0 },
+  { img: images.processHandStitching, w: 480, h: 620, depth: 0.4 },
+  { img: images.processWorkshopWall, w: 400, h: 500, depth: 1.2 },
+  { img: images.processTheBench, w: 360, h: 440, depth: 0.7 },
+  { img: images.processArtisanFocus, w: 440, h: 540, depth: 0.9 },
 ];
+function getTiles(t: Dictionary) {
+  return [
+    { ...TILE_META[0], label: t.workshop.tiles.leatherSelection },
+    { ...TILE_META[1], label: t.workshop.tiles.edgeFinishing },
+    { ...TILE_META[2], label: t.workshop.tiles.handStitching },
+    { ...TILE_META[3], label: t.workshop.tiles.workshopWall },
+    { ...TILE_META[4], label: t.workshop.tiles.theBench },
+    { ...TILE_META[5], label: t.workshop.tiles.artisanFocus },
+  ];
+}
 
 /* Tile container width (vw). 35vw → ~2.5 tiles visible across a 1440 viewport. */
 const TILE_W_VW = 35;
@@ -35,6 +48,8 @@ const GAP_VW = 10;
 const FIRST_TILE_OFFSET_VW = 18; // left padding before tile 0
 
 export function WorkshopTeaser() {
+  const t = useT();
+  const tiles = getTiles(t);
   return (
     <Section
       snap={false}
@@ -47,31 +62,32 @@ export function WorkshopTeaser() {
       <div className="lg:hidden min-h-screen v-pad px-[var(--shell-pad)] flex flex-col gap-10 items-center justify-center">
         <div className="flex flex-col gap-5 items-center">
           <h2 className="font-display text-h2 text-white text-center">
-            Slow craft,
+            {t.workshop.line1}
             <br />
-            <span className="italic">built to last</span>
+            <span className="italic">{t.workshop.italic}</span>
           </h2>
           <p className="text-body text-white/85 text-center max-w-[440px]">
-            Each piece moves through six pairs of hands — the same patient
-            sequence we&apos;ve practised in Kolkata for two generations.
+            {t.workshop.body}
           </p>
         </div>
         <div className="grid grid-cols-2 gap-4 w-full">
-          {TILES.map((t) => (
-            <figure key={t.label} className="flex flex-col gap-3">
+          {tiles.map((tile) => (
+            <figure key={tile.label} className="flex flex-col gap-3">
               <div
                 className="relative w-full overflow-hidden rounded-[2px] bg-clay-900"
-                style={{ aspectRatio: `${t.w}/${t.h}` }}
+                style={{ aspectRatio: `${tile.w}/${tile.h}` }}
               >
                 <Image
-                  src={t.img.src}
-                  alt={t.img.alt}
+                  src={tile.img.src}
+                  alt={tile.img.alt}
                   fill
                   sizes="50vw"
                   className="object-cover"
                 />
               </div>
-              <figcaption className="text-caption text-white">{t.label}</figcaption>
+              <figcaption className="text-caption text-white">
+                {tile.label}
+              </figcaption>
             </figure>
           ))}
         </div>
@@ -81,16 +97,14 @@ export function WorkshopTeaser() {
 }
 
 function ProcessesParallax() {
+  const t = useT();
+  const tiles = getTiles(t);
   const trackRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: trackRef,
     offset: ["start start", "end end"],
   });
 
-  /* Total ribbon width:
-     FIRST_TILE_OFFSET_VW + 6 tiles + 5 gaps + tail padding
-     = 18 + 6×35 + 5×10 + 30 = 308vw.
-     Translate the whole ribbon by ~-280vw so even the last tile clears the viewport. */
   const ribbonX = useTransform(scrollYProgress, [0, 1], ["0vw", "-280vw"]);
 
   return (
@@ -100,18 +114,16 @@ function ProcessesParallax() {
       style={{ minHeight: "350vh" }}
     >
       <div className="sticky top-0 h-screen overflow-hidden">
-        {/* Title sits above the ribbon, pinned centre, fades out at the end. */}
         <ParallaxTitle progress={scrollYProgress} />
 
-        {/* Horizontal ribbon of tiles */}
         <motion.div
           style={{ x: ribbonX, paddingLeft: `${FIRST_TILE_OFFSET_VW}vw` }}
           className="absolute inset-y-0 left-0 flex items-center will-change-transform"
         >
-          {TILES.map((t, i) => (
+          {tiles.map((tile, i) => (
             <ParallaxTile
-              key={t.label}
-              tile={t}
+              key={tile.label}
+              tile={tile}
               index={i}
               progress={scrollYProgress}
             />
@@ -123,6 +135,7 @@ function ProcessesParallax() {
 }
 
 function ParallaxTitle({ progress }: { progress: MotionValue<number> }) {
+  const t = useT();
   /* Fade out completely by progress 0.65 and stay invisible through to 1.
      Past 0.7 also flip CSS visibility so the element is fully removed from
      paint — protects against any motion/Lenis edge oscillation reviving it. */
@@ -131,9 +144,6 @@ function ParallaxTitle({ progress }: { progress: MotionValue<number> }) {
   const visibility = useTransform(progress, (v) =>
     v > 0.7 ? "hidden" : "visible"
   );
-  /* Outer div owns the CSS centering (Tailwind translate-x/y). The inner
-     motion.div owns the dynamic transforms — motion's style.x would otherwise
-     override the centering classes on the same element. */
   return (
     <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none">
       <motion.div
@@ -141,20 +151,19 @@ function ParallaxTitle({ progress }: { progress: MotionValue<number> }) {
         className="px-6 will-change-transform flex flex-col gap-5 items-center"
       >
         <h2 className="font-display text-h2 text-white text-center whitespace-nowrap drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)]">
-          Slow craft,
+          {t.workshop.line1}
           <br />
-          <span className="italic">built to last</span>
+          <span className="italic">{t.workshop.italic}</span>
         </h2>
         <p className="text-body text-white/85 text-center max-w-[440px] drop-shadow-[0_2px_16px_rgba(0,0,0,0.6)]">
-          Each piece moves through six pairs of hands — the same patient
-          sequence we&apos;ve practised in Kolkata for two generations.
+          {t.workshop.body}
         </p>
       </motion.div>
     </div>
   );
 }
 
-type Tile = (typeof TILES)[number];
+type Tile = ReturnType<typeof getTiles>[number];
 
 function ParallaxTile({
   tile,
@@ -197,7 +206,7 @@ function ParallaxTile({
         y,
         scale,
         width: `clamp(280px, ${TILE_W_VW}vw, ${tile.w}px)`,
-        marginRight: index < TILES.length - 1 ? `${GAP_VW}vw` : 0,
+        marginRight: index < TILE_META.length - 1 ? `${GAP_VW}vw` : 0,
       }}
       className={`shrink-0 flex flex-col gap-4 will-change-transform ${verticalAnchor}`}
     >

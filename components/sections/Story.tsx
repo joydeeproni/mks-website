@@ -1,16 +1,15 @@
+"use client";
+
 import Image from "next/image";
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Button } from "@/components/ui/Button";
+import { useT } from "@/components/LanguageProvider";
 import { images } from "@/lib/images";
 
-/**
- * Family run, women led — Figma 1:75.
- * Section bg clay-600. 6+6 asymmetric heading. Below: 800px-tall image with
- * a Hardcover Light Italic pull-quote + attribution overlaid at the bottom.
- */
 export function Story() {
+  const t = useT();
   return (
     <Section id="story" className="bg-clay-600 text-white">
       <Container className="v-pad flex flex-col gap-[clamp(64px,11vw,160px)]">
@@ -18,15 +17,20 @@ export function Story() {
           tone="light"
           heading={
             <>
-              Family run
+              {t.story.line1}
               <br />
-              <span className="italic">women</span> led
+              <span className="italic">{t.story.italic}</span> {t.story.line2}
             </>
           }
-          body="MKS is a second-generation, women-led leather goods manufacturer based in Kolkata, India. We work with brands of all sizes — from independent designers to global retailers."
+          body={t.story.body}
           cta={
-            <Button href="/about" variant="solid" tone="light" className="self-start">
-              Learn More
+            <Button
+              href="/about"
+              variant="solid"
+              tone="light"
+              className="self-start"
+            >
+              {t.story.learnMore}
             </Button>
           }
         />
@@ -42,12 +46,9 @@ export function Story() {
           <div className="absolute inset-0 bg-black/35" />
           <div className="absolute inset-0 flex flex-col justify-end p-[clamp(20px,2.5vw,40px)] text-white gap-4">
             <blockquote className="font-display italic text-quote font-light max-w-[min(671px,90%)]">
-              &ldquo;Our mission is to create job opportunities for economically
-              disadvantaged groups, helping them lead decent lives.&rdquo;
+              &ldquo;{t.story.quote}&rdquo;
             </blockquote>
-            <cite className="text-body not-italic">
-              Mithu Dam, Founder – MKS Exports
-            </cite>
+            <cite className="text-body not-italic">{t.story.attribution}</cite>
           </div>
         </div>
       </Container>
