@@ -3,6 +3,7 @@ import { Certifications } from "@/components/sections/Certifications";
 import { Story } from "@/components/sections/Story";
 import { Materials } from "@/components/sections/Materials";
 import { CategoryShowcase } from "@/components/sections/CategoryShowcase";
+import { ProductCarousel } from "@/components/sections/ProductCarousel";
 import { Artisanal } from "@/components/sections/Artisanal";
 import { WorkshopTeaser } from "@/components/sections/WorkshopTeaser";
 import { Partner } from "@/components/sections/Partner";
@@ -30,6 +31,7 @@ export default function Home() {
       <Story />
       <Materials />
       <CategoryShowcase />
+      <ProductCarousel />
       <Artisanal />
       <WorkshopTeaser />
       <Partner />

@@ -12,7 +12,7 @@ import { images } from "@/lib/images";
 export function Artisanal() {
   const t = useT();
   return (
-    <Section className="bg-clay-800 text-white mt-[clamp(48px,8vw,120px)]" fade={false}>
+    <Section className="bg-clay-800 text-white" fade={false}>
       <Container className="v-pad-lg flex flex-col gap-[clamp(64px,11vw,160px)]">
         {/* 1. Heading fades in first */}
         <FadeIn>

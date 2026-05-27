@@ -10,7 +10,7 @@ import { images } from "@/lib/images";
 export function Hero() {
   const t = useT();
   return (
-    <Section fade={false} className="relative isolate overflow-hidden text-white">
+    <Section fade={false} className="relative isolate overflow-hidden text-white min-h-dvh flex flex-col">
       <div aria-hidden className="absolute inset-0 -z-10">
         <video
           src="/mks-videoreel.mp4"
@@ -28,7 +28,7 @@ export function Hero() {
 
       <SiteHeader tone="light" />
 
-      <Container className="flex flex-col items-center justify-center text-center pt-[clamp(64px,9vw,120px)] pb-[clamp(96px,14vw,200px)]">
+      <Container className="flex-1 flex flex-col items-center justify-center text-center py-[clamp(48px,8vw,96px)]">
         <div className="flex flex-col gap-[clamp(40px,5vw,72px)] items-center max-w-[954px]">
           <div className="flex flex-col gap-2 items-center">
             <h1 className="font-display text-h1 text-balance max-w-[898px]">
