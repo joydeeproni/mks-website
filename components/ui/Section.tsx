@@ -20,7 +20,7 @@ export function Section({
   as: Component = "section",
   className,
   children,
-  snap = true,
+  snap = false,
   fade = true,
   ...props
 }: SectionProps) {

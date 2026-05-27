@@ -251,8 +251,8 @@ const en: Dictionary = {
       edgeFinishing: "Edge Finishing",
       handStitching: "Hand Stitching",
       workshopWall: "Workshop Wall",
-      theBench: "The Bench",
-      artisanFocus: "Artisan Focus",
+      theBench: "Handcrafting With Care",
+      artisanFocus: "Carefully Tested One By One",
     },
   },
   partner: {

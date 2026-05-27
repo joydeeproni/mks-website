@@ -81,7 +81,7 @@ export default function FairTradePage() {
   return (
     <main className="flex-1 w-full">
       {/* Hero */}
-      <Section className="relative isolate overflow-hidden text-white">
+      <Section snap={false} className="relative isolate overflow-hidden text-white">
         <div aria-hidden className="absolute inset-0 -z-10">
           <Image
             src={images.artisanBench.src}
@@ -133,7 +133,7 @@ export default function FairTradePage() {
       </Section>
 
       {/* The 10 Principles */}
-      <Section className="bg-ivory">
+      <Section snap={false} className="bg-ivory">
         <Container className="v-pad-lg flex flex-col gap-[clamp(40px,5vw,80px)]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:items-end">
             <Heading variant="h2" className="lg:col-span-7 text-clay-700">
@@ -178,7 +178,7 @@ export default function FairTradePage() {
       </Section>
 
       {/* Commitment */}
-      <Section className="bg-clay-600 text-white">
+      <Section snap={false} className="bg-clay-600 text-white">
         <Container className="v-pad-lg flex flex-col gap-[clamp(40px,5vw,80px)]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-[clamp(20px,2vw,32px)] lg:items-center">
             <div className="lg:col-span-6 flex flex-col gap-[clamp(20px,2.5vw,32px)]">

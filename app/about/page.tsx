@@ -116,7 +116,7 @@ export default function AboutPage() {
   return (
     <main className="flex-1 w-full">
       {/* ───── Hero: full-bleed black, big serif heading ───── */}
-      <Section className="bg-clay-900 text-white">
+      <Section snap={false} className="bg-clay-900 text-white">
         <SiteHeader tone="light" />
         <Container className="pt-[clamp(48px,6vw,96px)] pb-[clamp(80px,12vw,180px)] flex flex-col gap-[clamp(24px,3vw,40px)]">
           <p className="text-[12px] tracking-[0.22em] uppercase opacity-60 font-bold">
@@ -176,7 +176,7 @@ export default function AboutPage() {
       </Section>
 
       {/* ───── Origin Story: numbered sections (Paraform 01/02 pattern) ───── */}
-      <Section className="bg-ivory text-clay-700">
+      <Section snap={false} className="bg-ivory text-clay-700">
         <Container className="v-pad-lg flex flex-col gap-[clamp(64px,8vw,120px)]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-[clamp(24px,3vw,48px)]">
             {/* Left: heading + founder image */}
@@ -245,7 +245,7 @@ export default function AboutPage() {
       </Section>
 
       {/* ───── Vision: dark section ───── */}
-      <Section className="bg-clay-900 text-white">
+      <Section snap={false} className="bg-clay-900 text-white">
         <Container className="v-pad-lg flex flex-col gap-[clamp(48px,6vw,80px)]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-[clamp(20px,3vw,48px)]">
             <div className="lg:col-span-5 flex flex-col gap-[clamp(16px,2vw,28px)]">
@@ -279,7 +279,7 @@ export default function AboutPage() {
       </Section>
 
       {/* ───── Team grid ───── */}
-      <Section className="bg-ivory text-clay-700">
+      <Section snap={false} className="bg-ivory text-clay-700">
         <Container className="v-pad-lg flex flex-col gap-[clamp(48px,6vw,80px)]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:items-end">
             <Heading variant="h2" className="lg:col-span-7 text-clay-900">
@@ -347,7 +347,7 @@ export default function AboutPage() {
       </Section>
 
       {/* ───── Testimonials: dark editorial block ───── */}
-      <Section className="bg-clay-800 text-white">
+      <Section snap={false} className="bg-clay-800 text-white">
         <Container className="v-pad-lg flex flex-col gap-[clamp(48px,6vw,80px)]">
           <Heading variant="h2">
             What our partners
@@ -379,7 +379,7 @@ export default function AboutPage() {
       </Section>
 
       {/* ───── CTA: Paraform-style careers/contact block ───── */}
-      <Section className="bg-black text-white">
+      <Section snap={false} className="bg-black text-white">
         <Container className="v-pad-lg flex flex-col items-center text-center gap-[clamp(24px,3vw,40px)]">
           <h2 className="font-display text-[clamp(36px,5vw,80px)] leading-[1.1] tracking-[-0.02em] max-w-[800px]">
             Ready to make something{" "}

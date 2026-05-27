@@ -5,6 +5,8 @@
 // photography is available.
 
 const local = (filename: string) => `/photos/${filename}`;
+const stock = (filename: string) => `/photos/stock/${filename}`;
+const mat = (filename: string) => `/photos/materials/${filename}`;
 
 const u = (id: string, w = 1600) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
@@ -160,49 +162,82 @@ export const images = {
     alt: "The MKS team at the workshop",
   },
 
-  // ===== Finished products — Unsplash placeholders until real shots arrive =====
+  // ===== Material textures =====
+  matFullGrain: { src: mat("full-grain.jpg"), alt: "Full grain leather texture" },
+  matSmooth: { src: mat("smooth.jpg"), alt: "Smooth leather texture" },
+  matVegTanned: { src: mat("veg-tanned.jpg"), alt: "Vegetable tanned leather texture" },
+  matEmbossed: { src: mat("embossed.jpg"), alt: "Smooth tan leather" },
+  matKantha: { src: mat("kantha.jpg"), alt: "Knitted textile texture" },
+  matCanvas: { src: mat("canvas.jpg"), alt: "Canvas weave texture" },
+  matCotton: { src: mat("cotton.jpg"), alt: "Cotton corduroy texture" },
+  matShearling: { src: mat("shearling.jpg"), alt: "Shearling wool texture" },
+
+  // ===== Additional stock product shots (used on /products grid) =====
+  stockMessenger: { src: stock("085367CK10_front_wm_1.webp"), alt: "Leather messenger bag" },
+  stockLaptop: { src: stock("078391CKT3_front_wm_1.webp"), alt: "Leather laptop bag" },
+  stockBelt1: { src: stock("086704CK89_front_wm_1.webp"), alt: "Leather belt bag" },
+  stockBelt2: { src: stock("085741CK89_front_wm_1.webp"), alt: "Leather belt bag" },
+  stockBelt3: { src: stock("087968CC55_front_wm_1.webp"), alt: "Leather accessory" },
+  stockShoulder1: { src: stock("086958CK18_front_wm_1.webp"), alt: "Leather shoulder bag" },
+  stockShoulder2: { src: stock("086958CKT3_front_wm_1.webp"), alt: "Leather shoulder bag" },
+  stockClutch1: { src: stock("084948CP0G_front_wm_1.webp"), alt: "Ring handle clutch" },
+  stockClutch2: { src: stock("085760CKAE_front_wm_1.webp"), alt: "Leather clutch" },
+  stockClutch3: { src: stock("085871CKAE_front_wm_1.webp"), alt: "Leather clutch" },
+  stockPouch: { src: stock("087987CKH0_front_wm_1.webp"), alt: "Leather pouch" },
+  stockMini: { src: stock("085408CKAB_front_wm_1.webp"), alt: "Mini leather bag" },
+  stockTote2: { src: stock("084929CK6T_front_wm_1.webp"), alt: "Leather tote" },
+  stockBrief2: { src: stock("088004CK37_front_wm_1.webp"), alt: "Leather briefcase" },
+  stockCross2: { src: stock("086342CK18_front_wm_1.webp"), alt: "Leather crossbody" },
+  stockSatchel: { src: stock("086415CKV8_front_wm_1.webp"), alt: "Leather satchel" },
+  stockBag1: { src: stock("086915CK55_front_wm_1.webp"), alt: "Leather bag" },
+  stockBag2: { src: stock("087032CPAB_front_wm_1.webp"), alt: "Leather bag" },
+  stockBag3: { src: stock("087076CKAF_front_wm_1.webp"), alt: "Leather bag" },
+  stockBag4: { src: stock("086934CKAD_front_wm_1.webp"), alt: "Leather bag" },
+  stockBag5: { src: stock("088004CK89_front_wm_1.webp"), alt: "Leather bag" },
+
+  // ===== Finished products — stock photography =====
   // Bags
-  bagTote: { src: u("photo-1584917865442-de89df76afd3", 1400), alt: "Leather tote" },
-  bagBackpack: { src: u("photo-1553062407-98eeb64c6a62"), alt: "Leather backpack" },
-  bagCrossbody: { src: u("photo-1591348122449-02525d70379b"), alt: "Crossbody bag" },
-  bagHobo: { src: u("photo-1590874103328-eac38a683ce7"), alt: "Hobo bag" },
-  bagSling: { src: u("photo-1606522754091-a3bbf9ad4cb3"), alt: "Sling bag" },
-  bagWristlet: { src: u("photo-1548036328-c9fa89d128fa"), alt: "Wristlet" },
-  bagWeekender: { src: u("photo-1547949003-9792a18a2601"), alt: "Weekender duffel" },
-  bagBriefcase: { src: u("photo-1582539509458-3b1e1c3c2c95"), alt: "Briefcase" },
+  bagTote: { src: stock("063022CKAB_front_wm_1.webp"), alt: "Canvas tote with leather straps" },
+  bagBackpack: { src: stock("083582CKAA_worn_1.webp"), alt: "Canvas and leather backpack" },
+  bagCrossbody: { src: stock("070510CK18_worn_1.webp"), alt: "Leather crossbody bag" },
+  bagHobo: { src: stock("085336CKAT_front_wm_1.webp"), alt: "Leather hobo bag" },
+  bagSling: { src: stock("084847CK18_front_wm_1.webp"), alt: "Leather sling bag" },
+  bagWristlet: { src: stock("084948CK89_front_wm_1.webp"), alt: "Ring handle evening bag" },
+  bagWeekender: { src: stock("076567CKV8_front_wm_1.jpeg"), alt: "Leather weekender bag" },
+  bagBriefcase: { src: stock("074409CK37_front_wm_1.webp"), alt: "Leather briefcase" },
 
   // Small leather goods
-  sgWallet: { src: u("photo-1627123424574-724758594e93"), alt: "Bifold wallet" },
-  sgCardholder: { src: u("photo-1620975014077-2f06b16f3e93"), alt: "Cardholder" },
-  sgJournal: { src: u("photo-1544816155-12df9643f363"), alt: "Leather journal" },
-  sgKeyFob: { src: u("photo-1619266465172-02a857c3556d"), alt: "Key fob" },
-  sgPouch: { src: u("photo-1591348122449-02525d70379b"), alt: "Zip pouch" },
-  sgBeltStrap: { src: u("photo-1624222247344-550fb60583dc"), alt: "Belt strap" },
+  sgWallet: { src: stock("084109CKV8_front_wm_1.webp"), alt: "Leather satchel" },
+  sgCardholder: { src: stock("085367CKD2_front_wm_1.jpeg"), alt: "Leather crossbody with buckle" },
+  sgJournal: { src: stock("086342CK10_front_wm_1.webp"), alt: "Leather portfolio" },
+  sgKeyFob: { src: stock("085408CKAN_front_wm_1.webp"), alt: "Small leather crossbody" },
+  sgPouch: { src: stock("084658CK10_front_wm_1.webp"), alt: "Leather crossbody with clasp" },
+  sgBeltStrap: { src: stock("086339CK37_front_wm_1.webp"), alt: "Leather belt strap bag" },
 
   // Soft / fabric accessories
-  softScarf: { src: u("photo-1601925260368-ae2f83cf8b7f", 1400), alt: "Scarf" },
-  softShawl: { src: u("photo-1611652022419-a9419f74343d"), alt: "Shawl" },
-  softHat: { src: u("photo-1483985988355-763728e1935b"), alt: "Felt hat" },
-  softGloves: { src: u("photo-1606107557195-0e29a4b5b4aa"), alt: "Gloves" },
-  softTote: { src: u("photo-1582510003544-4d00b7f74220"), alt: "Canvas tote" },
-  softBandana: { src: u("photo-1599643477877-530eb83abc8e"), alt: "Bandana" },
+  softScarf: { src: stock("084623CKAF_front_wm_1.webp"), alt: "Canvas shoulder bag" },
+  softShawl: { src: stock("086288CKAA_front_wm_1.webp"), alt: "Leather backpack" },
+  softHat: { src: stock("087145CKAA_front_wm_1.webp"), alt: "Leather bag" },
+  softGloves: { src: stock("086934CKAC_front_wm_1.webp"), alt: "Leather bag" },
+  softTote: { src: stock("084929CK28_front_wm_1.webp"), alt: "Leather shoulder tote" },
+  softBandana: { src: stock("085961CKAB_front_wm_1.webp"), alt: "Leather bag" },
 
   // Past work (used by /brands)
   workServv: {
-    src: u("photo-1590874103328-eac38a683ce7", 1600),
-    alt: "Tote bag for SERRV International",
+    src: stock("086915CK18_front_wm_1.webp"),
+    alt: "Leather bag for SERRV International",
   },
   workMadeFreeImage: {
-    src: u("photo-1553062407-98eeb64c6a62", 1800),
-    alt: "Backpacks for MadeFree",
+    src: stock("087026CK37_front_wm_1.webp"),
+    alt: "Leather goods for MadeFree",
   },
   workFairAnita: {
-    src: u("photo-1606107557195-0e29a4b5b4aa", 1400),
-    alt: "Soft goods for Fair Anita",
+    src: stock("087032CKAE_front_wm_1.webp"),
+    alt: "Leather goods for Fair Anita",
   },
   workTenThousand: {
-    src: u("photo-1601925260368-ae2f83cf8b7f", 1400),
-    alt: "Scarves for Ten Thousand Villages",
+    src: stock("088914CK37_front_wm_1.webp"),
+    alt: "Leather goods for Ten Thousand Villages",
   },
 } as const;
 

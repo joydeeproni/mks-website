@@ -81,7 +81,7 @@ export default function ProcessesPage() {
   return (
     <main className="flex-1 w-full">
       {/* Hero */}
-      <Section className="relative isolate overflow-hidden text-white">
+      <Section snap={false} className="relative isolate overflow-hidden text-white">
         <div aria-hidden className="absolute inset-0 -z-10">
           <Image
             src={images.workshopAtmosphere.src}
@@ -112,7 +112,7 @@ export default function ProcessesPage() {
       </Section>
 
       {/* Detailed Steps */}
-      <Section className="bg-ivory">
+      <Section snap={false} className="bg-ivory">
         <Container className="v-pad-lg flex flex-col gap-[clamp(40px,5vw,80px)]">
           {/* Mobile: horizontal carousel of step cards */}
           <MobileCarousel speed={20}>
@@ -183,7 +183,7 @@ export default function ProcessesPage() {
       </Section>
 
       {/* Production Principles */}
-      <Section className="bg-clay-800 text-white">
+      <Section snap={false} className="bg-clay-800 text-white">
         <Container className="v-pad-lg flex flex-col gap-[clamp(40px,5vw,80px)]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:items-end">
             <Heading variant="h2" className="lg:col-span-7">
@@ -214,7 +214,7 @@ export default function ProcessesPage() {
       </Section>
 
       {/* Lead Times & MOQ */}
-      <Section className="bg-cream">
+      <Section snap={false} className="bg-cream">
         <Container className="v-pad-lg flex flex-col gap-[clamp(40px,5vw,80px)]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:items-end">
             <Heading variant="h2" className="lg:col-span-7 text-clay-700">

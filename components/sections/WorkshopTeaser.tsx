@@ -59,7 +59,17 @@ export function WorkshopTeaser() {
       <ProcessesParallax />
 
       {/* Mobile/tablet fallback */}
-      <div className="lg:hidden min-h-screen v-pad px-[var(--shell-pad)] flex flex-col gap-10 items-center justify-center">
+      <div className="lg:hidden relative min-h-screen v-pad px-[var(--shell-pad)] flex flex-col gap-10 items-center justify-center overflow-hidden">
+        <motion.img
+          src="/mks-leaves.svg"
+          alt=""
+          aria-hidden
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 0.07, scale: 1 }}
+          viewport={{ once: false, amount: 0.3 }}
+          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          className="absolute inset-0 w-[140%] h-[140%] -left-[20%] -top-[20%] object-contain pointer-events-none"
+        />
         <div className="flex flex-col gap-5 items-center">
           <h2 className="font-display text-h2 text-white text-center">
             {t.workshop.line1}
@@ -114,6 +124,7 @@ function ProcessesParallax() {
       style={{ minHeight: "350vh" }}
     >
       <div className="sticky top-0 h-screen overflow-hidden">
+        <LeavesBg progress={scrollYProgress} />
         <ParallaxTitle progress={scrollYProgress} />
 
         <motion.div
@@ -150,6 +161,20 @@ function ParallaxTitle({ progress }: { progress: MotionValue<number> }) {
         {t.workshop.body}
       </p>
     </div>
+  );
+}
+
+function LeavesBg({ progress }: { progress: MotionValue<number> }) {
+  const opacity = useTransform(progress, [0, 0.15, 0.85, 1], [0, 0.07, 0.07, 0]);
+  const scale = useTransform(progress, [0, 0.2, 0.8, 1], [0.9, 1, 1, 0.9]);
+  return (
+    <motion.img
+      src="/mks-leaves.svg"
+      alt=""
+      aria-hidden
+      style={{ opacity, scale }}
+      className="absolute inset-0 w-[140%] h-[140%] -left-[20%] -top-[20%] object-contain pointer-events-none z-0"
+    />
   );
 }
 

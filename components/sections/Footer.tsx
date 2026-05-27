@@ -89,7 +89,7 @@ export function Footer() {
         </div>
 
         {/* Bottom row — copyright + language selector */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-[clamp(20px,2vw,28px)] border-t border-white/10">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-[clamp(20px,2vw,28px)]">
           <p className="text-body text-fog">
             {t.footer.copyright.replace(
               "{{year}}",

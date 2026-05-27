@@ -19,11 +19,11 @@ import { useT } from "@/components/LanguageProvider";
 import { images } from "@/lib/images";
 
 const LEATHER_IMAGES = [
-  images.leatherMacro,
-  images.customHardware,
-  images.customStitch,
-  images.sustainability,
-  images.customEmboss,
+  images.matFullGrain,
+  images.matSmooth,
+  images.matVegTanned,
+  images.matEmbossed,
+  images.matKantha,
 ];
 
 /* Number of strip copies in the DOM. 4 copies give enough overlap that the
