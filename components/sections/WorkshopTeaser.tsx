@@ -58,8 +58,8 @@ export function WorkshopTeaser() {
     >
       <ProcessesParallax />
 
-      {/* Mobile/tablet fallback */}
-      <div className="lg:hidden relative min-h-screen v-pad px-[var(--shell-pad)] flex flex-col gap-10 items-center justify-center overflow-hidden">
+      {/* Mobile/tablet — animated scroll reveal */}
+      <div className="lg:hidden relative v-pad px-[var(--shell-pad)] flex flex-col gap-10 items-center justify-center overflow-hidden">
         <motion.img
           src="/mks-leaves.svg"
           alt=""
@@ -70,7 +70,13 @@ export function WorkshopTeaser() {
           transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           className="absolute inset-0 w-[140%] h-[140%] -left-[20%] -top-[20%] object-contain pointer-events-none"
         />
-        <div className="flex flex-col gap-5 items-center">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          className="flex flex-col gap-5 items-center"
+        >
           <h2 className="font-display text-h2 text-white text-center">
             {t.workshop.line1}
             <br />
@@ -79,10 +85,21 @@ export function WorkshopTeaser() {
           <p className="text-body text-white/85 text-center max-w-[440px]">
             {t.workshop.body}
           </p>
-        </div>
+        </motion.div>
         <div className="grid grid-cols-2 gap-4 w-full">
-          {tiles.map((tile) => (
-            <figure key={tile.label} className="flex flex-col gap-3">
+          {tiles.map((tile, i) => (
+            <motion.figure
+              key={tile.label}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{
+                duration: 0.6,
+                delay: i * 0.1,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="flex flex-col gap-3"
+            >
               <div
                 className="relative w-full overflow-hidden rounded-[2px] bg-clay-900"
                 style={{ aspectRatio: `${tile.w}/${tile.h}` }}
@@ -98,7 +115,7 @@ export function WorkshopTeaser() {
               <figcaption className="text-caption text-white">
                 {tile.label}
               </figcaption>
-            </figure>
+            </motion.figure>
           ))}
         </div>
       </div>
