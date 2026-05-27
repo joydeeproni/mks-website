@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { MobileCarousel } from "@/components/ui/MobileCarousel";
 import { useT } from "@/components/LanguageProvider";
 import { images } from "@/lib/images";
 
@@ -100,6 +101,31 @@ export function CategoryShowcase() {
           </nav>
 
           <div className="flex-1 w-full self-stretch">
+            {/* Mobile: horizontal carousel */}
+            <MobileCarousel>
+              {active.tiles.map((tile) => (
+                <div
+                  key={tile.label}
+                  className={`relative aspect-[336/400] w-[75vw] shrink-0 snap-start flex items-center justify-center p-6 overflow-hidden ${
+                    tile.tone === "clay" ? "bg-clay-500" : "bg-mist"
+                  }`}
+                >
+                  <Image
+                    src={tile.img.src}
+                    alt={tile.img.alt}
+                    fill
+                    sizes="75vw"
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/15" />
+                  <h3 className="relative font-display text-h3 text-white text-center">
+                    {tile.label}
+                  </h3>
+                </div>
+              ))}
+            </MobileCarousel>
+
+            {/* Desktop: animated grid */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeKey}
@@ -110,7 +136,7 @@ export function CategoryShowcase() {
                   hidden: { transition: { staggerChildren: 0.04, staggerDirection: -1 } },
                   visible: { transition: { staggerChildren: 0.06, delayChildren: 0.05 } },
                 }}
-                className="grid grid-cols-1 sm:grid-cols-2 gap-8"
+                className="hidden lg:grid grid-cols-2 gap-8"
               >
                 {active.tiles.map((tile) => (
                   <motion.div
@@ -128,7 +154,7 @@ export function CategoryShowcase() {
                       src={tile.img.src}
                       alt={tile.img.alt}
                       fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 336px"
+                      sizes="336px"
                       className="object-cover"
                     />
                     <div className="absolute inset-0 bg-black/15" />

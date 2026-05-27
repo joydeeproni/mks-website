@@ -18,11 +18,12 @@ export function SiteHeader({
 }) {
   const t = useT();
   const NAV = [
-    { href: "/#values", label: t.nav.values },
-    { href: "/#story", label: t.nav.story },
+    { href: "/about", label: "About" },
+    { href: "/products", label: "Products" },
+    { href: "/processes", label: "Processes" },
+    { href: "/fair-trade", label: "Fair Trade" },
     { href: "/brands", label: t.nav.brands },
-    { href: "/#materials", label: t.nav.materials },
-    { href: "/#products", label: t.nav.products },
+    { href: "/contact", label: "Contact" },
   ];
   const [open, setOpen] = useState(false);
   const textClass = tone === "light" ? "text-white" : "text-clay-700";

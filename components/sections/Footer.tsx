@@ -73,7 +73,7 @@ export function Footer() {
             <FooterColumn title={t.footer.materials} items={materials} />
           </div>
 
-          {/* Get Brochure Sample */}
+          {/* Get Brochure Sample + Brand mark */}
           <div className="flex flex-col gap-[clamp(24px,3vw,48px)]">
             <h3 className="font-sans font-bold text-body text-white">
               {t.footer.brochureHeading}
@@ -82,12 +82,10 @@ export function Footer() {
               {t.footer.brochureBody}
             </p>
             <BrochureForm />
+            <div className="mt-auto flex justify-center lg:justify-end">
+              <Logo className="h-32 md:h-44 lg:h-52 w-auto text-white" />
+            </div>
           </div>
-        </div>
-
-        {/* Big brand mark */}
-        <div className="flex justify-center md:justify-end">
-          <Logo className="h-32 md:h-44 lg:h-52 w-auto text-white" />
         </div>
 
         {/* Bottom row — copyright + language selector */}

@@ -22,9 +22,9 @@ export function Sustainability() {
           {ITEMS.map((it, idx) => (
             <li
               key={idx}
-              className="flex flex-col gap-4 min-h-[226px] justify-between"
+              className="flex flex-col gap-3 sm:gap-4 sm:min-h-[226px] sm:justify-between pb-6 sm:pb-0 border-b border-white/10 sm:border-0 last:border-0 last:pb-0"
             >
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-3 sm:gap-4">
                 <it.icon />
                 <p className="text-body text-white">{it.body}</p>
               </div>

@@ -8,6 +8,7 @@ import { SiteHeader } from "@/components/sections/SiteHeader";
 import { PastWork } from "@/components/sections/PastWork";
 import { Partner } from "@/components/sections/Partner";
 import { ValueProps } from "@/components/sections/ValueProps";
+import { MobileCarousel } from "@/components/ui/MobileCarousel";
 import { Footer } from "@/components/sections/Footer";
 import { images } from "@/lib/images";
 
@@ -104,7 +105,34 @@ export default function BrandsPage() {
               years or longer.
             </p>
           </div>
-          <ul className="grid grid-cols-1 md:grid-cols-2 gap-[clamp(20px,2vw,32px)]">
+          {/* Mobile: horizontal carousel */}
+          <MobileCarousel speed={25}>
+            {ROSTER.map((p) => (
+              <div
+                key={p.name}
+                className="shrink-0 w-[80vw] snap-start flex flex-col gap-3"
+              >
+                <div className="relative aspect-[5/4] overflow-hidden rounded-[10px] bg-bone">
+                  <Image
+                    src={images[p.imgKey].src}
+                    alt={images[p.imgKey].alt}
+                    fill
+                    sizes="80vw"
+                    className="object-cover"
+                  />
+                </div>
+                <p className="text-[12px] tracking-[0.18em] uppercase font-bold text-clay-700/55">
+                  {p.years} · {p.category}
+                </p>
+                <h3 className="font-display text-h3 text-clay-700 tracking-[-0.02em] leading-[1.15]">
+                  {p.name}
+                </h3>
+              </div>
+            ))}
+          </MobileCarousel>
+
+          {/* Desktop: grid */}
+          <ul className="hidden lg:grid grid-cols-2 gap-[clamp(20px,2vw,32px)]">
             {ROSTER.map((p) => (
               <li
                 key={p.name}
@@ -115,7 +143,7 @@ export default function BrandsPage() {
                     src={images[p.imgKey].src}
                     alt={images[p.imgKey].alt}
                     fill
-                    sizes="(min-width: 768px) 45vw, 100vw"
+                    sizes="45vw"
                     className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                   />
                 </div>

@@ -78,6 +78,88 @@ export const images = {
     alt: "Vegetable-tanned leather, natural finish",
   },
 
+  // ===== Additional workshop / team / product shots =====
+  artisanLeatherWork: {
+    src: local("DSCF3500.jpg"),
+    alt: "Artisan hand-finishing a leather portfolio",
+  },
+  artisanInspecting: {
+    src: local("DSCF3520.jpg"),
+    alt: "Woman artisan inspecting a leather bag",
+  },
+  artisanPortfolio: {
+    src: local("DSCF3540.jpg"),
+    alt: "Woman artisan working on leather portfolio",
+  },
+  colorfulBags: {
+    src: local("DSCF3560.jpg"),
+    alt: "Colorful printed bags being packed for export",
+  },
+  leatherMaterial: {
+    src: local("DSCF3580.jpg"),
+    alt: "Suede and full-grain leather hides",
+  },
+  kanthaTextiles: {
+    src: local("DSCF3600.jpg"),
+    alt: "Stack of hand-stitched kantha textiles",
+  },
+  leatherSatchels: {
+    src: local("DSCF3620.jpg"),
+    alt: "Stacked leather satchels with patterned lining",
+  },
+  artisanBench: {
+    src: local("DSCF3640.jpg"),
+    alt: "Artisan preparing leather pieces at workstation",
+  },
+  workshopAtmosphere: {
+    src: local("DSCF3660.jpg"),
+    alt: "Artisan at the workshop bench",
+  },
+  sewingMachine: {
+    src: local("DSCF3700.jpg"),
+    alt: "Artisan at the sewing machine",
+  },
+  leatherCutting: {
+    src: local("DSCF3720.jpg"),
+    alt: "Precision leather cutting by hand",
+  },
+  patternCutting: {
+    src: local("DSCF3740.jpg"),
+    alt: "Pattern cutting on the workbench",
+  },
+  workshopEntry: {
+    src: local("DSCF3459.jpg"),
+    alt: "MKS workshop entrance",
+  },
+  artisanDetail: {
+    src: local("DSCF3480.jpg"),
+    alt: "Artisan working on a leather piece",
+  },
+  productDetail: {
+    src: local("DSCF3610.jpg"),
+    alt: "Leather product close-up detail",
+  },
+  finishedBags: {
+    src: local("DSCF3630.jpg"),
+    alt: "Finished leather bags ready for quality check",
+  },
+  artisanConcentration: {
+    src: local("DSCF3670.jpg"),
+    alt: "Artisan in deep concentration at the bench",
+  },
+  machineStitching: {
+    src: local("DSCF3730.jpg"),
+    alt: "Machine stitching a leather panel",
+  },
+  workshopOverview: {
+    src: local("DSCF3762.jpg"),
+    alt: "The MKS workshop floor",
+  },
+  teamPhoto: {
+    src: local("IMG_6839.jpg"),
+    alt: "The MKS team at the workshop",
+  },
+
   // ===== Finished products — Unsplash placeholders until real shots arrive =====
   // Bags
   bagTote: { src: u("photo-1584917865442-de89df76afd3", 1400), alt: "Leather tote" },
