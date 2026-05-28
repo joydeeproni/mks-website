@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { ClientProviders } from "@/components/ClientProviders";
 
@@ -50,6 +51,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col bg-ivory text-clay-700 font-sans">
         <ClientProviders>{children}</ClientProviders>
+        <Analytics />
       </body>
     </html>
   );
