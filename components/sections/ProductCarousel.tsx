@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Section } from "@/components/ui/Section";
+import { Button } from "@/components/ui/Button";
 
 import { PRODUCT_TAXONOMY, slugify } from "@/lib/products";
 
@@ -124,6 +125,14 @@ export function ProductCarousel() {
                 );
               })}
             </p>
+            <Button
+              href={`/products?category=${category.productsKey}`}
+              variant="outline"
+              tone="light"
+              className="mt-[clamp(28px,3.5vw,48px)]"
+            >
+              Learn More
+            </Button>
           </motion.div>
         </AnimatePresence>
 
