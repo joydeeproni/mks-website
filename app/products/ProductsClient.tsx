@@ -262,7 +262,7 @@ export function ProductsClient() {
       </Section>
 
       {/* Product listing */}
-      <Section className="bg-ivory" snap={false}>
+      <Section className="bg-ivory" snap={false} fade={false}>
         <div className="w-full px-[clamp(20px,4vw,40px)] v-pad flex flex-col lg:flex-row gap-[clamp(32px,4vw,64px)]">
           {/* ============ LEFT: Product grid ============ */}
           <div className="flex-1 min-w-0 flex flex-col gap-[clamp(24px,3vw,40px)]">
@@ -445,7 +445,7 @@ export function ProductsClient() {
       </Section>
 
       {/* Mobile-only sidebar content */}
-      <Section className="bg-sand lg:hidden" snap={false}>
+      <Section className="bg-sand lg:hidden" snap={false} fade={false}>
         <Container className="v-pad flex flex-col gap-[clamp(24px,3vw,40px)]">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-[clamp(24px,3vw,40px)] items-start">
             <div className="md:col-span-5 flex flex-col gap-[clamp(16px,2vw,28px)]">
