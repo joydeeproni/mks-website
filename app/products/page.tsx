@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { ProductsClient } from "./ProductsClient";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Products — MKS Exports",
   description:
