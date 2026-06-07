@@ -10,188 +10,42 @@ import { Heading } from "@/components/ui/Heading";
 import { Button } from "@/components/ui/Button";
 import { SiteHeader } from "@/components/sections/SiteHeader";
 import { Footer } from "@/components/sections/Footer";
-import { images, type ImageKey } from "@/lib/images";
+import { images } from "@/lib/images";
+import {
+  PRODUCT_TAXONOMY,
+  VALID_CATEGORY_KEYS,
+  slugify,
+  type CategoryKey,
+  type Material,
+} from "@/lib/products";
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
 /* ------------------------------------------------------------------ */
 
-type Category =
-  | "all"
-  | "small-accessories"
-  | "bags"
-  | "lifestyle-goods"
-  | "ethnic-goods"
-  | "apparel"
-  | "scarves"
-  | "home-textiles";
-
-type Material =
-  | "all"
-  | "full-grain"
-  | "smooth"
-  | "veg-tanned"
-  | "shanti"
-  | "embossed"
-  | "kantha";
+type Category = "all" | CategoryKey;
 
 type Product = {
   name: string;
   slug: string;
-  category: Category;
+  category: CategoryKey;
   materials: Material[];
-  img: ImageKey;
-  subtypes?: string;
+  img: import("@/lib/images").ImageKey;
 };
 
-function slugify(s: string) {
-  return s
-    .toLowerCase()
-    .replace(/\([^)]*\)/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
-
-type Seed = {
-  name: string;
-  img: ImageKey;
-  materials: Material[];
-  subtypes?: string;
-};
-
-const SEEDS: Record<Exclude<Category, "all">, Seed[]> = {
-  "small-accessories": [
-    { name: "Wallets", img: "sgWallet", materials: ["full-grain", "smooth", "veg-tanned"], subtypes: "Bi-fold, tri-fold, card holders, travel wallets, passport covers" },
-    { name: "Coin Purses", img: "sgPouch", materials: ["smooth", "embossed"] },
-    { name: "Key Pouches", img: "sgKeyFob", materials: ["smooth", "veg-tanned"] },
-    { name: "Key Fobs", img: "sgKeyFob", materials: ["veg-tanned"] },
-    { name: "Cardholders", img: "sgCardholder", materials: ["smooth", "veg-tanned"] },
-    { name: "Business Card Holders", img: "sgCardholder", materials: ["smooth", "full-grain"] },
-    { name: "Luggage Tags", img: "stockBelt3", materials: ["veg-tanned"] },
-    { name: "AirPod/Earbud Cases", img: "sgKeyFob", materials: ["smooth"] },
-    { name: "Glasses Cases", img: "stockPouch", materials: ["smooth", "veg-tanned"] },
-    { name: "Watch Rolls", img: "sgWallet", materials: ["full-grain", "smooth"] },
-    { name: "Pen Sleeves", img: "sgKeyFob", materials: ["smooth"] },
-    { name: "Cable Organisers", img: "stockPouch", materials: ["smooth"] },
-    { name: "Money Clips", img: "sgCardholder", materials: ["smooth"] },
-    { name: "Badge Holders", img: "stockBelt3", materials: ["veg-tanned"] },
-    { name: "Cheque Book Covers", img: "sgJournal", materials: ["full-grain", "smooth"] },
-  ],
-  bags: [
-    { name: "Tote Bags", img: "bagTote", materials: ["full-grain", "smooth"] },
-    { name: "Shoulder Bags", img: "stockShoulder1", materials: ["full-grain", "smooth"] },
-    { name: "Crossbody Bags", img: "bagCrossbody", materials: ["smooth", "full-grain"] },
-    { name: "Satchels", img: "stockSatchel", materials: ["full-grain", "veg-tanned"] },
-    { name: "Bucket Bags", img: "stockBag1", materials: ["smooth", "veg-tanned"] },
-    { name: "Clutches", img: "stockClutch1", materials: ["smooth", "embossed"] },
-    { name: "Hobo Bags", img: "bagHobo", materials: ["full-grain", "smooth"] },
-    { name: "Sling Bags", img: "bagSling", materials: ["smooth", "veg-tanned"] },
-    { name: "Backpacks", img: "bagBackpack", materials: ["full-grain", "veg-tanned"], subtypes: "Mini, laptop, travel" },
-    { name: "Duffels", img: "bagWeekender", materials: ["full-grain", "veg-tanned"] },
-    { name: "Weekenders", img: "stockBag2", materials: ["full-grain", "veg-tanned"] },
-    { name: "Briefcases", img: "bagBriefcase", materials: ["full-grain", "smooth"] },
-    { name: "Messenger Bags", img: "stockMessenger", materials: ["full-grain", "veg-tanned"] },
-    { name: "Belt Bags / Fanny Packs", img: "stockBelt1", materials: ["smooth", "full-grain"] },
-    { name: "Laptop Sleeves and Folios", img: "stockLaptop", materials: ["smooth", "veg-tanned"] },
-    { name: "iPad Cases", img: "stockLaptop", materials: ["smooth"] },
-    { name: "Document Holders", img: "sgJournal", materials: ["veg-tanned", "full-grain"] },
-    { name: "Drawstring Pouches", img: "stockPouch", materials: ["smooth"] },
-    { name: "Shopping Totes", img: "softTote", materials: ["full-grain"] },
-  ],
-  "lifestyle-goods": [
-    { name: "Belts", img: "sgBeltStrap", materials: ["full-grain", "veg-tanned"], subtypes: "Women's, men's, reversible, woven" },
-    { name: "Gloves", img: "softGloves", materials: ["smooth"] },
-    { name: "Bracelets", img: "stockBelt2", materials: ["veg-tanned"] },
-    { name: "Cuffs", img: "stockBelt3", materials: ["veg-tanned", "embossed"] },
-    { name: "Hair Accessories", img: "sgKeyFob", materials: ["smooth"] },
-    { name: "Dog Collars and Leashes", img: "stockBelt2", materials: ["full-grain", "veg-tanned"] },
-    { name: "Journal/Notebook Covers", img: "sgJournal", materials: ["full-grain", "veg-tanned"] },
-    { name: "Diary Covers", img: "sgJournal", materials: ["veg-tanned"] },
-    { name: "Photo Album Covers", img: "sgJournal", materials: ["full-grain"] },
-    { name: "Jewellery Rolls", img: "stockPouch", materials: ["smooth"] },
-    { name: "Makeup Pouches", img: "sgPouch", materials: ["smooth"] },
-    { name: "Toiletry Bags", img: "stockPouch", materials: ["smooth", "veg-tanned"] },
-  ],
-  "ethnic-goods": [
-    { name: "Money Boxes", img: "stockBag1", materials: ["embossed"], subtypes: "Figural designs — car, animal, building, vehicle shapes" },
-    { name: "Embossed Coin Purses", img: "sgPouch", materials: ["embossed"] },
-    { name: "Painted Wallets", img: "sgWallet", materials: ["smooth", "embossed"] },
-    { name: "Decorative Key Chains", img: "sgKeyFob", materials: ["embossed"] },
-    { name: "Ethnic-Style Belts", img: "sgBeltStrap", materials: ["embossed", "veg-tanned"] },
-    { name: "Handpainted Leather Notebook Covers", img: "sgJournal", materials: ["veg-tanned"] },
-    { name: "Leather Bookmarks", img: "stockBelt3", materials: ["veg-tanned"] },
-    { name: "Leather Coasters", img: "stockBelt3", materials: ["veg-tanned"] },
-    { name: "Leather Wall Hangings", img: "leatherSatchels", materials: ["veg-tanned", "embossed"] },
-    { name: "Festival/Novelty Gift Items", img: "stockBag2", materials: ["embossed"] },
-  ],
-  apparel: [
-    { name: "Sundresses", img: "kanthaTextiles", materials: [] },
-    { name: "Shift Dresses", img: "kanthaTextiles", materials: [] },
-    { name: "Wrap Dresses", img: "kanthaTextiles", materials: [] },
-    { name: "Kaftans", img: "kanthaTextiles", materials: [] },
-    { name: "Tunics", img: "softShawl", materials: [] },
-    { name: "Blouses", img: "softShawl", materials: [] },
-    { name: "Palazzo Trousers", img: "kanthaTextiles", materials: [] },
-    { name: "Wide-Leg Trousers", img: "kanthaTextiles", materials: [] },
-    { name: "Jumpsuits", img: "kanthaTextiles", materials: [] },
-    { name: "Co-ord Sets", img: "softBandana", materials: [], subtypes: "Top + trouser, top + skirt" },
-    { name: "Kimono Jackets", img: "softShawl", materials: [] },
-    { name: "Dressing Gowns", img: "softShawl", materials: [] },
-    { name: "Kurta-Style Tops", img: "softBandana", materials: [] },
-    { name: "Nightwear", img: "softBandana", materials: [] },
-    { name: "Kidswear in Matching Prints", img: "kanthaTextiles", materials: [] },
-  ],
-  scarves: [
-    { name: "Silk Scarves", img: "softScarf", materials: [], subtypes: "Mulberry, tussar, matka, dupion" },
-    { name: "Cotton Stoles", img: "softScarf", materials: [], subtypes: "Organic and non-organic" },
-    { name: "Wool/Wool-Blend Stoles and Shawls", img: "softShawl", materials: [] },
-    { name: "Linen Stoles", img: "softScarf", materials: [] },
-    { name: "Viscose Scarves", img: "softScarf", materials: [] },
-    { name: "Bamboo-Fibre Scarves", img: "softScarf", materials: [] },
-    { name: "Kantha-Embroidered Scarves", img: "kanthaTextiles", materials: ["kantha"] },
-    { name: "Blended Scarves", img: "softShawl", materials: [] },
-    { name: "Men's Mufflers", img: "softBandana", materials: [] },
-    { name: "Square Neckerchiefs", img: "softBandana", materials: [] },
-    { name: "Oversized Wraps", img: "softShawl", materials: [] },
-    { name: "Sarongs/Pareos", img: "softScarf", materials: [] },
-    { name: "Pocket Squares", img: "softBandana", materials: [] },
-  ],
-  "home-textiles": [
-    { name: "Kantha Throws and Quilts", img: "kanthaTextiles", materials: ["kantha"] },
-    { name: "Cushion Covers", img: "kanthaTextiles", materials: ["kantha"] },
-    { name: "Table Runners", img: "kanthaTextiles", materials: ["kantha"] },
-    { name: "Napkins", img: "kanthaTextiles", materials: ["kantha"] },
-    { name: "Placemats", img: "kanthaTextiles", materials: ["kantha"] },
-    { name: "Tea Towels", img: "kanthaTextiles", materials: ["kantha"] },
-    { name: "Bedcovers", img: "kanthaTextiles", materials: ["kantha"] },
-    { name: "Curtains", img: "kanthaTextiles", materials: ["kantha"] },
-    { name: "Throw Blankets", img: "kanthaTextiles", materials: ["kantha"] },
-    { name: "Tote Bag Liners", img: "kanthaTextiles", materials: ["kantha"] },
-    { name: "Fabric Gift Wraps", img: "kanthaTextiles", materials: ["kantha"], subtypes: "Furoshiki-style" },
-  ],
-};
-
-const PRODUCTS: Product[] = (Object.entries(SEEDS) as [Exclude<Category, "all">, Seed[]][]).flatMap(
-  ([category, items]) =>
-    items.map((s) => ({
-      name: s.name,
-      slug: slugify(s.name),
-      category,
-      materials: s.materials,
-      img: s.img,
-      subtypes: s.subtypes,
-    })),
+const PRODUCTS: Product[] = PRODUCT_TAXONOMY.flatMap((c) =>
+  c.items.map((item) => ({
+    name: item.name,
+    slug: slugify(item.name),
+    category: c.key,
+    materials: item.materials,
+    img: item.img,
+  })),
 );
 
 const CATEGORIES: { key: Category; label: string }[] = [
   { key: "all", label: "All" },
-  { key: "small-accessories", label: "Small Accessories" },
-  { key: "bags", label: "Bags" },
-  { key: "lifestyle-goods", label: "Lifestyle Goods" },
-  { key: "ethnic-goods", label: "Ethnic Goods" },
-  { key: "apparel", label: "Apparel" },
-  { key: "scarves", label: "Scarves & Stoles" },
-  { key: "home-textiles", label: "Home Textiles" },
+  ...PRODUCT_TAXONOMY.map((c) => ({ key: c.key, label: c.label })),
 ];
 
 const MATERIALS: { key: Material; label: string }[] = [
@@ -208,11 +62,10 @@ const MATERIALS: { key: Material; label: string }[] = [
 /*  Component                                                          */
 /* ------------------------------------------------------------------ */
 
-const VALID_CATEGORIES: Category[] = CATEGORIES.map((c) => c.key);
-
 function parseCategoryParam(raw: string | null): Category {
   if (!raw) return "all";
-  return VALID_CATEGORIES.includes(raw as Category) ? (raw as Category) : "all";
+  if (raw === "all") return "all";
+  return (VALID_CATEGORY_KEYS as string[]).includes(raw) ? (raw as Category) : "all";
 }
 
 export function ProductsClient() {
@@ -363,11 +216,6 @@ export function ProductsClient() {
                         <p className="font-display text-[clamp(16px,1.4vw,20px)] leading-[1.3] text-clay-700">
                           {product.name}
                         </p>
-                        {product.subtypes && (
-                          <p className="text-[13px] leading-[1.4] text-clay-700/55">
-                            {product.subtypes}
-                          </p>
-                        )}
                         {product.materials.length > 0 && (
                           <p className="text-[13px] leading-[1.4] text-clay-700/50 capitalize">
                             {product.materials.join(" · ")}

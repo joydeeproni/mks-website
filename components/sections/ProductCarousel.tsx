@@ -5,93 +5,19 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Section } from "@/components/ui/Section";
 
-type ProductsCategory =
-  | "all"
-  | "small-accessories"
-  | "bags"
-  | "lifestyle-goods"
-  | "ethnic-goods"
-  | "apparel"
-  | "scarves"
-  | "home-textiles";
+import { PRODUCT_TAXONOMY, slugify } from "@/lib/products";
 
-type Category = {
-  title: string;
-  body: string;
-  productsKey: ProductsCategory;
-};
-
-const CATEGORIES: Category[] = [
-  {
-    title: "Small Accessories",
-    productsKey: "small-accessories",
-    body: "Wallets (bi-fold, tri-fold, card holders, travel wallets, passport covers), coin purses, key pouches, key fobs, cardholders, business card holders, luggage tags, AirPod/earbud cases, glasses cases, watch rolls, pen sleeves, cable organisers, money clips, badge holders, cheque book covers.",
-  },
-  {
-    title: "Bags",
-    productsKey: "bags",
-    body: "Tote bags, shoulder bags, crossbody bags, satchels, bucket bags, clutches, hobo bags, sling bags, backpacks (mini, laptop, travel), duffels, weekenders, briefcases, messenger bags, belt bags / fanny packs, laptop sleeves and folios, iPad cases, document holders, drawstring pouches, shopping totes.",
-  },
-  {
-    title: "Lifestyle Goods",
-    productsKey: "lifestyle-goods",
-    body: "Belts (women's, men's, reversible, woven), gloves, bracelets, cuffs, hair accessories, dog collars and leashes, journal/notebook covers, diary covers, photo album covers, jewellery rolls, makeup pouches, toiletry bags.",
-  },
-  {
-    title: "Ethnic Goods",
-    productsKey: "ethnic-goods",
-    body: "Money boxes in various figural designs (car, animal, building, vehicle shapes), embossed coin purses, painted wallets, decorative key chains, ethnic-style belts, handpainted leather notebook covers, leather bookmarks, leather coasters, leather wall hangings, festival/novelty gift items.",
-  },
-  {
-    title: "Apparel",
-    productsKey: "apparel",
-    body: "Sundresses, shift dresses, wrap dresses, kaftans, tunics, blouses, palazzo trousers, wide-leg trousers, jumpsuits, co-ord sets (top + trouser, top + skirt), kimono jackets, dressing gowns, kurta-style tops, nightwear, kidswear in matching prints.",
-  },
-  {
-    title: "Scarves and Stoles",
-    productsKey: "scarves",
-    body: "Silk scarves (mulberry, tussar, matka, dupion), cotton stoles (organic and non-), wool/wool-blend stoles and shawls, linen stoles, viscose scarves, bamboo-fibre scarves, Kantha-embroidered scarves, blended scarves, men's mufflers, square neckerchiefs, oversized wraps, sarongs/pareos, pocket squares.",
-  },
-  {
-    title: "Home Textiles",
-    productsKey: "home-textiles",
-    body: "Kantha throws and quilts, cushion covers, table runners, napkins, placemats, tea towels, bedcovers, curtains, throw blankets, tote bag liners, fabric gift wraps (furoshiki-style).",
-  },
-];
+const CATEGORIES = PRODUCT_TAXONOMY.map((c) => ({
+  title: c.label,
+  productsKey: c.key,
+  items: c.items.map((i) => i.name),
+}));
 
 const VIDEOS = [
   "/videos/product-set-1.mp4",
   "/videos/product-set-2.mp4",
   "/videos/product-set-3.mp4",
 ];
-
-function splitItems(body: string): string[] {
-  const items: string[] = [];
-  let depth = 0;
-  let buf = "";
-  for (const ch of body) {
-    if (ch === "(") depth++;
-    else if (ch === ")") depth--;
-    if (ch === "," && depth === 0) {
-      const trimmed = buf.trim();
-      if (trimmed) items.push(trimmed);
-      buf = "";
-    } else {
-      buf += ch;
-    }
-  }
-  const tail = buf.trim().replace(/\.$/, "");
-  if (tail) items.push(tail);
-  return items;
-}
-
-function toSlug(s: string) {
-  return s
-    .toLowerCase()
-    .replace(/\([^)]*\)/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
 
 export function ProductCarousel() {
   const [slide, setSlide] = useState(0);
@@ -138,7 +64,7 @@ export function ProductCarousel() {
   }, [activeLayer, slide]);
 
   const category = CATEGORIES[slide];
-  const items = useMemo(() => splitItems(category.body), [category.body]);
+  const items = useMemo(() => category.items, [category.items]);
 
   return (
     <Section fade={false} className="relative isolate overflow-hidden text-white min-h-dvh">
@@ -184,7 +110,7 @@ export function ProductCarousel() {
               style={{ textAlign: "justify", textAlignLast: "center" }}
             >
               {items.map((item, i) => {
-                const href = `/products?category=${category.productsKey}&q=${toSlug(item)}`;
+                const href = `/products?category=${category.productsKey}&q=${slugify(item)}`;
                 return (
                   <span key={i}>
                     <Link

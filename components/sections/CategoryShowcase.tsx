@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Section } from "@/components/ui/Section";
@@ -9,59 +10,42 @@ import { Button } from "@/components/ui/Button";
 import { MobileCarousel } from "@/components/ui/MobileCarousel";
 import { useT } from "@/components/LanguageProvider";
 import { images } from "@/lib/images";
+import { PRODUCT_TAXONOMY, slugify, type CategoryKey } from "@/lib/products";
 
-type Tile = { label: string; img: { src: string; alt: string }; tone: "cream" | "clay" };
-type Category = { key: string; label: string; description: string; tiles: Tile[] };
+type Tile = {
+  label: string;
+  img: { src: string; alt: string };
+  tone: "cream" | "clay";
+  href: string;
+};
+
+const DESCRIPTIONS: Record<CategoryKey, string> = {
+  bags:
+    "Totes, crossbodies, laptop bags, travel duffels — handcrafted leather carry-everything pieces built for daily use, season after season.",
+  accessories:
+    "Wallets, belts, cardholders and the small-leather essentials that round out a brand's everyday line.",
+  scarves:
+    "Silk, cotton, linen, wool and kantha-embroidered wraps — woven, screen-printed, block-printed and hand-painted in our atelier.",
+  lifestyle:
+    "Journal covers, mats, trays, coasters and home textiles — quiet objects that bring craft to the everyday.",
+};
 
 export function CategoryShowcase() {
   const t = useT();
-  const CATEGORIES: Category[] = [
-    {
-      key: "bags",
-      label: t.categories.bags.label,
-      description: t.categories.bags.description,
-      tiles: [
-        { label: t.categories.tiles.handBags, img: images.bagHobo, tone: "cream" },
-        { label: t.categories.tiles.toteBags, img: images.bagTote, tone: "clay" },
-        { label: t.categories.tiles.slingBags, img: images.bagSling, tone: "cream" },
-        { label: t.categories.tiles.messengerBags, img: images.bagBriefcase, tone: "clay" },
-        { label: t.categories.tiles.backpacks, img: images.bagBackpack, tone: "cream" },
-        { label: t.categories.tiles.weekenders, img: images.bagWeekender, tone: "clay" },
-      ],
-    },
-    {
-      key: "belts",
-      label: t.categories.belts.label,
-      description: t.categories.belts.description,
-      tiles: [
-        { label: t.categories.tiles.dressBelts, img: images.sgBeltStrap, tone: "cream" },
-        { label: t.categories.tiles.casualStraps, img: images.customStitch, tone: "clay" },
-      ],
-    },
-    {
-      key: "scarves",
-      label: t.categories.scarves.label,
-      description: t.categories.scarves.description,
-      tiles: [{ label: t.categories.tiles.scarves, img: images.softScarf, tone: "cream" }],
-    },
-    {
-      key: "accessories",
-      label: t.categories.accessories.label,
-      description: t.categories.accessories.description,
-      tiles: [
-        { label: t.categories.tiles.wallets, img: images.sgWallet, tone: "cream" },
-        { label: t.categories.tiles.journals, img: images.sgJournal, tone: "clay" },
-      ],
-    },
-    {
-      key: "misc",
-      label: t.categories.misc.label,
-      description: t.categories.misc.description,
-      tiles: [],
-    },
-  ];
+  const CATEGORIES = PRODUCT_TAXONOMY.map((c) => ({
+    key: c.key,
+    label: c.label,
+    description: DESCRIPTIONS[c.key],
+    href: `/products?category=${c.key}`,
+    tiles: c.items.map((item, i) => ({
+      label: item.name,
+      img: images[item.img],
+      tone: (i % 2 === 0 ? "cream" : "clay") as Tile["tone"],
+      href: `/products?category=${c.key}&q=${slugify(item.name)}`,
+    })),
+  }));
 
-  const [activeKey, setActiveKey] = useState("bags");
+  const [activeKey, setActiveKey] = useState<CategoryKey>(CATEGORIES[0].key);
   const active = CATEGORIES.find((c) => c.key === activeKey) ?? CATEGORIES[0];
   const inactive = CATEGORIES.filter((c) => c.key !== activeKey);
 
@@ -76,7 +60,7 @@ export function CategoryShowcase() {
               </h3>
               <p className="text-body text-black">{active.description}</p>
               <Button
-                href={`#${active.key}`}
+                href={active.href}
                 variant="link"
                 tone="dark"
                 className="self-start text-black"
@@ -104,8 +88,9 @@ export function CategoryShowcase() {
             {/* Mobile: horizontal carousel */}
             <MobileCarousel>
               {active.tiles.map((tile) => (
-                <div
+                <Link
                   key={tile.label}
+                  href={tile.href}
                   className={`relative aspect-[336/400] w-[75vw] shrink-0 snap-start flex items-center justify-center p-6 overflow-hidden ${
                     tile.tone === "clay" ? "bg-clay-500" : "bg-mist"
                   }`}
@@ -121,7 +106,7 @@ export function CategoryShowcase() {
                   <h3 className="relative font-display text-h3 text-white text-center">
                     {tile.label}
                   </h3>
-                </div>
+                </Link>
               ))}
             </MobileCarousel>
 
@@ -146,21 +131,25 @@ export function CategoryShowcase() {
                       visible: { opacity: 1, y: 0 },
                     }}
                     transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                    className={`relative aspect-[336/400] flex items-center justify-center p-6 overflow-hidden ${
-                      tile.tone === "clay" ? "bg-clay-500" : "bg-mist"
-                    }`}
                   >
-                    <Image
-                      src={tile.img.src}
-                      alt={tile.img.alt}
-                      fill
-                      sizes="336px"
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black/15" />
-                    <h3 className="relative font-display text-h3 text-white text-center">
-                      {tile.label}
-                    </h3>
+                    <Link
+                      href={tile.href}
+                      className={`group relative aspect-[336/400] flex items-center justify-center p-6 overflow-hidden block ${
+                        tile.tone === "clay" ? "bg-clay-500" : "bg-mist"
+                      }`}
+                    >
+                      <Image
+                        src={tile.img.src}
+                        alt={tile.img.alt}
+                        fill
+                        sizes="336px"
+                        className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+                      />
+                      <div className="absolute inset-0 bg-black/15 transition-colors duration-300 group-hover:bg-black/25" />
+                      <h3 className="relative font-display text-h3 text-white text-center">
+                        {tile.label}
+                      </h3>
+                    </Link>
                   </motion.div>
                 ))}
               </motion.div>

@@ -3,24 +3,26 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { Logo } from "@/components/ui/Logo";
 import { useT } from "@/components/LanguageProvider";
-import { images, type ImageKey } from "@/lib/images";
+import { images } from "@/lib/images";
+import { PRODUCT_TAXONOMY, slugify } from "@/lib/products";
 
 type Tone = "light" | "dark";
 
-const PRODUCT_CATEGORIES: { href: string; label: string; img: ImageKey }[] = [
-  { href: "/products?category=small-accessories", label: "Small Accessories", img: "sgWallet" },
-  { href: "/products?category=bags", label: "Bags", img: "bagTote" },
-  { href: "/products?category=lifestyle-goods", label: "Lifestyle Goods", img: "sgBeltStrap" },
-  { href: "/products?category=ethnic-goods", label: "Ethnic Goods", img: "leatherSatchels" },
-  { href: "/products?category=apparel", label: "Apparel", img: "kanthaTextiles" },
-  { href: "/products?category=scarves", label: "Scarves & Stoles", img: "softScarf" },
-  { href: "/products?category=home-textiles", label: "Home Textiles", img: "softShawl" },
-];
+const PRODUCT_CATEGORIES = PRODUCT_TAXONOMY.map((c) => ({
+  href: `/products?category=${c.key}`,
+  label: c.label,
+  img: c.heroImg,
+  items: c.items.map((i) => ({
+    name: i.name,
+    href: `/products?category=${c.key}&q=${slugify(i.name)}`,
+  })),
+}));
 
 export function SiteHeader({
   tone = "light",
@@ -42,7 +44,11 @@ export function SiteHeader({
   const [mobileOpen, setMobileOpen] = useState(false);
   const [productsExpanded, setProductsExpanded] = useState(false);
   const [megaOpen, setMegaOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Portal target — only available after mount on the client
+  useEffect(() => setMounted(true), []);
 
   const openMega = () => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
@@ -139,6 +145,8 @@ export function SiteHeader({
         </Container>
       </header>
 
+      {mounted && createPortal(
+        <>
       {/* Desktop mega menu — fullscreen overlay below the header */}
       <AnimatePresence>
         {megaOpen && (
@@ -169,27 +177,41 @@ export function SiteHeader({
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                  className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-[clamp(12px,1.4vw,20px)]"
+                  className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-[clamp(24px,2.4vw,40px)]"
                 >
                   {PRODUCT_CATEGORIES.map((cat) => (
-                    <Link
-                      key={cat.href}
-                      href={cat.href}
-                      onClick={() => setMegaOpen(false)}
-                      className="group relative aspect-[4/5] overflow-hidden rounded-[10px] bg-bone"
-                    >
-                      <Image
-                        src={images[cat.img].src}
-                        alt={images[cat.img].alt}
-                        fill
-                        sizes="(min-width: 1280px) 20vw, (min-width: 768px) 30vw, 45vw"
-                        className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/15 to-transparent" />
-                      <p className="absolute left-5 right-5 bottom-5 font-display text-h3 text-white leading-[1.1]">
-                        {cat.label}
-                      </p>
-                    </Link>
+                    <div key={cat.href} className="flex flex-col gap-[clamp(14px,1.4vw,20px)]">
+                      <Link
+                        href={cat.href}
+                        onClick={() => setMegaOpen(false)}
+                        className="group relative aspect-[16/10] overflow-hidden rounded-[8px] bg-bone block"
+                      >
+                        <Image
+                          src={images[cat.img].src}
+                          alt={images[cat.img].alt}
+                          fill
+                          sizes="(min-width: 1280px) 22vw, (min-width: 768px) 45vw, 90vw"
+                          className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+                        <p className="absolute left-4 bottom-3 font-display text-h4 text-white leading-[1.1]">
+                          {cat.label}
+                        </p>
+                      </Link>
+                      <ul className="flex flex-col gap-[6px]">
+                        {cat.items.map((item) => (
+                          <li key={item.href}>
+                            <Link
+                              href={item.href}
+                              onClick={() => setMegaOpen(false)}
+                              className="block text-[clamp(14px,0.95vw,16px)] leading-[1.4] text-clay-700/65 hover:text-clay-700 transition-colors"
+                            >
+                              {item.name}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   ))}
                 </motion.div>
               </Container>
@@ -260,16 +282,30 @@ export function SiteHeader({
                             transition={{ duration: 0.25, ease: "easeOut" }}
                             className="overflow-hidden"
                           >
-                            <div className="pb-4 pl-1 flex flex-col">
+                            <div className="pb-4 pl-1 flex flex-col gap-5">
                               {PRODUCT_CATEGORIES.map((cat) => (
-                                <Link
-                                  key={cat.href}
-                                  href={cat.href}
-                                  onClick={() => setMobileOpen(false)}
-                                  className="py-2 text-[clamp(16px,4vw,20px)] font-bold text-clay-700/75 hover:text-clay-700"
-                                >
-                                  {cat.label}
-                                </Link>
+                                <div key={cat.href} className="flex flex-col">
+                                  <Link
+                                    href={cat.href}
+                                    onClick={() => setMobileOpen(false)}
+                                    className="py-1 text-[clamp(16px,4vw,20px)] font-bold text-clay-700"
+                                  >
+                                    {cat.label}
+                                  </Link>
+                                  <ul className="flex flex-col">
+                                    {cat.items.map((item) => (
+                                      <li key={item.href}>
+                                        <Link
+                                          href={item.href}
+                                          onClick={() => setMobileOpen(false)}
+                                          className="block py-1 text-[clamp(14px,3.6vw,16px)] text-clay-700/65"
+                                        >
+                                          {item.name}
+                                        </Link>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
                               ))}
                               <Link
                                 href="/products"
@@ -310,6 +346,9 @@ export function SiteHeader({
           </motion.div>
         )}
       </AnimatePresence>
+        </>,
+        document.body,
+      )}
     </>
   );
 }
